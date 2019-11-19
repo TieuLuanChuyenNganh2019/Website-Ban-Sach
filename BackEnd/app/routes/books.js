@@ -1,7 +1,9 @@
 // define dependence
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
+const Book = require('../models/book');
 // http://localhost:8080/books
 router.get('/', (req, res, next) => {
     res.status(200).json({
@@ -10,10 +12,15 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    const book = {
+    const book = new Book({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price
-    };
+    });
+    book.save().then(result => {
+        console.log(result);
+    })
+    .catch(err => console.log(err));
     res.status(201).json({
         message : 'handing post request to /books',
         createdBook: book

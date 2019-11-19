@@ -2,12 +2,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-
+const mongoose = require('mongoose');
 // content 
 const app = express();
 const bookRoutes = require('./app/routes/books');
 const orderRoutes = require('./app/routes/orders')
 
+// connect to mongoose Atlase
+// change password ==> change nodemon.json
+mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@sellingbook-vj42r.mongodb.net/test?retryWrites=true&w=majority',
+                    {
+                        useUnifiedTopology: true,
+                        useNewUrlParser: true,
+                    }
+);
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
