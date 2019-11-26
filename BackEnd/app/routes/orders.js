@@ -9,6 +9,7 @@ const Book = require('../models/book');
 router.get('/', (req, res, next) => {
    Order.find()
    .select('book quantity _id')
+   .populate('book')
    .exec()
    .then(docs => {
        res.status(200).json({
@@ -37,6 +38,12 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     Book.findById(req.body.bookID)
     .then(book => {
+        if(!book)
+        {
+            return res.status(404).json({
+                message: "Book not found"
+            });
+        }
         const order = new Order({
             _id: mongoose.Types.ObjectId(),
             quantity: req.body.quantity,
@@ -69,16 +76,48 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:orderId', (req, res, next) => {
-    res.status(200).json({
-        message: 'Orders details',
-        orderId: req.params.orderId
+    Order.findById(req.params.orderId)
+    .populate('book')
+    .exec()
+    .then(order => {
+        if(!order)
+        {
+            return res.status(404).json({
+                message: "Order not found"
+            });
+        }
+        res.status(200).json({
+            order: order,
+            request: {
+                type: 'GET',
+                url: 'http://localhost:8080/orders'
+            }
+        });
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
     });
 });
 
 router.delete('/:orderId', (req, res, next) => {
-    res.status(200).json({
-        message: 'Orders deleted',
-        orderId: req.params.orderId
+    Order.remove({_id: req.params.orderId})
+    .exec()
+    .then(result => {
+        res.status(200).json({
+            message: "Order deleted",
+            request: {
+                type: 'POST',
+                url: 'http://localhost:8080/orders',
+                body: { bookID: "ID", quantity: "Number"}
+            }
+        });
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
     });
 });
 module.exports = router;
