@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 const bookRoutes = require('./app/routes/books');
 const orderRoutes = require('./app/routes/orders')
+const userRoutes = require('./app/routes/users');
 
 // connect to mongoose Atlase
 // change password ==> change nodemon.json
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 // ROUTES Request
 app.use('/books', bookRoutes);
 app.use('/orders', orderRoutes);
+app.use('/users',userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
