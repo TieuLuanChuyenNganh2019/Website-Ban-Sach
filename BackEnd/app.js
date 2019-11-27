@@ -8,7 +8,7 @@ const app = express();
 const bookRoutes = require('./app/routes/books');
 const orderRoutes = require('./app/routes/orders')
 const userRoutes = require('./app/routes/users');
-const jwt = require('./app/middleware/auth')
+const auth = require('./app/middleware/auth')
 
 
 // connect to mongoose Atlase
@@ -23,6 +23,8 @@ mongoose.connect(//'mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@selli
 
 // Authentication 
  app.use(auth);
+ //app.use(express.static(path.join(__dirname, 'public')));
+
 //Ép Mongoose sử dụng thư viện promise toàn cục
 mongoose.Promise = global.Promise;
 app.use(morgan('dev'));

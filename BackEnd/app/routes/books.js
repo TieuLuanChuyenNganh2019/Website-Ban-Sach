@@ -3,7 +3,12 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
+const auth = require('./../middleware/auth');
 
+router.use((req, res, next) => {
+    // authorize here
+    next();
+});
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
