@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-const Order = require('../models/orders');
+const Order = require('../models/order');
 const Book = require('../models/book');
 // http://localhost:8080/orders
 router.get('/', (req, res, next) => {
