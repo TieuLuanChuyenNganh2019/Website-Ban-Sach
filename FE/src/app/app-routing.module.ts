@@ -6,6 +6,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { AdminBooksComponent } from './admin-books/admin-books.component';
+import { ListBookComponent } from './admin-book/list-book/list-book.component';
+import { AddBookComponent } from './admin-book/add-book/add-book.component';
 
 
 const routes: Routes = [
@@ -14,7 +17,10 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'cart', component: CartComponent},
-  {path: 'details', component: ProductDetailsComponent}
+  {path: 'details', component: ProductDetailsComponent},
+  {path: 'adminbooks', component: AdminBooksComponent},
+  {path: 'admin/listbook', component: ListBookComponent},
+  {path: 'admin/addbook', component: AddBookComponent},
 ];
 
 @NgModule({
