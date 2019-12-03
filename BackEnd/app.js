@@ -11,6 +11,7 @@ const orderRoutes = require('./app/routes/orders')
 const userRoutes = require('./app/routes/users');
 const authorRoutes = require('./app/routes/authors');
 const categoryRoutes = require('./app/routes/categories');
+const staffRoutes = require('./app/routes/staffs');
 const auth = require('./app/middleware/auth')
 
 
@@ -55,7 +56,7 @@ app.use('/orders', orderRoutes);
 app.use('/users',userRoutes);
 app.use('/authors',authorRoutes);
 app.use('/categories',categoryRoutes);
-
+app.use('/staffs',staffRoutes);
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;

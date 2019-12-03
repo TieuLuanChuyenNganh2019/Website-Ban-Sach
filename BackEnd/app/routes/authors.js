@@ -11,8 +11,8 @@ router.use((req, res, next) => {
 });
 
 
-// router.get('/', authorController.getListAuthor);
-
+ router.get('/', authorController.getListAuthor);
+router.get('/:bookId',authorController.searchBook);
 router.post('/',  authorController.createAuthor);
 
 // router.route('/:authorId')

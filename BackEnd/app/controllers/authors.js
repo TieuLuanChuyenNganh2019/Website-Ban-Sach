@@ -1,52 +1,53 @@
 const Author = require('./../models/author');
+const Book = require('./../models/book');
 const mongoose = require('mongoose');
 
 module.exports = {
 
-    // getListAuthor: (req, res, next) => {
-    //      Author.find({})
-    //     .exec()
-    //     .then(docs => {
-    //         const response = {
-    //             count: docs.length,
-    //             authors: docs.map(doc => {
-    //                 return {
-    //                      doc,
-    //                     request: {
-    //                         type: 'GET',
-    //                         url: 'http://localhost:8080/authors/' + doc._id
-    //                     }
-    //                 }
-    //             })
-    //         };
-    //         if (docs.length >= 0) {
-    //             res.status(200).json(response);
-    //         } else {
-    //             res.status(404).json({
-    //                 message: "No Entries Found"
-    //             });
-    //         }
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //         res.status(500).json({
-    //             error: err
-    //         });
-    //     });
-    // },
+    getListAuthor: (req, res, next) => {
+         Author.find({})
+        .exec()
+        .then(docs => {
+            const response = {
+                count: docs.length,
+                authors: docs.map(doc => {
+                    return {
+                         doc,
+                        request: {
+                            type: 'GET',
+                            url: 'http://localhost:8080/authors/' + doc._id
+                        }
+                    }
+                })
+            };
+            if (docs.length >= 0) {
+                res.status(200).json(response);
+            } else {
+                res.status(404).json({
+                    message: "No Entries Found"
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    },
 
     createAuthor: (req, res, next) => {
         const author = new Author();
         author.name = req.body.name;
         // author.firstname = req.body.firstname;
         // author.lastname = req.body.lastname;
-        author.save((err, author) => {
-            if (err) {
-                console.log("Error creating User: ", err);
+        Author.create(author , (err, author) => {
+            if(err){
+                console.log("Error creating Author: ", err);
                 res
                     .status(400)
                     .json(err)
-            } else {
+            }else {
                 console.log("Author Created: ", author);
                 res
                 .status(201)
@@ -56,6 +57,27 @@ module.exports = {
          
     },
 
+     searchBook : async (req,res,next) =>{
+        const id = req.params.bookId;
+        await Book.findById(id)
+            // .select('title price _id bookImage')
+            .exec()
+            .then(doc => {
+                console.log("From database", doc);
+                if (doc) {
+                    res.status(200).json({
+                        book: doc
+                    });
+                } else {
+                    res.status(404).json({ message: "No valid entry found for provided ID" });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            });
+
+     }
     // getAuthorID : (req, res, next) => {
     //     const id = req.params.bookId;
     //      Author.findById(id)
