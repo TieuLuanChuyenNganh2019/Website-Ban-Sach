@@ -119,13 +119,7 @@ module.exports = {
                 const response = {
                     count: docs.length,
                     books: docs.map(doc => {
-                        return {
-                            book: doc,
-                            request: {
-                                type: 'GET',
-                                url: 'http://localhost:8080/books/' + doc._id
-                            }
-                        }
+                        return doc
                     })
                 };
                 if (docs.length >= 0) {
@@ -154,12 +148,7 @@ module.exports = {
                 console.log("From database", doc);
                 if (doc) {
                     res.status(200).json({
-                        book: doc,
-                        request: {
-                            type: 'GET',
-                            description: 'Get book',
-                            url: 'http://localhost:8080/books/'
-                        }
+                        book: doc
                     });
                 } else {
                     res.status(404).json({ message: "No valid entry found for provided ID" });
@@ -348,32 +337,32 @@ module.exports = {
 
     // }
 
-    getImage: async (req, res, next) => {
-        const filename = req.params.bookId;
-        await Book.findById(id)
-            .exec()
-            .then(doc => {
-                const response = {
-                    book: doc => {
-                        return {
-                            Image: doc.bookImage,
-                            request: {
-                                type: 'GET',
-                                url: 'http://localhost:8080/books/image/' + doc._id
-                            }
-                        }
-                    }
-                }
-                if (doc.length >= 0) {
-                    res.status(200).json({ response });
-                } else {
-                    res.status(404).json({ message: "Not found image" });
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({ error: err });
-            });
-    }
+    // getImage: async (req, res, next) => {
+    //     const filename = req.params.bookId;
+    //     await Book.findById(id)
+    //         .exec()
+    //         .then(doc => {
+    //             const response = {
+    //                 book: doc => {
+    //                     return {
+    //                         Image: doc.bookImage,
+    //                         request: {
+    //                             type: 'GET',
+    //                             url: 'http://localhost:8080/books/image/' + doc._id
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             if (doc.length >= 0) {
+    //                 res.status(200).json({ response });
+    //             } else {
+    //                 res.status(404).json({ message: "Not found image" });
+    //             }
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //             res.status(500).json({ error: err });
+    //         });
+    // }
 }
 
