@@ -34,8 +34,8 @@ const bookSchema = new Schema({
     type: String
     },
   publisher: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Publisher'
+    type: String,
+    required: true
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,

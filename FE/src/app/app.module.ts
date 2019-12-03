@@ -10,6 +10,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AdminBooksComponent } from './admin-books/admin-books.component';
+import { ListBookComponent } from './admin-book/list-book/list-book.component';
+import { AddBookComponent } from './admin-book/add-book/add-book.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,12 +22,16 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     LoginComponent,
     RegisterComponent,
     CartComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    AdminBooksComponent,
+    ListBookComponent,
+    AddBookComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
