@@ -117,14 +117,9 @@ module.exports = {
             .exec()
             .then(docs => {
                 const response = {
-                    count: docs.length,
                     books: docs.map(doc => {
                         return {
-                            book: doc,
-                            request: {
-                                type: 'GET',
-                                url: 'http://localhost:8080/books/' + doc._id
-                            }
+                        book: doc,
                         }
                     })
                 };
