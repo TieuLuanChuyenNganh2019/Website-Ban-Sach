@@ -27,12 +27,15 @@ const bookSchema = new Schema({
     type:Number, 
     required: true
   },
-  bookImage: {
-    type: String,
-     required: true
+  imageUrl: {
+    type: String
+  },
+  imageId: {
+    type: String
     },
   publisher: {
-    type: String , required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Publisher'
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,

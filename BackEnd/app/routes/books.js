@@ -1,21 +1,25 @@
 // define dependence
 const express = require('express');
 const router = express.Router();
-
 const multer = require('multer');
 const bookController = require('./../controllers/books');
+const request = require('request');
+
+
 
 router.use((req, res, next) => {
     // authorize here
     next();
 });
 
+
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/');
     },
     filename: function (req, file, cb) {
-        cb(null, new Date().toDateString() + file.originalname);
+        cb(null, Date.now() + file.originalname);
     }
 });
 
@@ -41,13 +45,13 @@ const upload = multer({
 
 router.get('/', bookController.getListBook);
 
-router.post('/', upload.single('bookImage'), bookController.createBook);
+router.post('/', upload.single('image'), bookController.createBook );
 
 router.route('/:bookId')
     .get(bookController.getBookID)
-    .patch(bookController.replaceBook )
-    .put(upload.single('bookImage'),bookController.replaceBook)
+    .patch(upload.single('image'),bookController.updateBook )
+    .put(upload.single('image'),bookController.updateBook)
     .delete(bookController.deleteBook);
 
-
+router.get('/image/:bookId',bookController.getImage);
 module.exports = router;

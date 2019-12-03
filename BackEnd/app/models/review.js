@@ -14,7 +14,7 @@ const reviewSchema = mongoose.Schema({
         type: Number ,required: true
     },
     date: {
-        type: Date, required: true
+        type: Date, default : Date.now
     },
     comment: {
         type: String
