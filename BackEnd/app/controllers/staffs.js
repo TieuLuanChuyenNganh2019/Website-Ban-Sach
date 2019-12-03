@@ -4,41 +4,55 @@ const mongoose = require('mongoose');
 module.exports = {
 
     createStaff: (req, res, next) => {
-        const staff = new Staff();
-
-        staff.email = req.body.email;
-        staff.username = req.body.username;
-        staff.firstname = req.body.firstname;
-        staff.lastname = req.body.lastname;
-        staff.password = req.body.password;
-        staff.admin = req.body.admin;
-
-
-        Staff.create(staff, (err, staff) => {
-            if (err) {
-                console.log("Error creating staff: ", err);
-                res
-                    .status(400)
-                    .json(err)
+        Staff.find({ email: req.body.email })
+          .exec()
+          .then(staff => {
+            if (user.length >= 1) {
+              return res.status(409).json({
+                message: "Mail exists"
+              });
             } else {
-                console.log("staff Created: ", staff);
-                res
-                    .status(201)
-                    .json(staff)
+              bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(req.body.password, salt, (err, hash) => {
+                  if (err) {
+                    return res.status(500).json({
+                      error: err
+                    });
+                  } else {
+                    const user = new User({
+                      _id: new mongoose.Types.ObjectId(),
+                      email: req.body.email,
+                      password: hash
+                    });
+                    user
+                      .save()
+                      .then(result => {
+                        console.log(result);
+                        res.status(201).json({
+                          message: "User created"
+                        });
+                      })
+                      .catch(err => {
+                        console.log(err);
+                        res.status(500).json({
+                          error: err
+                        });
+                      });
+                  }
+                });
+            });
             }
-        });
-    },
+          });
+      },
 
     // Get List Book
-    getListBook: async (req, res, next) => {
-        await Book.find({})
-            //  .select('title description publishDate pageCount price '+
-            //    ' availableQuantity bookImage publisher author categories reviews discount')
+    getListStaff: async (req, res, next) => {
+        await Staff.find({})
             .exec()
             .then(docs => {
                 const response = {
                     count: docs.length,
-                    books: docs.map(doc => {
+                    staffs: docs.map(doc => {
                         return doc
                     })
                 };
@@ -58,8 +72,7 @@ module.exports = {
             });
     },
 
-    // get book by bookID
-    getBookID: async (req, res, next) => {
+    getStaffId: async (req, res, next) => {
         const id = req.params.bookId;
         await Book.findById(id)
             // .select('title price _id bookImage')
@@ -81,8 +94,8 @@ module.exports = {
 
     },
 
-    // delete Book
-    deleteBook: (req, res, next) => {
+    // delete Staff
+    deleteStaff: (req, res, next) => {
         Book.findById(req.params.bookId, async (err, book) => {
             if (err) {
                 return res.status(500).json({
@@ -106,7 +119,7 @@ module.exports = {
     },
 
     // update a book on PATCH
-    updateBook: async (req, res, next) => {
+    updateStaff: async (req, res, next) => {
         const id = req.params.bookId;
         Book.findById(id, async (err, book) => {
             if (err) {
