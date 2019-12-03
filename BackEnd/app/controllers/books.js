@@ -56,7 +56,7 @@ module.exports = {
     
         cloudinary.v2.uploader.upload(req.file.path, (err, result) =>{
             if(err) {
-                req.flash('error', err.message);
+                //req.flash('error', err.message);
                 return res.redirect('back');
             }
             const book = new Book();
@@ -71,7 +71,11 @@ module.exports = {
             book.pageCount = req.body.pageCount;
             book.price = req.body.price;
             book.availableQuantity = req.body.availableQuantity;
-            book.publisher = req.body.publisher;
+
+             // add publisher for object book
+            // book.publisher = {
+            //     id: req.publisher._id
+            // }
             // // add author for object book
             // req.body.book.author = {
             //     id: req.author._id
@@ -91,10 +95,16 @@ module.exports = {
     
             Book.create(book , (err, book) => {
                 if(err){
-                    req.flash('error', err.message);
-                    return res.redirect('back');
+                    console.log("Error creating Book: ", err);
+                    res
+                        .status(400)
+                        .json(err)
+                }else {
+                    console.log("Book Created: ", book);
+                    res
+                    .status(201)
+                    .json(book)
                 }
-                res.redirect('/books/' + book._id);
             });
         });
     },
@@ -110,19 +120,7 @@ module.exports = {
                     count: docs.length,
                     books: docs.map(doc => {
                         return {
-                            title: doc.title,
-                            description: doc.prdescriptionice,
-                            publishDate: doc.publishDate,
-                            pageCount: doc.pageCount,
-                            price: doc.price,
-                            availableQuantity: doc.availableQuantity,
-                            bookImage: doc.bookImage,
-                            publisher: doc.publisher,
-                            //              author: doc.author,
-                            //             categories: doc.categories,
-                            //            reviews: doc.reviews,
-                            //     discount: doc.discount,
-                            _id: doc.id,
+                            book: doc,
                             request: {
                                 type: 'GET',
                                 url: 'http://localhost:8080/books/' + doc._id
@@ -175,81 +173,84 @@ module.exports = {
     },
 
     // delete Book
-    deleteBook: async (req, res, next) => {
-        const id = req.params.bookId;
-        await Book.remove({ _id: id })
-            .exec()
-            .then(result => {
-                res.status(200).json({
-                    message: 'Book deleted successfully',
-                    request: {
-                        type: 'POST',
-                        url: 'http://localhost:8080/books/',
-                        //   body: { name: 'String', price: 'Number' }
-                    }
-                });
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({
+    deleteBook:  (req, res, next) => {
+        Book.findById(req.params.bookId, async (err, book) => {
+            if(err) {     
+                return res.status(500).json({
                     error: err
                 });
-            });
+            }
+            try {
+                await cloudinary.v2.uploader.destroy(book.imageId);
+                book.remove();
+                return res.status(201).json({
+                    message: 'Book deleted successfully!!!'
+                });
+            } catch(err) {
+                console.log(err);
+                return res.status(500).json({
+                    error: err
+                });
+            }
+          });
+         
     },
 
     // update a book on PATCH
     updateBook: async (req, res, next) => {
         const id = req.params.bookId;
-        if (req.file) {
-            const contentupdate = Book({
-                title: req.body.title,
-                description: req.body.description,
-                publishDate: new Date(req.body.publishDate),
-                pageCount: req.body.pageCount,
-                price: req.body.price,
-                availableQuantity: req.body.availableQuantity,
-                bookImage: req.file.path,
-                publisher: req.body.publisher,
-            });
-            await Book.update({ _id: id }, { $set: contentupdate })
-                .exec()
-                .then(result => {
-                    res.status(200).json({
-                        message: 'Book updated successfully',
-                        book: result,
-                        request: {
-                            type: 'PUT',
-                            url: 'http://localhost:8080/books/' + id
-                        }
-                    });
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-        }else {
-            const contentupdate = req.body;
-            await Book.update({ _id: id }, { $set: contentupdate })
-                .exec()
-                .then(result => {
-                    res.status(200).json({
-                        message: 'Book updated successfully',
-                        book: result,
-                        request: {
-                            type: 'PUT',
-                            url: 'http://localhost:8080/books/' + id
-                        }
-                    });
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-        }
+       Book.findById(id, async (err, book) => {
+           if(err){
+               return res.status(500).json({
+                   error: err
+               });
+           }else{
+               if(req.file)
+               {
+                   try{
+                       await cloudinary.v2.uploader.destroy(book.imageId);
+                       const result = await cloudinary.v2.uploader.upload(req.file.path);
+                       book.imageId = result.public_id;
+                       book.imageUrl = result.secure_url;
+                   }catch(err)
+                   {
+                       return res.status(500).json({
+                           error: err
+                       });
+                   }
+                   book.title = req.body.title;
+                   book.description = req.body.description;
+                   book.publishDate = req.body.publishDate;
+                   book.pageCount = req.body.pageCount;
+                   book.price = req.body.price;
+                   book.availableQuantity = req.body.availableQuantity;
+       
+                    // add publisher for object book
+                   // book.publisher = {
+                   //     id: req.publisher._id
+                   // }
+                   // // add author for object book
+                   // req.body.book.author = {
+                   //     id: req.author._id
+                   // }
+                   // // add categories 
+                   // req.body.book.categories = [{
+                   //     id: req.category._id
+                   // }]
+                   // // add reviews 
+                   // req.body.book.reviews = [{
+                   //     id: req.review._id
+                   // }]
+                   // // add discount 
+                   // req.body.book.discount = {
+                   //     id: req.discount._id
+                   // }
+
+                   book.save();
+                   res.redirect('/books/' + book._id);
+               }
+           }
+       });
     },
 
     // Replace book on PUT

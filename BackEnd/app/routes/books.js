@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const bookController = require('./../controllers/books');
-const request = require('request');
+
 
 
 
@@ -53,5 +53,4 @@ router.route('/:bookId')
     .put(upload.single('image'),bookController.updateBook)
     .delete(bookController.deleteBook);
 
-router.get('/image/:bookId',bookController.getImage);
 module.exports = router;

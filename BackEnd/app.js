@@ -3,11 +3,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+
 // content 
 const app = express();
 const bookRoutes = require('./app/routes/books');
 const orderRoutes = require('./app/routes/orders')
 const userRoutes = require('./app/routes/users');
+const authorRoutes = require('./app/routes/authors');
+const categoryRoutes = require('./app/routes/categories');
 const auth = require('./app/middleware/auth')
 
 
@@ -50,6 +53,8 @@ app.use((req, res, next) => {
 app.use('/books', bookRoutes);
 app.use('/orders', orderRoutes);
 app.use('/users',userRoutes);
+app.use('/authors',authorRoutes);
+app.use('/categories',categoryRoutes);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
