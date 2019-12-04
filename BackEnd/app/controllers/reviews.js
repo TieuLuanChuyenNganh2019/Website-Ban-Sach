@@ -48,6 +48,7 @@ module.exports = {
                             .status(400)
                             .json(err)
                     } else {
+                        review.save();
                         book.reviews.push(review);
                         book.save();
                         console.log("Review Created: ", review);
