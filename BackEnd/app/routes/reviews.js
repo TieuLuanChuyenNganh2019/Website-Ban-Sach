@@ -14,10 +14,10 @@ router.use((req, res, next) => {
 router.get('/', reviewController.getListReview);
 router.post('/',  reviewController.createReview);
 
-// router.route('/:authorId')
-//     .get(authorController.getAuthorID)
-//     .patch(authorController.updateAuthor )
-//     .put(authorController.updateAuthor)
-//     .delete(authorController.deleteAuthor);
+router.route('/:reviewId')
+    .get(reviewController.getReviewId)
+    .patch(reviewController.updateReview )
+    .put(reviewController.updateReview)
+    .delete(reviewController.deleteReview);
 
 module.exports = router;
