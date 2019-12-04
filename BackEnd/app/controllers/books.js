@@ -2,6 +2,7 @@ const Book = require('../models/book');
 const Author = require('./../models/author');
 const Category = require('./../models/category');
 const Publisher = require('./../models/publisher');
+const moment = require('moment');
 
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
@@ -71,7 +72,12 @@ module.exports = {
             // add title for book
             book.title = req.body.title;
             book.description = req.body.description;
-            book.publishDate = req.body.publishDate;
+
+            // format date DD/MM/YYYY
+            
+            book.publishDate = req.body.publishDate ;
+
+
             book.pageCount = req.body.pageCount;
             book.price = req.body.price;
             book.availableQuantity = req.body.availableQuantity;

@@ -73,11 +73,11 @@ module.exports = {
     },
 
     updateAuthor: (req, res, next) => {
-        const authorid = req.params.authorId;
-        const author = new Author();
-        author.name = req.body.name;
-        author.firstname = req.body.firstname;
-        author.lastname = req.body.lastname;
+     //   const authorid = req.params.authorId;
+        // const author = new Author();
+        // author.name = req.body.name;
+        // author.firstname = req.body.firstname;
+        // author.lastname = req.body.lastname;
         Author.findByIdAndUpdate(req.params.authorId, {$set: req.body}, { new: true }, (err, author) => {
             if (err) {
                 console.log(err);

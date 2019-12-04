@@ -48,6 +48,7 @@ module.exports = {
                             .status(400)
                             .json(err)
                     } else {
+                        review.save();
                         book.reviews.push(review);
                         book.save();
                         console.log("Review Created: ", review);
@@ -62,15 +63,15 @@ module.exports = {
 
     },
 
-    getAuthorID: (req, res, next) => {
-        const id = req.params.authorId;
-        Author.findById(id)
+    getReviewId: (req, res, next) => {
+        const id = req.params.reviewId;
+        Review.findById(id)
             .exec()
             .then(doc => {
                 console.log("From database", doc);
                 if (doc) {
                     res.status(200).json({
-                        author: doc,
+                        review: doc,
                     });
                 } else {
                     res.status(404).json({ message: "No valid entry found for provided ID" });
@@ -83,13 +84,8 @@ module.exports = {
 
     },
 
-    updateAuthor: (req, res, next) => {
-        const authorid = req.params.authorId;
-        const author = new Author();
-        author.name = req.body.name;
-        author.firstname = req.body.firstname;
-        author.lastname = req.body.lastname;
-        Author.findByIdAndUpdate(req.params.authorId, { $set: req.body }, { new: true }, (err, author) => {
+    updateReview: (req, res, next) => {
+        Review.findByIdAndUpdate(req.params.reviewId, { $set: req.body }, { new: true }, (err, review) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json({
@@ -97,21 +93,21 @@ module.exports = {
                 });
             } else {
                 return res.status(200).json({
-                    message: 'Author updated',
-                    author: author
+                    message: 'Review updated',
+                    review: review
                 });
             }
         });
     },
 
 
-    deleteAuthor: (req, res, next) => {
-        const id = req.params.authorId;
-        Author.remove({ _id: id })
+    deleteReview: (req, res, next) => {
+        const id = req.params.reviewId;
+        Review.remove({ _id: id })
             .exec()
             .then(result => {
                 res.status(200).json({
-                    message: 'Author deleted',
+                    message: 'Review deleted',
                 });
             })
             .catch(err => {
