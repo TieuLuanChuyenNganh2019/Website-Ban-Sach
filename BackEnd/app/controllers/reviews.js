@@ -1,16 +1,16 @@
-const Author = require('./../models/author');
+const Review = require('./../models/review');
 const Book = require('./../models/book');
 const mongoose = require('mongoose');
 
 module.exports = {
 
-    getListAuthor: (req, res, next) => {
-        Author.find({})
+    getListReview: (req, res, next) => {
+        Review.find({})
             .exec()
             .then(docs => {
                 const response = {
                     count: docs.length,
-                    authors: docs.map(doc => {
+                    reviews: docs.map(doc => {
                         return doc
                     })
                 };
@@ -30,22 +30,33 @@ module.exports = {
             });
     },
 
-    createAuthor: (req, res, next) => {
-        const author = new Author();
-        author.name = req.body.name;
-        author.firstname = req.body.firstname;
-        author.lastname = req.body.lastname;
-        Author.create(author, (err, author) => {
+    createReview: (req, res, next) => {
+        Book.findById(req.body.id, (err, book) => {
             if (err) {
-                console.log("Error creating Author: ", err);
-                res
-                    .status(400)
-                    .json(err)
+                console.log(err);
+                return res.status(500).json({
+                    error: err
+                });
             } else {
-                console.log("Author Created: ", author);
-                res
-                    .status(201)
-                    .json(author)
+                const review = new Review();
+                review.review = req.body.review;
+                review.comment = req.body.comment;
+                Review.create(review, (err, review) => {
+                    if (err) {
+                        console.log("Error creating Review: ", err);
+                        res
+                            .status(400)
+                            .json(err)
+                    } else {
+                        book.reviews.push(review);
+                        book.save();
+                        console.log("Review Created: ", review);
+                        res
+                            .status(201)
+                            .json(review)
+                    }
+                });
+
             }
         });
 
@@ -78,7 +89,7 @@ module.exports = {
         author.name = req.body.name;
         author.firstname = req.body.firstname;
         author.lastname = req.body.lastname;
-        Author.findByIdAndUpdate(req.params.authorId, {$set: req.body}, { new: true }, (err, author) => {
+        Author.findByIdAndUpdate(req.params.authorId, { $set: req.body }, { new: true }, (err, author) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json({

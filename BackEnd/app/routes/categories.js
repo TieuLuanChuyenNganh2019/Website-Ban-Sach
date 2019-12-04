@@ -15,10 +15,10 @@ router.get('/', categoryController.getListCategory);
 
 router.post('/',categoryController.createCategory );
 
-router.route('/:categoryId')
+router.route('/:bookId')
     .get(categoryController.getCategoryID)
-    // .patch(categoryController.updateBook )
-    // .put(categoryController.updateBook)
-    // .delete(categoryController.deleteBook);
+    .patch(categoryController.updateCategory )
+    .put(categoryController.updateCategory)
+    .delete(categoryController.deleteCategory);
 
 module.exports = router;

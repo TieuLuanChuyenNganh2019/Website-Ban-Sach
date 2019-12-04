@@ -14,12 +14,8 @@ module.exports = {
             console.log(result);
             res.status(201).json({
                 message: 'Created category successfully',
-                createdBook: {
+                createdCategory: {
                     category: result,
-                    request: {
-                        type: 'POST',
-                        url: 'http://localhost:8080/categories/' + result._id
-                    }
                 }
             });
         })
@@ -34,21 +30,14 @@ module.exports = {
 
     
 
-    // Get List Book
     getListCategory:  (req, res, next) => {
          Category.find({})
             .exec()
             .then(docs => {
                 const response = {
                     count: docs.length,
-                    books: docs.map(doc => {
-                        return {
-                            Category: doc,
-                            request: {
-                                type: 'GET',
-                                url: 'http://localhost:8080/categories/' + doc._id
-                            }
-                        }
+                    categories: docs.map(doc => {
+                        return doc
                     })
                 };
                 if (docs.length >= 0) {
@@ -67,7 +56,7 @@ module.exports = {
             });
     },
 
-    // get book by bookID
+
     getCategoryID:  (req, res, next) => {
         const id = req.params.bookId;
          Category.findById(id)
@@ -76,12 +65,7 @@ module.exports = {
                 console.log("From database", doc);
                 if (doc) {
                     res.status(200).json({
-                        Category: doc,
-                        request: {
-                            type: 'GET',
-                            description: 'Get',
-                            url: 'http://localhost:8080/categories/'
-                        }
+                        Category: doc
                     });
                 } else {
                     res.status(404).json({ message: "No valid entry found for provided ID" });
@@ -95,9 +79,39 @@ module.exports = {
     },
 
     
+    updateCategory: (req, res, next) => {
+        const id = req.params.bookId;
+        Category.findByIdAndUpdate(id, {$set: req.body}, { new: true }, (err, category) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    error: err
+                });
+            } else {
+                return res.status(200).json({
+                    message: 'Category updated',
+                    category: category
+                });
+            }
+        });
+    },
 
-    
-
+    deleteCategory: (req, res, next) => {
+        const id = req.params.bookId;
+        Category.remove({ _id: id })
+            .exec()
+            .then(result => {
+                res.status(200).json({
+                    message: 'Category deleted',
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+    }
    
 
     

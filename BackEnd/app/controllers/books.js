@@ -1,4 +1,8 @@
 const Book = require('../models/book');
+const Author = require('./../models/author');
+const Category = require('./../models/category');
+const Publisher = require('./../models/publisher');
+
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
 
@@ -76,8 +80,8 @@ module.exports = {
             // book.publisher = {
             //     id: req.publisher._id
             // }
-            // // add author for object book
-            // req.body.book.author = {
+            // add author for object book
+            // book.author = {
             //     id: req.author._id
             // }
             // // add categories 

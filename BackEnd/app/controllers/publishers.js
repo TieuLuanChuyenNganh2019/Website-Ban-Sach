@@ -1,16 +1,42 @@
-const Author = require('./../models/author');
-const Book = require('./../models/book');
+const Publisher = require('../models/publisher');
 const mongoose = require('mongoose');
 
 module.exports = {
 
-    getListAuthor: (req, res, next) => {
-        Author.find({})
+    
+    createPublisher :  (req, res, next) => {
+        console.log(req.file);
+        const publisher = new Publisher({
+            name: req.body.name
+        });
+      publisher.save()
+      .then(result => {
+            console.log(result);
+            res.status(201).json({
+                message: 'Created publisher successfully',
+                createdPublisher: {
+                    publisher: result,
+                }
+            });
+        })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+
+    },
+
+    
+
+    getListPublisher:  (req, res, next) => {
+         Publisher.find({})
             .exec()
             .then(docs => {
                 const response = {
                     count: docs.length,
-                    authors: docs.map(doc => {
+                    publishers: docs.map(doc => {
                         return doc
                     })
                 };
@@ -30,36 +56,16 @@ module.exports = {
             });
     },
 
-    createAuthor: (req, res, next) => {
-        const author = new Author();
-        author.name = req.body.name;
-        author.firstname = req.body.firstname;
-        author.lastname = req.body.lastname;
-        Author.create(author, (err, author) => {
-            if (err) {
-                console.log("Error creating Author: ", err);
-                res
-                    .status(400)
-                    .json(err)
-            } else {
-                console.log("Author Created: ", author);
-                res
-                    .status(201)
-                    .json(author)
-            }
-        });
 
-    },
-
-    getAuthorID: (req, res, next) => {
-        const id = req.params.authorId;
-        Author.findById(id)
+    getPublisherID:  (req, res, next) => {
+        const id = req.params.publisherId;
+         Publisher.findById(id)
             .exec()
             .then(doc => {
                 console.log("From database", doc);
                 if (doc) {
                     res.status(200).json({
-                        author: doc,
+                        Publisher: doc
                     });
                 } else {
                     res.status(404).json({ message: "No valid entry found for provided ID" });
@@ -72,13 +78,10 @@ module.exports = {
 
     },
 
-    updateAuthor: (req, res, next) => {
-        const authorid = req.params.authorId;
-        const author = new Author();
-        author.name = req.body.name;
-        author.firstname = req.body.firstname;
-        author.lastname = req.body.lastname;
-        Author.findByIdAndUpdate(req.params.authorId, {$set: req.body}, { new: true }, (err, author) => {
+    
+    updatePublisher: (req, res, next) => {
+        const id = req.params.publisherId;
+        Publisher.findByIdAndUpdate(id, {$set: req.body}, { new: true }, (err, publisher) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json({
@@ -86,21 +89,20 @@ module.exports = {
                 });
             } else {
                 return res.status(200).json({
-                    message: 'Author updated',
-                    author: author
+                    message: 'Publisher updated',
+                    publisher: publisher
                 });
             }
         });
     },
 
-
-    deleteAuthor: (req, res, next) => {
-        const id = req.params.authorId;
-        Author.remove({ _id: id })
+    deletePublisher: (req, res, next) => {
+        const id = req.params.publisherId;
+        Publisher.remove({ _id: id })
             .exec()
             .then(result => {
                 res.status(200).json({
-                    message: 'Author deleted',
+                    message: 'Publisher deleted',
                 });
             })
             .catch(err => {
@@ -110,4 +112,10 @@ module.exports = {
                 });
             });
     }
+   
+
+    
+
+    
 }
+
