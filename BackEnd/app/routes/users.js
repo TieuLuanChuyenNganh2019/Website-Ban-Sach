@@ -100,6 +100,7 @@ router.post("/signup", (req, res, next) => {
                 .then(result => {
                   console.log(result);
                   res.status(201).json({
+                    User: result,
                     message: "User created"
                   });
                 })

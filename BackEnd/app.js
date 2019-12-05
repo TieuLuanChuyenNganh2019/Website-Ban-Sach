@@ -28,7 +28,7 @@ mongoose.connect(//'mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@selli
 );
 
 // Authentication 
- app.use(auth);
+ //app.use(auth);
  //app.use(express.static(path.join(__dirname, 'public')));
 
 //Ép Mongoose sử dụng thư viện promise toàn cục
