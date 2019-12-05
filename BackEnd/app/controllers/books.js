@@ -56,6 +56,10 @@ module.exports = {
 
     // },
 
+    // add author to book
+    addAuthortoBook: (req,res,next) =>{
+        
+    },
     createBook :  (req, res, next ) =>{
     
         cloudinary.v2.uploader.upload(req.file.path, (err, result) =>{
@@ -86,9 +90,7 @@ module.exports = {
             //     id: req.publisher._id
             // }
             // add author for object book
-            // book.author = {
-            //     id: req.author._id
-            // }
+            book.author = req.body.author;
             // // add categories 
             // req.body.book.categories = [{
             //     id: req.category._id
@@ -125,14 +127,13 @@ module.exports = {
             //    ' availableQuantity bookImage publisher author categories reviews discount')
             .exec()
             .then(docs => {
-                const response = {
-                    count: docs.length,
-                    books: docs.map(doc => {
-                        return doc
-                    })
-                };
+                // const response = {
+                //     books: docs.map(doc => {
+                //         return doc
+                //     })
+                // };
                 if (docs.length >= 0) {
-                    res.status(200).json(response);
+                    res.status(200).json(docs);
                 } else {
                     res.status(404).json({
                         message: "No Entries Found"
@@ -243,7 +244,8 @@ module.exports = {
                    // }
 
                    book.save();
-                   res.redirect('/books/' + book._id);
+                 //  res.redirect('/books/' + book._id);
+                 return res.status(200).json(book);
                }
            }
        });
@@ -350,7 +352,15 @@ module.exports = {
         .exec((err, books) => {
             if(err)
             {
-                
+                console.log("Error Searching book: ",err);
+                return res.status(500).json({
+                    error: err
+                }); 
+            }else{
+                console.log("Book searching successfully: ", books);
+                res
+                .status(201)
+                .json(books)
             }
         });
     }
