@@ -61,8 +61,7 @@ module.exports = {
 
     },
     createBook: (req, res, next) => {
-
-        cloudinary.v2.uploader.upload(req.file.path, (err, result) => {
+        cloudinary.v2.uploader.upload(req.file.path,async (err, result) => {
             if (err) {
                 //req.flash('error', err.message);
                 return res.redirect('back');
@@ -76,7 +75,6 @@ module.exports = {
             book.title = req.body.title;
             book.description = req.body.description;
 
-            // format date DD/MM/YYYY
 
             book.publishDate = req.body.publishDate;
 
@@ -86,25 +84,72 @@ module.exports = {
             book.availableQuantity = req.body.availableQuantity;
 
             book.author = req.body.author;
-          
-            book.categories.push(req.body.category);
+
+            //    Category.findById(req.body.categories, async (err,cate) =>{
+            //        if(err)
+            //        {
+            //            return res.status(500).json({
+            //                error: err
+            //            })
+            //        }
+            //        book.categories.push(cate._id);
+            //    });
+            book.categories.push(req.body.categories);
             book.publisher = req.body.publisher;
             book.discount = req.body.discount;
 
-            Book.create(book, (err, book) => {
-                if (err) {
-                    console.log("Error creating Book: ", err);
-                    res
-                        .status(400)
-                        .json(err)
-                } else {
-                    console.log("Book Created: ", book);
-                    res
-                        .status(201)
-                        .json(book)
+            book.save();
+           
+            // add book in books of Author
+            Author.findById(req.body.author, (err,author) =>{
+                if(err)
+                {
+                    return res.status(500).json({
+                        error: err
+                    });
                 }
+                author.books.push(book);
+                author.save();
             });
+
+             // add book in books of Category
+             Category.findById(req.body.categories, (err,cate) =>{
+                if(err)
+                {
+                    return res.status(500).json({
+                        error: err
+                    });
+                }
+                cate.books.push(book);
+                cate.save();
+            });
+             // add book in books of Publisher
+             Publisher.findById(req.body.publisher, (err,publisher) =>{
+                if(err)
+                {
+                    return res.status(500).json({
+                        error: err
+                    });
+                }
+                publisher.books.push(book);
+                publisher.save();
+            });
+            res.status(201).json(book);
+            // Book.create(book, (err, book) => {
+            //     if (err) {
+            //         console.log("Error creating Book: ", err);
+            //         res
+            //             .status(400)
+            //             .json(err)
+            //     } else {
+            //         console.log("Book Created: ", book);
+            //         res
+            //             .status(201)
+            //             .json(book)
+            //     }
+            // });
         });
+
     },
 
     // Get List Book
@@ -137,14 +182,14 @@ module.exports = {
 
     // get book by bookID
     getBookID: async (req, res, next) => {
-       const id = req.params.bookId;
+        const id = req.params.bookId;
         await Book.findById(id)
             // .select('title price _id bookImage')
             .exec()
             .then(doc => {
                 console.log("From database", doc);
                 if (doc) {
-                   return res.status(200).json(doc);
+                    return res.status(200).json(doc);
                 } else {
                     res.status(404).json({ message: "No valid entry found for provided ID" });
                 }
@@ -164,8 +209,8 @@ module.exports = {
         res.status(200).json(book.reviews);
     },
 
-     // Get Author by ID book
-     getAuthorBybookId: async (req, res, next) => {
+    // Get Author by ID book
+    getAuthorBybookId: async (req, res, next) => {
         const bookId = req.params.bookId;
         const book = await Book.findById(bookId).populate('author');
         console.log('book', book);
@@ -187,16 +232,31 @@ module.exports = {
         console.log('book', book);
         res.status(200).json(book.categories);
     },
+
+
     // Get book by ID Category
     getBookByCategoryId: async (req, res, next) => {
-        const cate = req.params.cateId;
-        const book = await Book.find({_id: {$in: cate}}).toArray();
-        console.log('book', book);
-        res.status(200).json(book.cate);
+        const cateId = req.params.cateId;
+        const cate = await Category.findById(cateId).populate('books');
+        res.status(200).json(cate.books);
+    },
+
+   // Get book by ID Author
+   getBookByAuthorId: async (req, res, next) => {
+    const authorId = req.params.authorId;
+    const author = await Author.findById(authorId).populate('books');
+    res.status(200).json(author.books);
+},
+
+    // Get book by ID Publisher
+    getBookByPublisherId: async (req, res, next) => {
+        const publisherId = req.params.publisherId;
+        const publisher = await Publisher.findById(publisherId).populate('books');
+        res.status(200).json(publisher.books);
     },
 
     // Delete comment in reviews
-    deleteReview: async (req, res, next) =>{
+    deleteReview: async (req, res, next) => {
         const reviewId = req.params.reviewId;
         const bookId = req.path.bookId;
         const book = await Book.findById(bookId);
@@ -256,14 +316,9 @@ module.exports = {
                     book.pageCount = req.body.pageCount;
                     book.price = req.body.price;
                     book.availableQuantity = req.body.availableQuantity;
-           
+
                     book.author = req.body.author;
-                    Category.findById(req.body.categories, (err,cate) =>{
-                        if(!cate){
-                            book.categories.push(req.body.categories);
-                        }
-                    });
-                    
+                   book.categories.push(req.body.categories);
                     book.publisher = req.body.publisher;
                     book.discount = req.body.discount;
                     book.save();

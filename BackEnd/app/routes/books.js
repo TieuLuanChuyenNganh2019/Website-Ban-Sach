@@ -54,7 +54,7 @@ router.route('/:bookId')
 
 // delete comment in review
 router.route('/:bookId/:reviewId')
-    .delete(bookController.deleteReview); 
+    .delete(bookController.deleteReview);
 
 // get reviews by id book
 router.route('/:bookId/reviews')
@@ -69,7 +69,15 @@ router.route('/:bookId/cate')
     .get(bookController.getCategoryBybookId);
 
 // get book by id category
-router.route('/:cateId/category')
+router.route('/:cateId/categories')
     .get(bookController.getBookByCategoryId);
+
+// get book by id Author
+router.route('/:authorId/authors')
+    .get(bookController.getBookByAuthorId);
+
+// get book by id Publisher
+router.route('/:publisherId/publishers')
+    .get(bookController.getBookByPublisherId);
 
 module.exports = router;

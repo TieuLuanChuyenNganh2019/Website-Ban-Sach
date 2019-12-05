@@ -8,14 +8,14 @@ module.exports = {
         Author.find({})
             .exec()
             .then(docs => {
-                const response = {
-                    count: docs.length,
-                    authors: docs.map(doc => {
-                        return doc
-                    })
-                };
+                // const response = {
+                //     count: docs.length,
+                //     authors: docs.map(doc => {
+                //         return doc
+                //     })
+                // };
                 if (docs.length >= 0) {
-                    res.status(200).json(response);
+                    res.status(200).json(docs);
                 } else {
                     res.status(404).json({
                         message: "No Entries Found"
