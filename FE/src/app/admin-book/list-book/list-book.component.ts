@@ -10,9 +10,18 @@ import { BooksService } from 'src/app/service/book.service';
 export class ListBookComponent implements OnInit {
   books: Books[];
   title = 'A';
+  config: any;
 
-  constructor(private BooksService: BooksService) { }
+  constructor(private BooksService: BooksService) {
+    this.config = {
+    itemsPerPage: 10,
+    currentPage: 1
+    };
+  }
 
+  pageChanged(event) {
+  this.config.currentPage = event;
+  }
   ngOnInit() {
     this.getAllBook();
   }

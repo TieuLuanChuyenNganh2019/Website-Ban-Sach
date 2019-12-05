@@ -25,6 +25,7 @@ export class AuthorService {
     private http: HttpClient,
   ) { }
   URL = 'http://localhost:8080/books';
+  authorURL = 'http://localhost:8080/authors';
 
   getAuthors(): Observable<RootObj1<[Author]>> {
     return this.ApiService.get<RootObj1<[Author]>>(this.ApiService.apiURL.getauthors);
@@ -33,10 +34,20 @@ export class AuthorService {
     const url = `${this.URL}/${id}/author`;
     return this.http.get<Author>(url).pipe();
   }
-
-  // addBook(Books: Books1): Observable<RootObj<Books1>> {
-  //   return this.ApiService.post<RootObj<Books1>>(this.ApiService.apiURL.getbooks, Books );
-  // }
+  getAuthorFromAuthorID(id: string): Observable<Author> {
+    const url = `${this.authorURL}/${id}`;
+    return this.http.get<Author>(url).pipe();
+  }
+  // tslint:disable-next-line: no-shadowed-variable
+  addAuthor(Author: Author): Observable<Author> {
+    return this.ApiService.post<Author>(this.authorURL, Author);
+  }
+  editAuthor(author: Author): Observable<any> {
+    return this.http.put(`${this.authorURL}/${author._id}`, author, httpOptions).pipe();
+  }
+  delete(id: string): Observable<Author> {
+    return this.http.delete<Author>(`${this.authorURL}/${id}`);
+  }
   // delete(id: string): Observable<RootObj<Books>> {
   //   return this.ApiService.delete<RootObj<Books>>(`${this.ApiService.apiURL.getbooks}/${id}`);
   // }

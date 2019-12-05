@@ -32,17 +32,16 @@ export class ProductDetailsComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.getAssignfromRoute();
+    await this.getBookfromRoute();
     await this.getReviewfromIDBook();
     await this.getAuthorfromIDBook();
     await this.getCatefromIDBook();
   }
 
-  async getAssignfromRoute() {
+  async getBookfromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
     await this.BooksService.getBooksFromID(id).toPromise().then(res => this.books = res,);
     console.log(this.books.reviews);
-
   }
   // getReviewfromID(id: string) {
   //   const idrv = this.books.reviews;
@@ -67,5 +66,6 @@ export class ProductDetailsComponent implements OnInit {
   async getCatefromIDBook() {
     const id = this.route.snapshot.paramMap.get('id');
     await this.CateService.getCateFromID(id).toPromise().then(res => this.cates = res);
+    console.log(this.cates);
   }
 }

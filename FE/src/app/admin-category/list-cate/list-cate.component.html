@@ -18,29 +18,27 @@
   </div>
 
 <div class="container">
-    <h1>List Author</h1>
+    <h1>Danh sách Thể Loại Sách</h1>
     <div style=" margin-bottom: 50px;" >
-        <button class="btn btn-success btn-circle pull-left" routerLink="/admin/addauthor"  title="Add CLass" type="submit">Add<i class="fas fa-plus"></i></button>
+        <button class="btn btn-success btn-circle pull-left" routerLink="/admin/addcate"  title="Add CLass" type="submit">Add<i class="fas fa-plus"></i></button>
     </div>
 <div style="margin-top:10px;" class="table-responsive" >
       <table class="table table-bordered" >
         <thead>
             <tr>
-              <th>Tác Giả</th>
-              <th>Họ</th>
-              <th>Tên</th>
+              <th>Mã</th>
+              <th>Tên Thể Loại</th>
               <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let au of authors | paginate: config">
-              <td>{{au.name}}</td>
-              <td>{{au.firstname}}</td>
-              <td>{{au.lastname}}</td>
+            <tr *ngFor="let cate of cates | paginate: config">
+              <td>{{cate._id}}</td>
+              <td>{{cate.name}}</td>
               <td style="width: 90px;">
                   <i class="fas fa-edit" style="margin-right: 10px;"
-                   title="Edit" routerLink="/admin/editauthor/{{au._id}}"></i>
-                  <i class="fas fa-trash" (click)="delete(au.name, au._id)"
+                   title="Edit" routerLink="/admin/editcate/{{cate._id}}"></i>
+                  <i class="fas fa-trash" (click)="delete(cate.name, cate._id)"
                      title="Delete"></i>
               </td>
             </tr>
