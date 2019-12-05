@@ -51,16 +51,14 @@ module.exports = {
 
     },
 
-    getAuthorID: (req, res, next) => {
+    getAuthorID: async (req, res, next) => {
         const id = req.params.authorId;
-        Author.findById(id)
+        await Author.findById(id)
             .exec()
             .then(doc => {
                 console.log("From database", doc);
                 if (doc) {
-                    res.status(200).json({
-                        author: doc,
-                    });
+                    return res.status(200).json(doc);
                 } else {
                     res.status(404).json({ message: "No valid entry found for provided ID" });
                 }
