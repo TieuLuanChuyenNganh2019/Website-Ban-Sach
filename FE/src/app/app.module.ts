@@ -14,6 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminBooksComponent } from './admin-books/admin-books.component';
 import { ListBookComponent } from './admin-book/list-book/list-book.component';
 import { AddBookComponent } from './admin-book/add-book/add-book.component';
+import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
+import { CreateBookComponent } from './admin-book/create-book/create-book.component';
+import { ListAuthorComponent } from './admin-author/list-author/list-author.component';
+import { AddAuthorComponent } from './admin-author/add-author/add-author.component';
+import { EditAuthorComponent } from './admin-author/edit-author/edit-author.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,13 +30,19 @@ import { AddBookComponent } from './admin-book/add-book/add-book.component';
     ProductDetailsComponent,
     AdminBooksComponent,
     ListBookComponent,
-    AddBookComponent
+    AddBookComponent,
+    CreateBookComponent,
+    ListAuthorComponent,
+    AddAuthorComponent,
+    EditAuthorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

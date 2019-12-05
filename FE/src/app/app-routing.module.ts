@@ -9,6 +9,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { AdminBooksComponent } from './admin-books/admin-books.component';
 import { ListBookComponent } from './admin-book/list-book/list-book.component';
 import { AddBookComponent } from './admin-book/add-book/add-book.component';
+import { CreateBookComponent } from './admin-book/create-book/create-book.component';
+import { ListAuthorComponent } from './admin-author/list-author/list-author.component';
 
 
 const routes: Routes = [
@@ -17,10 +19,12 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'cart', component: CartComponent},
-  {path: 'details', component: ProductDetailsComponent},
+  {path: 'details/:id', component: ProductDetailsComponent},
   {path: 'adminbooks', component: AdminBooksComponent},
   {path: 'admin/listbook', component: ListBookComponent},
   {path: 'admin/addbook', component: AddBookComponent},
+  {path: 'admin/createbook', component: CreateBookComponent},
+  {path: 'admin/listauthor', component: ListAuthorComponent},
 ];
 
 @NgModule({

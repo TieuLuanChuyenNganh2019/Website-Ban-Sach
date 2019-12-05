@@ -19,15 +19,24 @@ export class ApiService {
   constructor(
     private http: HttpClient
   ) { }
-  private BooksURL = 'http://localhost:8080/';
+  baseURL = 'http://localhost:8080/';
   apiURL = {
-  books: `${this.BooksURL}books`,
+  getbooks: `${this.baseURL}books`,
+  getauthors: `${this.baseURL}authors`,
   };
 
 
   get<T>(url: string): Observable<T> {
     return this.http.get<T>(url);
   }
-
+  post<T>(url: string, books: Object): Observable<T> {
+    return this.http.post<T>(url, books);
+  }
+  put<T>(url: string, books: Object): Observable<T> {
+    return this.http.put<T>(url, books);
+  }
+  delete<T>(url: string): Observable<T> {
+    return this.http.delete<T>(url);
+  }
 }
 

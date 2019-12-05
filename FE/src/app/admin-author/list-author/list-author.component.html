@@ -6,30 +6,22 @@
       <table class="table table-bordered" >
         <thead>
             <tr>
-              <th>Title</th>
-              <th>description</th>
-              <th>publishDate</th>
-              <th>pageCount</th>
-              <th>price</th>
-              <th>availableQuantity</th>
-              <th>imageUrl</th>
+              <th>name</th>
+              <th>firstname</th>
+              <th>lastname</th>
               <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let each of books">
-              <td>{{each.title}}</td>
-              <td>{{each.description}}</td>
-              <td>{{each.publishDate | date:'dd/MM/yyyy'}}</td>
-              <td>{{each.pageCount}}</td>
-              <td>{{each.price}}</td>
-              <td>{{each.availableQuantity}}</td>
-              <td><img src="{{each.imageUrl}}" class="backgr"></td>
+            <tr *ngFor="let au of authors">
+              <td>{{au.name}}</td>
+              <td>{{au.firstname}}</td>
+              <td>{{au.lastname}}</td>
               <td style="width: 90px;">
                   <i class="fas fa-edit" style="margin-right: 10px;"
                    title="Edit"></i>
                   <i class="fas fa-trash"
-                    (click)="delete(each.title, each._id)" title="Delete"></i>
+                     title="Delete"></i>
               </td>
             </tr>
         </tbody>

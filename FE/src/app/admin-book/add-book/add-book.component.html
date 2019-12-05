@@ -1,53 +1,69 @@
+<h1>{{imageUR}}</h1>
 <div class="jumbotron">
     <div class="container">
 
-      <h1 class="display-4">Add Book</h1>
+
+      <h1 class="display-4">Add book</h1>
     </div>
 
   </div>
 
   <div class="container">
       <div class="col-m">
+        <form #imageForm = ngForm  >
           <div class="container" style="width:50%;">
                 <div >
                   <h3>Tựa sách</h3>
-                  <input #name type="text" class="form-control" placeholder="tên sách" required>
+                  <input #title type="text" class="form-control"    placeholder="tên sách" required >
                 </div>
                 <div>
                   <h3>Mô tả</h3>
-                  <input #traineename type="text" class="form-control" placeholder="nội dung sách" required>
+                  <input #description  type="text" class="form-control"  placeholder="nội dung sách" required >
                 </div>
-                <div>
+                <!-- <div>
                   <h3>Ngày Xuất Bản</h3>
-                  <input #classid type="text" class="form-control" placeholder="ngày xuất bản" required>
-                </div>
+                  <input #publishDate type="date" class="form-control"  placeholder="ngày xuất bản" >
+                </div> -->
                 <div>
                   <h3>Số Trang</h3>
-                  <input #classname type="text" class="form-control" placeholder="số lượng trang" required>
+                  <input #pageCount type="number" class="form-control"  placeholder="số lượng trang" required>
                 </div>
                 <div>
                   <h3>Giá</h3>
-                  <input #classname type="text" class="form-control" placeholder="giá" required>
+                  <input #price type="number" class="form-control"  placeholder="giá" required>
                   </div>
-                <div>
+                <!-- <div>
                     <h3>Tên Tác Giả</h3>
-                    <input #classname type="text" class="form-control" placeholder="tên tác giả" required>
-                </div>
+                    <input #classname type="text" class="form-control" [(ngModel)]="Book.author" placeholder="tên tác giả" required>
+                </div> -->
                 <div>
                     <h3>Số lượng có sẵn</h3>
-                    <input #classname type="text" class="form-control" placeholder="có sẵn" required>
+                    <input #availableQuantity type="number" class="form-control"  placeholder="có sẵn" required >
                 </div>
+                <div>
+                  <h3>Image</h3>
+                  <img src="{{imageUR}}" style="width: 200px; height:200px">
+                  <input #image type="file" accept="images/*" (change)="handleFileInput($event.target.files)" class="form-control" required >
+
+              </div>
                 <div>
                   <label></label>
                   <button class="btn btn-secondary btn-circle pull-right" style="margin-top: 15px; margin-left: 10px;" title="Add"
-                    type="submit">Back <i class="fas fa-undo"></i></button>
+                    type="submit" >Back <i class="fas fa-undo"></i></button>
                   <button class="btn btn-success btn-circle pull-right" style="margin-top: 15px;" title="Add"
-                    type="submit">Save <i class="fa fa-check-square-o"></i></button>
+                    type="submit" [disabled]="image.value== '' || !imageForm.valid" (click)="save(title.value, description.value, pageCount.value,
+                                                  price.value, availableQuantity.value, FileUpload)">Save<i class="fa fa-check-square-o"></i></button>
                 </div>
+                {{title.value}}
+                {{image.value}}
+                {{FileUpload.name}}
 
             </div>
 
-      </div>
+
+          </form>
+         </div>
 
 
   </div>
+

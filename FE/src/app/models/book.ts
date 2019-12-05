@@ -1,5 +1,5 @@
 export interface Books {
-  _id: string;
+
   title: string;
   description: string;
   publishDate: Date;
@@ -11,6 +11,20 @@ export interface Books {
   //publisher: string;
   //author: string;
   categories: [];
-  reviews: [];
+  reviews: string[];
+  _id: string;
+  //discount: string;
+}
+export interface Books1 {
+
+  title: string;
+  description: string;
+  //publishDate: Date;
+  pageCount: number;
+  price: number;
+  availableQuantity: number;
+  //publisher: string;
+  //author: string;
+  image: File;
   //discount: string;
 }

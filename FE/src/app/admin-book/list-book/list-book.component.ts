@@ -8,8 +8,8 @@ import { BooksService } from 'src/app/service/book.service';
   styleUrls: ['./list-book.component.css']
 })
 export class ListBookComponent implements OnInit {
-  books: [Books];
-
+  books: Books[];
+  title = 'A';
 
   constructor(private BooksService: BooksService) { }
 
@@ -17,7 +17,15 @@ export class ListBookComponent implements OnInit {
     this.getAllBook();
   }
 
-  private getAllBook() {
-    this.BooksService.getBooks().subscribe(res => { this.books = res.books });
+  getAllBook() {
+    this.BooksService.getBooks().subscribe(res => this.books = res);
+  }
+  delete(title, id) {
+    const ans = confirm('Are you sure to delete book: ' + title );
+    if (ans) {
+      this.BooksService.delete(id).subscribe(() => {
+        this.getAllBook();
+      }, error => console.error(error));
+    }
   }
 }
