@@ -19,6 +19,16 @@ import { CreateBookComponent } from './admin-book/create-book/create-book.compon
 import { ListAuthorComponent } from './admin-author/list-author/list-author.component';
 import { AddAuthorComponent } from './admin-author/add-author/add-author.component';
 import { EditAuthorComponent } from './admin-author/edit-author/edit-author.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ListCateComponent } from './admin-category/list-cate/list-cate.component';
+import { AddCateComponent } from './admin-category/add-cate/add-cate.component';
+import { EditCateComponent } from './admin-category/edit-cate/edit-cate.component';
+import { ListPubComponent } from './admin-publisher/list-pub/list-pub.component';
+import { AddPubComponent } from './admin-publisher/add-pub/add-pub.component';
+import { EditPubComponent } from './admin-publisher/edit-pub/edit-pub.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +45,14 @@ import { EditAuthorComponent } from './admin-author/edit-author/edit-author.comp
     ListAuthorComponent,
     AddAuthorComponent,
     EditAuthorComponent,
+    AdminPageComponent,
+    ListCateComponent,
+    AddCateComponent,
+    EditCateComponent,
+    ListPubComponent,
+    AddPubComponent,
+    EditPubComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -42,7 +60,8 @@ import { EditAuthorComponent } from './admin-author/edit-author/edit-author.comp
     RouterModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,6 +11,15 @@ import { ListBookComponent } from './admin-book/list-book/list-book.component';
 import { AddBookComponent } from './admin-book/add-book/add-book.component';
 import { CreateBookComponent } from './admin-book/create-book/create-book.component';
 import { ListAuthorComponent } from './admin-author/list-author/list-author.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { AddAuthorComponent } from './admin-author/add-author/add-author.component';
+import { EditAuthorComponent } from './admin-author/edit-author/edit-author.component';
+import { ListCateComponent } from './admin-category/list-cate/list-cate.component';
+import { AddCateComponent } from './admin-category/add-cate/add-cate.component';
+import { EditCateComponent } from './admin-category/edit-cate/edit-cate.component';
+import { ListPubComponent } from './admin-publisher/list-pub/list-pub.component';
+import { AddPubComponent } from './admin-publisher/add-pub/add-pub.component';
+import { EditPubComponent } from './admin-publisher/edit-pub/edit-pub.component';
 
 
 const routes: Routes = [
@@ -25,6 +34,15 @@ const routes: Routes = [
   {path: 'admin/addbook', component: AddBookComponent},
   {path: 'admin/createbook', component: CreateBookComponent},
   {path: 'admin/listauthor', component: ListAuthorComponent},
+  {path: 'admin', component: AdminPageComponent},
+  {path: 'admin/addauthor', component: AddAuthorComponent},
+  {path: 'admin/editauthor/:id', component: EditAuthorComponent},
+  {path: 'admin/listcate', component: ListCateComponent},
+  {path: 'admin/addcate', component: AddCateComponent},
+  {path: 'admin/editcate/:id', component: EditCateComponent},
+  {path: 'admin/listpub', component: ListPubComponent},
+  {path: 'admin/addpub', component: AddPubComponent},
+  {path: 'admin/editpub/:id', component: EditPubComponent},
 ];
 
 @NgModule({

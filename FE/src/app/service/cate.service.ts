@@ -23,6 +23,7 @@ export class CateService {
     private http: HttpClient
   ) { }
   bookURL = 'http://localhost:8080/books';
+  cateURL = 'http://localhost:8080/categories';
 
   // getBooks(): Observable<Books[]> {
   //   return this.ApiService.get<Books[]>(this.bookURL).pipe();
@@ -36,6 +37,24 @@ export class CateService {
   getCateFromID(id: string): Observable<Cate[]> {
     const url = `${this.bookURL}/${id}/cate`;
     return this.http.get<Cate[]>(url).pipe();
+  }
+  getCates(): Observable<Cate[]> {
+    return this.http.get<Cate[]>(this.cateURL).pipe();
+  }
+
+  getCateFromCateID(id: string): Observable<Cate> {
+    const url = `${this.cateURL}/${id}`;
+    return this.http.get<Cate>(url).pipe();
+  }
+  // tslint:disable-next-line: no-shadowed-variable
+  addCate(Cate: Cate): Observable<Cate> {
+    return this.ApiService.post<Cate>(this.cateURL, Cate);
+  }
+  editCate(CAte: Cate): Observable<any> {
+    return this.http.put(`${this.cateURL}/${CAte._id}`, CAte, httpOptions).pipe();
+  }
+  delete(id: string): Observable<Cate> {
+    return this.http.delete<Cate>(`${this.cateURL}/${id}`);
   }
 
 }

@@ -10,8 +10,18 @@ import { AuthorService } from 'src/app/service/author.service';
 export class ListAuthorComponent implements OnInit {
   authors: [Author];
   title = 'A';
+  config: any;
 
-  constructor(private AuthorService: AuthorService) { }
+  constructor(private AuthorService: AuthorService) {
+    this.config = {
+    itemsPerPage: 10,
+    currentPage: 1
+    };
+  }
+
+  pageChanged(event) {
+  this.config.currentPage = event;
+  }
 
   ngOnInit() {
     this.getAllAuthor();
@@ -19,5 +29,13 @@ export class ListAuthorComponent implements OnInit {
 
   getAllAuthor() {
     this.AuthorService.getAuthors().subscribe(res => { this.authors = res.authors });
+  }
+  delete(title, id) {
+    const ans = confirm('Are you sure to delete author: ' + title );
+    if (ans) {
+      this.AuthorService.delete(id).subscribe(() => {
+        this.getAllAuthor();
+      }, error => console.error(error));
+    }
   }
 }

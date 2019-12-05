@@ -18,28 +18,20 @@
   </div>
 
   <div class="container">
-      <h1>Thêm Tác Giả</h1>
+      <h1>Thêm Thể Loại Sách</h1>
       <div class="col-m">
 
           <div class="container" style="width:50%;">
                 <div >
-                  <h3>Tên Tác Giả</h3>
-                  <input #name type="text" class="form-control"   placeholder="Devil K" >
-                </div>
-                <div>
-                  <h3>Họ</h3>
-                  <input #firstname  type="text" class="form-control"  placeholder="Trần" >
-                </div>
-                <div>
-                  <h3>Tên</h3>
-                  <input #lastname type="text" class="form-control"  placeholder="Quang Tân" >
+                  <h3>Tên Thể Loại Sách</h3>
+                  <input #name type="text" class="form-control"  placeholder="Tình cảm" >
                 </div>
                 <div>
                   <label></label>
-                  <button class="btn btn-secondary btn-circle pull-right" style="margin-top: 15px; margin-left: 10px;" title="Add"
-                     [routerLink]="['/admin/listauthor']" >Back <i class="fas fa-undo"></i></button>
+                  <button class="btn btn-secondary btn-circle pull-right" style="margin-top: 15px; margin-left: 10px;" title="Back"
+                     [routerLink]="['/admin/listcate']" >Back <i class="fas fa-undo"></i></button>
                   <button class="btn btn-success btn-circle pull-right" style="margin-top: 15px;" title="Add"
-                    type="submit"  (click)="save(name.value, firstname.value, lastname.value)">Save<i class="fa fa-check-square-o"></i></button>
+                    type="submit" (click)="save(name.value)">Save<i class="fa fa-check-square-o"></i></button>
                 </div>
             </div>
 
@@ -48,5 +40,6 @@
 
 
   </div>
+
 
 
