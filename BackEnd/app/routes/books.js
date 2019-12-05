@@ -6,7 +6,6 @@ const bookController = require('./../controllers/books');
 
 
 
-
 router.use((req, res, next) => {
     // authorize here
     next();
@@ -53,6 +52,10 @@ router.route('/:bookId')
     .put(upload.single('image'), bookController.updateBook)
     .delete(bookController.deleteBook);
 
+// delete comment in review
+router.route('/:bookId/:reviewId')
+    .delete(bookController.deleteReview); 
+
 // get reviews by id book
 router.route('/:bookId/reviews')
     .get(bookController.getCommentBybookId);
@@ -68,4 +71,5 @@ router.route('/:bookId/cate')
 // get book by id category
 router.route('/:cateId/category')
     .get(bookController.getBookByCategoryId);
+
 module.exports = router;

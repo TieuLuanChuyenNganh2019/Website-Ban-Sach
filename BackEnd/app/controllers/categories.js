@@ -34,12 +34,6 @@ module.exports = {
          Category.find({})
             .exec()
             .then(docs => {
-                // const response = {
-                //     count: docs.length,
-                //     categories: docs.map(doc => {
-                //         return doc
-                //     })
-                // };
                 if (docs.length >= 0) {
                     res.status(200).json(docs);
                 } else {

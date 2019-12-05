@@ -85,25 +85,11 @@ module.exports = {
             book.price = req.body.price;
             book.availableQuantity = req.body.availableQuantity;
 
-            // add publisher for object book
-            // book.publisher = {
-            //     id: req.publisher._id
-            // }
-            // add author for object book
-
             book.author = req.body.author;
-            // // add categories 
-            // req.body.book.categories = [{
-            //     id: req.category._id
-            // }]
-            // // add reviews 
-            // req.body.book.reviews = [{
-            //     id: req.review._id
-            // }]
-            // // add discount 
-            // req.body.book.discount = {
-            //     id: req.discount._id
-            // }
+          
+            book.categories.push(req.body.category);
+            book.publisher = req.body.publisher;
+            book.discount = req.body.discount;
 
             Book.create(book, (err, book) => {
                 if (err) {
@@ -208,6 +194,18 @@ module.exports = {
         console.log('book', book);
         res.status(200).json(book.cate);
     },
+
+    // Delete comment in reviews
+    deleteReview: async (req, res, next) =>{
+        const reviewId = req.params.reviewId;
+        const bookId = req.path.bookId;
+        const book = await Book.findById(bookId);
+        await book.reviews.id(reviewId).remove();
+        await book.save();
+        res.status(200).json({
+            message: 'errorr'
+        });
+    },
     // delete Book
     deleteBook: (req, res, next) => {
         Book.findById(req.params.bookId, async (err, book) => {
@@ -258,24 +256,16 @@ module.exports = {
                     book.pageCount = req.body.pageCount;
                     book.price = req.body.price;
                     book.availableQuantity = req.body.availableQuantity;
-
-                    // add publisher for object book
-                    // book.publisher = {
-                    //     id: req.publisher._id
-                    // }
-                    // // add author for object book
+           
                     book.author = req.body.author;
-
-
-                    book.categories.push(req.body.categories);
-
-
-                    book.reviews.push(req.body.reviews);
-                    // // add discount 
-                    // req.body.book.discount = {
-                    //     id: req.discount._id
-                    // }
-
+                    Category.findById(req.body.categories, (err,cate) =>{
+                        if(!cate){
+                            book.categories.push(req.body.categories);
+                        }
+                    });
+                    
+                    book.publisher = req.body.publisher;
+                    book.discount = req.body.discount;
                     book.save();
                     //  res.redirect('/books/' + book._id);
                     return res.status(200).json(book);

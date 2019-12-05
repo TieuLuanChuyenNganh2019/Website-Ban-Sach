@@ -27,12 +27,12 @@ const bookSchema = new Schema({
     type:Number, 
     required: true
   },
-  // imageUrl: {
-  //   type: String
-  // },
-  // imageId: {
-  //   type: String
-  //   },
+  imageUrl: {
+    type: String
+  },
+  imageId: {
+    type: String
+    },
   publisher: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Publisher'
@@ -50,8 +50,7 @@ const bookSchema = new Schema({
     ref: 'Review'
   }],
   discount: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Discount'
+    type: String
   }
 });
 

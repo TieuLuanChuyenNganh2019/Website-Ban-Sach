@@ -16,8 +16,8 @@ router.post('/',  reviewController.createReview);
 
 router.route('/:reviewId')
     .get(reviewController.getReviewId)
-    .patch(reviewController.updateReview )
-    .put(reviewController.updateReview)
+//    .patch(reviewController.updateReview )
+ //   .put(reviewController.updateReview)
     .delete(reviewController.deleteReview);
 
 module.exports = router;

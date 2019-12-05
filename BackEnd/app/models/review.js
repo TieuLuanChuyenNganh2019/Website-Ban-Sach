@@ -17,6 +17,10 @@ const reviewSchema = mongoose.Schema({
     },
     comment: {
         type: String
+    },
+    bookId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
     }
 });
 
