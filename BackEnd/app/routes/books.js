@@ -45,12 +45,14 @@ const upload = multer({
 
 router.get('/', bookController.getListBook);
 
-router.post('/', upload.single('image'), bookController.createBook );
+router.post('/', upload.single('image'), bookController.createBook);
 
 router.route('/:bookId')
     .get(bookController.getBookID)
-    .patch(upload.single('image'),bookController.updateBook )
-    .put(upload.single('image'),bookController.updateBook)
+    .patch(upload.single('image'), bookController.updateBook)
+    .put(upload.single('image'), bookController.updateBook)
     .delete(bookController.deleteBook);
 
+router.route('/:bookId/reviews')
+    .get(bookController.getCommentBybookId);
 module.exports = router;

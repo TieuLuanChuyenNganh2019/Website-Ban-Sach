@@ -2,7 +2,7 @@ const Book = require('../models/book');
 const Author = require('./../models/author');
 const Category = require('./../models/category');
 const Publisher = require('./../models/publisher');
-
+const comment = require('./../models/review');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
 
@@ -169,6 +169,13 @@ module.exports = {
 
     },
 
+    // Get Comment by ID book
+    getCommentBybookId: async(req,res,next) =>{
+        const bookId = req.params.bookId;
+        const book = await Book.findById(bookId).populate('reviews');
+        console.log('book',book);
+        res.status(200).json(book.reviews);
+    },
     // delete Book
     deleteBook:  (req, res, next) => {
         Book.findById(req.params.bookId, async (err, book) => {
@@ -194,7 +201,7 @@ module.exports = {
     },
 
     // update a book on PATCH
-    updateBook: async (req, res, next) => {
+    updateBook:  (req, res, next) => {
         const id = req.params.bookId;
        Book.findById(id, async (err, book) => {
            if(err){
@@ -227,17 +234,13 @@ module.exports = {
                    //     id: req.publisher._id
                    // }
                    // // add author for object book
-                   // req.body.book.author = {
-                   //     id: req.author._id
-                   // }
-                   // // add categories 
-                   // req.body.book.categories = [{
-                   //     id: req.category._id
-                   // }]
-                   // // add reviews 
-                   // req.body.book.reviews = [{
-                   //     id: req.review._id
-                   // }]
+                  book.author = req.body.author;
+                   
+
+                  book.categories.push(req.body.categories);
+                  
+                  
+                  book.reviews.push(req.body.reviews);
                    // // add discount 
                    // req.body.book.discount = {
                    //     id: req.discount._id
