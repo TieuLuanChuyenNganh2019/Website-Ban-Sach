@@ -27,18 +27,18 @@ const bookSchema = new Schema({
     type:Number, 
     required: true
   },
-  imageUrl: {
-    type: String
-  },
-  imageId: {
-    type: String
-    },
+  // imageUrl: {
+  //   type: String
+  // },
+  // imageId: {
+  //   type: String
+  //   },
   publisher: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Publisher'
   },
   author: {
-    type: mongoose.Schema.Types.ObjectId,
+     type: mongoose.Schema.Types.ObjectId,
     ref: 'Author'
   },
   categories: [{

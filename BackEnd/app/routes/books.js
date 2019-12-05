@@ -53,6 +53,19 @@ router.route('/:bookId')
     .put(upload.single('image'), bookController.updateBook)
     .delete(bookController.deleteBook);
 
+// get reviews by id book
 router.route('/:bookId/reviews')
     .get(bookController.getCommentBybookId);
+
+// get name author by id book
+router.route('/:bookId/author')
+    .get(bookController.getAuthorBybookId);
+
+// get category by id book
+router.route('/:bookId/cate')
+    .get(bookController.getCategoryBybookId);
+
+// get book by id category
+router.route('/:cateId/category')
+    .get(bookController.getBookByCategoryId);
 module.exports = router;
