@@ -38,6 +38,17 @@ export class BooksService {
     const url = `${this.bookURL}/${id}`;
     return this.http.get<Books>(url).pipe();
   }
-  
+  getBooksFromCateID(id: string): Observable<Books[]> {
+    const url = `${this.bookURL}/${id}/categories`;
+    return this.http.get<Books[]>(url).pipe();
+  }
+  getBooksFromPubID(id: string): Observable<Books[]> {
+    const url = `${this.bookURL}/${id}/publishers`;
+    return this.http.get<Books[]>(url).pipe();
+  }
+  getBooksFromAuthorID(id: string): Observable<Books[]> {
+    const url = `${this.bookURL}/${id}/authors`;
+    return this.http.get<Books[]>(url).pipe();
+  }
 }
 

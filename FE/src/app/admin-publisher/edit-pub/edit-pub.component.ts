@@ -16,10 +16,12 @@ export class EditPubComponent implements OnInit {
               private location: Location ) { }
 
   ngOnInit() {
+    this.getPubFromRoute();
   }
-  getCateFromRoute() {
+  getPubFromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.PubService.getPublisherFromID(id).toPromise().then(res => this.pub = res);
+    this.PubService.getPublisherFromPublisherID(id).toPromise().then(res => this.pub = res);
+    console.log(id);
   }
   save() {
     this.PubService.editPublisher(this.pub).subscribe();

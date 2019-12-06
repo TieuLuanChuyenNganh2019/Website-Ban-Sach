@@ -27,8 +27,8 @@ export class AuthorService {
   URL = 'http://localhost:8080/books';
   authorURL = 'http://localhost:8080/authors';
 
-  getAuthors(): Observable<RootObj1<[Author]>> {
-    return this.ApiService.get<RootObj1<[Author]>>(this.ApiService.apiURL.getauthors);
+  getAuthors(): Observable<Author[]> {
+    return this.http.get<Author[]>(this.authorURL).pipe();
   }
   getAuthorFromIDBook(id: string): Observable<Author> {
     const url = `${this.URL}/${id}/author`;

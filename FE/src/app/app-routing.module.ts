@@ -20,6 +20,9 @@ import { EditCateComponent } from './admin-category/edit-cate/edit-cate.componen
 import { ListPubComponent } from './admin-publisher/list-pub/list-pub.component';
 import { AddPubComponent } from './admin-publisher/add-pub/add-pub.component';
 import { EditPubComponent } from './admin-publisher/edit-pub/edit-pub.component';
+import { BookAuthorComponent } from './book-author/book-author.component';
+import { BookPubComponent } from './book-pub/book-pub.component';
+import { AdminReviewComponent } from './admin-review/admin-review.component';
 
 
 const routes: Routes = [
@@ -43,6 +46,10 @@ const routes: Routes = [
   {path: 'admin/listpub', component: ListPubComponent},
   {path: 'admin/addpub', component: AddPubComponent},
   {path: 'admin/editpub/:id', component: EditPubComponent},
+  {path: 'books/:id/categories/:id1', component: Book1Component},
+  {path: 'books/:id/authors/:id1', component: BookAuthorComponent},
+  {path: 'books/:id/publishers/:id1', component: BookPubComponent},
+  {path: 'admin/listreview', component: AdminReviewComponent},
 ];
 
 @NgModule({

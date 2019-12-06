@@ -8,7 +8,7 @@ import { AuthorService } from 'src/app/service/author.service';
   styleUrls: ['./list-author.component.css']
 })
 export class ListAuthorComponent implements OnInit {
-  authors: [Author];
+  authors: Author[];
   title = 'A';
   config: any;
 
@@ -28,7 +28,7 @@ export class ListAuthorComponent implements OnInit {
   }
 
   getAllAuthor() {
-    this.AuthorService.getAuthors().subscribe(res => { this.authors = res.authors });
+    this.AuthorService.getAuthors().subscribe(res =>this.authors = res);
   }
   delete(title, id) {
     const ans = confirm('Are you sure to delete author: ' + title );

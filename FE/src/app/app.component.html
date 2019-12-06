@@ -41,41 +41,10 @@
               <a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown" ><span>Sách Tiếng Việt<b class="caret"></b></span></a>
               <ul class="dropdown-menu multi">
                 <div class="row">
-                  <div class="col-sm-3">
+                  <div class="col-sm-3" *ngFor="let cate of cates">
                     <ul class="multi-column-dropdown">
-
-                      <li><a [routerLink]="['/book1']"><i class="fa fa-angle-right" aria-hidden="true"></i>Sách Văn Học</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sách Kinh Tế</a></li>
-                      <li><a href="kitchen.html"> <i class="fa fa-angle-right" aria-hidden="true"></i>Sách Kỹ Năng Sống</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sách Khoa học</a></li>
-
+                      <li><a routerLink="/books/{{cate._id}}/categories/{{cate.name}}" ><i class="fa fa-angle-right" aria-hidden="true"></i>{{cate.name}}</a></li>
                     </ul>
-
-                  </div>
-                  <div class="col-sm-3">
-
-                    <ul class="multi-column-dropdown">
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sách Văn Học</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sách Văn Học</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sách Văn Học</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sách Văn Học</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sách Văn Học</a></li>
-
-                    </ul>
-
-                  </div>
-                  <div class="col-sm-3">
-
-                    <ul class="multi-column-dropdown">
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>A</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>B</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>C</a></li>
-                      <li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>D</a></li>
-
-                    </ul>
-                  </div>
-                  <div class="col-sm-3 w3l">
-                    <a [routerLink]="['/home']"><img src="https://khosachxua.files.wordpress.com/2016/03/cropped-sachcu.jpg" class="img-responsive" alt=""></a>
                   </div>
                   <div class="clearfix"></div>
                 </div>
@@ -86,39 +55,12 @@
               <a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span> Nhà Xuất Bản <b class="caret"></b></span></a>
               <ul class="dropdown-menu multi multi1">
                 <div class="row">
-                  <div class="col-sm-3">
+                  <div class="col-sm-3" *ngFor="let pub of pubs">
                     <ul class="multi-column-dropdown">
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Kim Đồng </a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>NXB Trẻ</a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Nhã Nam</a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Thái Hà</a></li>
+                      <li><a routerLink="/books/{{pub._id}}/publishers/{{pub.name}}" ><i class="fa fa-angle-right" aria-hidden="true"></i>{{pub.name}} </a></li>
 
                     </ul>
 
-                  </div>
-                  <div class="col-sm-3">
-
-                    <ul class="multi-column-dropdown">
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Kim Đồng </a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>NXB Trẻ</a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Nhã Nam</a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Thái Hà</a></li>
-
-                    </ul>
-
-                  </div>
-                  <div class="col-sm-3">
-
-                    <ul class="multi-column-dropdown">
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Kim Đồng </a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>NXB Trẻ</a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Nhã Nam</a></li>
-                      <li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Thái Hà</a></li>
-
-                    </ul>
-                  </div>
-                  <div class="col-sm-3 w3l">
-                    <a href="care.html"><img src="images/me1.png" class="img-responsive" alt=""></a>
                   </div>
                   <div class="clearfix"></div>
                 </div>
@@ -128,21 +70,11 @@
               <a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span>Tác Giả<b class="caret"></b></span></a>
               <ul class="dropdown-menu multi multi2">
                 <div class="row">
-                  <div class="col-sm-3">
+                  <div class="col-sm-3" *ngFor="let aut of auts">
                     <ul class="multi-column-dropdown">
-                      <li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Nhiều Tác Giả</a></li>
-                      <li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Tác Giả Nước Ngoài</a></li>
-                      <li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Julia Donalson</a></li>
-                      <li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Nguyễn Nhật Ánh</a></li>
-
+                      <li><a routerLink="/books/{{aut._id}}/authors/{{aut.name}}" ><i class="fa fa-angle-right" aria-hidden="true"></i>{{aut.name}}</a></li>
                     </ul>
-
                   </div>
-
-                  <div class="col-sm-3 w3l">
-                    <a href="hold.html"><img src="images/me2.png" class="img-responsive" alt=""></a>
-                  </div>
-                  <div class="clearfix"></div>
                 </div>
               </ul>
             </li>
