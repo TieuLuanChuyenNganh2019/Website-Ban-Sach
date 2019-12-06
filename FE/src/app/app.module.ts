@@ -27,6 +27,9 @@ import { EditCateComponent } from './admin-category/edit-cate/edit-cate.componen
 import { ListPubComponent } from './admin-publisher/list-pub/list-pub.component';
 import { AddPubComponent } from './admin-publisher/add-pub/add-pub.component';
 import { EditPubComponent } from './admin-publisher/edit-pub/edit-pub.component';
+import { BookAuthorComponent } from './book-author/book-author.component';
+import { BookPubComponent } from './book-pub/book-pub.component';
+import { AdminReviewComponent } from './admin-review/admin-review.component';
 
 
 @NgModule({
@@ -52,6 +55,9 @@ import { EditPubComponent } from './admin-publisher/edit-pub/edit-pub.component'
     ListPubComponent,
     AddPubComponent,
     EditPubComponent,
+    BookAuthorComponent,
+    BookPubComponent,
+    AdminReviewComponent,
 
   ],
   imports: [

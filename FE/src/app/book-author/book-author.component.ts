@@ -1,14 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Books } from '../models/book';
 import { BooksService } from '../service/book.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 @Component({
-  selector: 'app-book1',
-  templateUrl: './book1.component.html',
-  styleUrls: ['./book1.component.css']
+  selector: 'app-book-author',
+  templateUrl: './book-author.component.html',
+  styleUrls: ['./book-author.component.css']
 })
-export class Book1Component implements OnInit {
+export class BookAuthorComponent implements OnInit {
+
   books: Books[];
   mySubscription: any;
   id1: string = this.route.snapshot.paramMap.get('id1');
@@ -33,22 +34,14 @@ export class Book1Component implements OnInit {
       }
   }
   async ngOnInit() {
-    await this.getAllBookFromCateID();
+    await this.getAllBookFromAuthorID();
   }
 
-  private getAllBook() {
-    this.BooksService.getBooks().subscribe(res => this.books =res);
-  }
-  async getAllBookFromCateID() {
+  async getAllBookFromAuthorID() {
     const id = this.route.snapshot.paramMap.get('id');
-    const id1 = this.route.snapshot.paramMap.get('id1');
-    await this.BooksService.getBooksFromCateID(id).toPromise().then(res => this.books = res);
-    //this.refresh();
+    await this.BooksService.getBooksFromAuthorID(id).toPromise().then(res => this.books = res);
   }
   refresh(): void {
     location.reload();
   }
-
-
-
 }
