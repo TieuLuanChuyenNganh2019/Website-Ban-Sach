@@ -16,7 +16,6 @@ export interface Books {
   discount: string;
 }
 export interface Books1 {
-
   title: string;
   description: string;
   //publishDate: Date;

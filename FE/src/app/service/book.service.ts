@@ -31,6 +31,9 @@ export class BooksService {
   addBook(Books2: Books1): Observable<Books1> {
     return this.http.post<Books1>(this.bookURL, Books2 );
   }
+  addBook1(Books2: Books1): Observable<Books1> {
+    return this.http.post<Books1>(this.bookURL, Books2 );
+  }
   delete(id: string): Observable<Books> {
     return this.ApiService.delete<Books>(`${this.bookURL}/${id}`);
   }
@@ -61,5 +64,26 @@ export class BooksService {
   //       catchError(this.handleError<Hero[]>('searchHeroes', []))
   //     );
   // }
+
+  addBookss(title: string, description: string, pageCount: number,
+    price: number , availableQuantity: number , publisher: string , author: string,
+     categories: string , discount: number , image: File): Observable<any> {
+    var formData: any = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('pageCount', pageCount);
+    formData.append('price', price);
+    formData.append('availableQuantity', availableQuantity);
+    formData.append('publisher', publisher);
+    formData.append('author', author);
+    formData.append('categories', categories);
+    formData.append('discount', discount);
+    formData.append('image', image);
+
+    return this.http.post<Books1>(this.bookURL, formData, {
+      reportProgress: true,
+      observe: 'events'
+    })
+  }
 }
 
