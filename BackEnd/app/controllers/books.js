@@ -113,7 +113,7 @@ module.exports = {
             });
 
              // add book in books of Category
-             Category.findById(req.body.categories, (err,cate) =>{
+            Category.findById(req.body.categories, (err,cate) =>{
                 if(err)
                 {
                     return res.status(500).json({
