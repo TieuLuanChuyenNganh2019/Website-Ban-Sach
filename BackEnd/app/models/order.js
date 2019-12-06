@@ -1,10 +1,12 @@
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-// schema book
-const orderSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  book: { type: mongoose.Schema.Types.ObjectId, ref: 'Book', required: true},
-  quantity: {type: Number , default: 1}
+var schema = new Schema({
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    cart: {type: Object, required: true},
+    address: {type: String, required: true},
+    name: {type: String, required: true},
+    paymentId: {type: String, required: true}
 });
 
-module.exports = mongoose.model('Order', orderSchema);
+module.exports = mongoose.model('Order', schema);

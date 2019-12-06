@@ -98,7 +98,20 @@ module.exports = {
     },
 
     deleteReview: (req,res, next) => {
-        const reviewId = req.params.reviewId;
+        const id = req.params.reviewId;
+        Review.remove({ _id: id })
+            .exec()
+            .then(result => {
+                res.status(200).json({
+                    message: 'Review deleted',
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
         
     }
    
