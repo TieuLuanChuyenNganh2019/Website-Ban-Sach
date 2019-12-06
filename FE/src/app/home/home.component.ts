@@ -3,6 +3,7 @@ import { Books } from '../models/book';
 import { BooksService } from '../service/book.service';
 import { CateService } from '../service/cate.service';
 import { Cate } from '../models/cate';
+import { BookPubComponent } from '../book-pub/book-pub.component';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ import { Cate } from '../models/cate';
 export class HomeComponent implements OnInit {
 
   books: Books[];
-  cates: Cate[]
+  cates: Cate[];
+  searchbook: Books;
 
   constructor(private BooksService: BooksService,
               private CateService: CateService, ) { }
@@ -28,4 +30,12 @@ export class HomeComponent implements OnInit {
   private getAllCate() {
     this.CateService.getCates().subscribe(res => this.cates = res);
   }
+  // search(searchTerm: string) {
+  //   this.searchbook = undefined;
+  //   if (searchTerm) {
+  //     this.heroesService
+  //       .searchHeroes(searchTerm)
+  //       .subscribe(heroes => (this.heroes = heroes));
+  //   }
+  // }
 }

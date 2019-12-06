@@ -21,23 +21,25 @@ export class AddBookComponent implements OnInit {
   ngOnInit() {
 
   }
-  save(title: string, description: string, pageCount: number,
-          price: number , availableQuantity: number, image: File ) {
-    const newBook: Books1 = { title, description, pageCount, price, availableQuantity, image } as Books1;
-    this.BooksService.addBook(newBook).subscribe(res => this.Book = res.books,
+  async save(title: string, description: string, pageCount: number,
+          price: number , availableQuantity: number , publisher: string , author: string,
+           categories: string , discount: number , image: File ) {
+    const newBook: Books1 = { title, description, pageCount, price, availableQuantity,
+                              publisher, author, categories, discount, image } as Books1;
+    await this.BooksService.addBook(newBook).toPromise().then(res => this.Book = res,
                                            error => this.showMessage = error);
-    alert(this.showMessage);
+    await alert(this.showMessage);
 
   }
   save1() {
-    this.BooksService.addBook(this.Book).subscribe(res => this.Book = res.books,
+    this.BooksService.addBook(this.Book).subscribe(res => this.Book = res,
                                                 error => this.showMessage = error) ;
     alert(this.showMessage);
     console.log(this.Book);
   }
   onFileChanged(event: any) {
     this.files = event.target.files;
-    console.log(this.files);
+    //console.log(this.files);
   }
   handleFileInput(file: FileList) {
     this.FileUpload = file.item(0);

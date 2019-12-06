@@ -28,8 +28,8 @@ export class BooksService {
   getBooks(): Observable<Books[]> {
     return this.ApiService.get<Books[]>(this.bookURL).pipe();
   }
-  addBook(Books: Books1): Observable<RootObj<Books1>> {
-    return this.ApiService.post<RootObj<Books1>>(this.ApiService.apiURL.getbooks, Books );
+  addBook(Books2: Books1): Observable<Books1> {
+    return this.http.post<Books1>(this.bookURL, Books2 );
   }
   delete(id: string): Observable<Books> {
     return this.ApiService.delete<Books>(`${this.bookURL}/${id}`);
@@ -50,5 +50,16 @@ export class BooksService {
     const url = `${this.bookURL}/${id}/authors`;
     return this.http.get<Books[]>(url).pipe();
   }
+  // searchHeroes(term: string): Observable<Books[]> {
+  //   term = term.trim();
+  //  // Add safe, URL encoded search parameter if there is a search term
+  //   const options = term ?
+  //    { params: new HttpParams().set('name', term) } : {};
+
+  //   return this.http.get<Books[]>(this.heroesUrl, options)
+  //     .pipe(
+  //       catchError(this.handleError<Hero[]>('searchHeroes', []))
+  //     );
+  // }
 }
 
