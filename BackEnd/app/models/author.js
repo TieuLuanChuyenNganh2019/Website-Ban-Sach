@@ -9,11 +9,11 @@ const authorSchema = new Schema({
     },
     firstname: {
         type: String,
-        required: true
+        required: false
     },
     lastname: {
         type: String,
-        required: true
+        required: false
     },
     books: [{
       type: mongoose.Schema.Types.ObjectId,

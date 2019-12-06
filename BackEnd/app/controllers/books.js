@@ -61,7 +61,7 @@ module.exports = {
 
     },
     createBook: (req, res, next) => {
-        cloudinary.v2.uploader.upload(req.file.path,async (err, result) => {
+        cloudinary.v2.uploader.upload(req.file.path, async (err, result) => {
             if (err) {
                 //req.flash('error', err.message);
                 return res.redirect('back');
@@ -98,12 +98,23 @@ module.exports = {
             book.publisher = req.body.publisher;
             book.discount = req.body.discount;
 
-            book.save();
-           
+            book.save().exec()
+                .then(result => {
+                    console.log(result);
+                    res.status(201).json({
+                        message: 'Created book successfully',
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).json({
+                        error: err
+                    });
+                });
+
             // add book in books of Author
-            Author.findById(req.body.author, (err,author) =>{
-                if(err)
-                {
+            Author.findById(req.body.author, (err, author) => {
+                if (err) {
                     return res.status(500).json({
                         error: err
                     });
@@ -112,10 +123,16 @@ module.exports = {
                 author.save();
             });
 
+<<<<<<< HEAD
              // add book in books of Category
             Category.findById(req.body.categories, (err,cate) =>{
                 if(err)
                 {
+=======
+            // add book in books of Category
+            Category.findById(req.body.categories, (err, cate) => {
+                if (err) {
+>>>>>>> 45555e7c48c8207339fb0c8de9baa08a0aaf6d3f
                     return res.status(500).json({
                         error: err
                     });
@@ -123,10 +140,9 @@ module.exports = {
                 cate.books.push(book);
                 cate.save();
             });
-             // add book in books of Publisher
-             Publisher.findById(req.body.publisher, (err,publisher) =>{
-                if(err)
-                {
+            // add book in books of Publisher
+            Publisher.findById(req.body.publisher, (err, publisher) => {
+                if (err) {
                     return res.status(500).json({
                         error: err
                     });
@@ -241,12 +257,12 @@ module.exports = {
         res.status(200).json(cate.books);
     },
 
-   // Get book by ID Author
-   getBookByAuthorId: async (req, res, next) => {
-    const authorId = req.params.authorId;
-    const author = await Author.findById(authorId).populate('books');
-    res.status(200).json(author.books);
-},
+    // Get book by ID Author
+    getBookByAuthorId: async (req, res, next) => {
+        const authorId = req.params.authorId;
+        const author = await Author.findById(authorId).populate('books');
+        res.status(200).json(author.books);
+    },
 
     // Get book by ID Publisher
     getBookByPublisherId: async (req, res, next) => {
@@ -318,7 +334,7 @@ module.exports = {
                     book.availableQuantity = req.body.availableQuantity;
 
                     book.author = req.body.author;
-                   book.categories.push(req.body.categories);
+                    book.categories.push(req.body.categories);
                     book.publisher = req.body.publisher;
                     book.discount = req.body.discount;
                     book.save();
