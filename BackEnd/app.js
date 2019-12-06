@@ -3,7 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 // content 
 const app = express();
 const bookRoutes = require('./app/routes/books');
@@ -38,6 +40,8 @@ app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({secret: 'mysecret', resave: false, saveUninitialized: false}));
 
 // CORS
 app.use((req, res, next) => {
