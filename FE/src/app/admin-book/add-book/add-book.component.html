@@ -1,4 +1,4 @@
-
+<form [formGroup]="form" (ngSubmit)="submitForm()">
 <div class="jumbotron">
     <div class="container">
 
@@ -14,11 +14,11 @@
           <div class="container" style="width:50%;">
                 <div >
                   <h3>Tựa sách</h3>
-                  <input #title type="text" class="form-control"    placeholder="tên sách"  >
+                  <input #title type="text" [alt]="form.value.title" class="form-control"    placeholder="tên sách"  >
                 </div>
                 <div>
                   <h3>Mô tả</h3>
-                  <input #description  type="text" class="form-control"  placeholder="nội dung sách"  >
+                  <input #description  type="text" [alt]="form.value.description" class="form-control"  placeholder="nội dung sách"  >
                 </div>
                 <!-- <div>
                   <h3>Ngày Xuất Bản</h3>
@@ -26,52 +26,60 @@
                 </div> -->
                 <div>
                   <h3>Số Trang</h3>
-                  <input #pageCount type="number" class="form-control"  placeholder="số lượng trang" >
+                  <input #pageCount type="number" [alt]="form.value.pageCount" class="form-control"  placeholder="số lượng trang" >
                 </div>
                 <div>
                   <h3>Giá</h3>
-                  <input #price type="number" class="form-control"  placeholder="giá" >
+                  <input #price type="number" [alt]="form.value.price" class="form-control"  placeholder="giá" >
                   </div>
                 <div>
                     <h3>Tên Tác Giả</h3>
-                    <input #author type="text" class="form-control" placeholder="tên tác giả" >
+                    <input #author type="text" [alt]="form.value.author" class="form-control" placeholder="tên tác giả" >
                 </div>
                 <div>
                   <h3>Nhà Xuất Bản</h3>
-                  <input #publisher type="text" class="form-control" placeholder="nxb" >
+                  <input #publisher type="text" [alt]="form.value.publisher" class="form-control" placeholder="nxb" >
               </div>
                 <div>
                     <h3>Số lượng có sẵn</h3>
-                    <input #availableQuantity type="number" class="form-control"  placeholder="có sẵn"  >
+                    <input #availableQuantity type="number" [alt]="form.value.availableQuantity" class="form-control"  placeholder="có sẵn"  >
                 </div>
                 <div>
                   <h3>Giảm Giá</h3>
-                  <input #discount type="number" class="form-control" placeholder="giảm giá" >
+                  <input #discount type="number" [alt]="form.value.discount" class="form-control" placeholder="giảm giá" >
               </div>
               <div>
                 <h3>Thể Loại</h3>
-                <input #categories type="text" class="form-control" placeholder="thể loại" >
+                <input #categories type="text" [alt]="form.value.categories" class="form-control" placeholder="thể loại" >
             </div>
+
                 <div>
                   <h3>Image</h3>
                   <img src="{{imageUR}}" style="width: 200px; height:200px">
-                  <input #image type="file" accept="images/*" (change)="handleFileInput($event.target.files)" class="form-control" required >
-
-              </div>
+                  <form enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                    <input #image name="image" type="file" accept="images/*" (change)="handleFileInput($event.target.files)" class="form-control"  >
+                    <input type="file" name="image" #image (change)="uploadFile($event)"> </div>
+                  </form>
+                </div>
                 <div>
                   <label></label>
                   <button class="btn btn-secondary btn-circle pull-right" style="margin-top: 15px; margin-left: 10px;" title="Add"
                     type="submit" routerLink="/admin/listbook">Back <i class="fas fa-undo"></i></button>
                   <button class="btn btn-success btn-circle pull-right" style="margin-top: 15px;" title="Add"
                     type="submit" (click)="save(title.value, description.value, pageCount.value,
-                    price.value, availableQuantity.value, publisher.value, author.value, categories.value, discount.value, image.value)">Save<i class="fa fa-check-square-o"></i></button>
+                    price.value, availableQuantity.value, publisher.value, author.value, categories.value, discount.value, FileUpload)">Save<i class="fa fa-check-square-o"></i></button>
                 </div>
-
-                {{FileUpload.name}}
+                {{image.value}}
+                {{FileUpload}}
 
             </div>
+
+
          </div>
 
 
   </div>
+
+</form>
 
