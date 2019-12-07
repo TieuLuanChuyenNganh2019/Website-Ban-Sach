@@ -4,12 +4,50 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require("../models/user");
-const csrf = require('csurf');
+const helper = require('../utils/helper');
+const { PagingResult } = require('./../utils/base_response');
 
-const csrfProtection = csrf();
-router.use(csrfProtection);
- 
 
+
+
+router.get('/', (req, res, next) => {
+  User.find({})
+      .exec()
+      .then(docs => {
+          if (docs.length >= 0) {
+              res.status(200).json(docs);
+          } else {
+              res.status(404).json({
+                  message: "No Entries Found"
+              });
+          }
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json({
+              error: err
+          });
+      });
+});
+
+router.get('/userId', (req, res, next) => {
+  const id = req.params.userId;
+   User.findById(id)
+      .exec()
+      .then(doc => {
+          console.log("From database", doc);
+          if (doc) {
+              return res.status(200).json(doc);
+          } else {
+              res.status(404).json({ message: "No valid entry found for provided ID" });
+          }
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json({ error: err });
+      });
+
+})
 router.post("/signup", (req, res, next) => {
   User.find({ email: req.body.email })
     .exec()

@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
+const passport = require('passport');
 // content 
 const app = express();
 const bookRoutes = require('./app/routes/books');
@@ -29,6 +30,7 @@ mongoose.connect(//'mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@selli
                     }
 );
 
+
 // Authentication 
  //app.use(auth);
  //app.use(express.static(path.join(__dirname, 'public')));
@@ -42,6 +44,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({secret: 'mysecret', resave: false, saveUninitialized: false}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // CORS
 app.use((req, res, next) => {
