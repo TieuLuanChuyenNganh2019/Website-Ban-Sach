@@ -8,12 +8,6 @@ module.exports = {
         Author.find({})
             .exec()
             .then(docs => {
-                // const response = {
-                //     count: docs.length,
-                //     authors: docs.map(doc => {
-                //         return doc
-                //     })
-                // };
                 if (docs.length >= 0) {
                     res.status(200).json(docs);
                 } else {

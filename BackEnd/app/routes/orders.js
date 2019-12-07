@@ -1,15 +1,15 @@
 // define dependence
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const orderController = require('./../controllers/orders');
 
+// authentication
+const checkauth = require('./../middleware/auth');
+router.use((req, res, next) => {
+    next();
+});
 
-const Book = require('../models/book');
-// http://localhost:8080/orders
 router.get('/', orderController.getOrder);
-
 router.get('/:orderId', orderController.getOrderID);
-
 router.delete('/:orderId', orderController.deleteOrder);
 module.exports = router;

@@ -25,6 +25,11 @@ var schema = new Schema({
     cart: {
         type: Object,
         required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now,
+        required: true
     }
 });
 

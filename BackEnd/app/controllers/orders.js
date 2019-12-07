@@ -3,25 +3,15 @@ module.exports = {
     // Get Orders 
     getOrder : (req, res, next) => {
         Order.find()
-        .select('book quantity _id')
-        .populate('book')
         .exec()
         .then(docs => {
-            res.status(200).json({
-                count: docs.length,
-                orders: docs.map(doc => {
-                    return {
-                        _id: doc.id,
-                        book: doc.book,
-                        quantity: doc.quantity,
-                        request: {
-                         type: 'GET',
-                         url: 'http://localhost:8080/orders/'+ doc._id
-                     }
-                    }
-                })
-                
-            });
+            if (docs.length >= 0) {
+                res.status(200).json(docs);
+            } else {
+                res.status(404).json({
+                    message: "No Entries Found"
+                });
+            }
         })
         .catch(err => {
             res.status(500).json({
@@ -30,46 +20,7 @@ module.exports = {
         });
      },
 
-     // Create Orders
-     createOrder: (req, res, next) => {
-        Book.findById(req.body.bookID)
-        .then(book => {
-            if(!book)
-            {
-                return res.status(404).json({
-                    message: "Book not found"
-                });
-            }
-            const order = new Order({
-                _id: mongoose.Types.ObjectId(),
-                quantity: req.body.quantity,
-                book: req.body.bookID
-            });
-            return order.save();
-        })
-        .then(result => {
-            console.log(result);
-            res.status(201).json({
-                message: 'Order Created',
-                createOrder: {
-                    _id: result._id,
-                    book: result.book,
-                    quantity: result.quantity
-                },
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:8080/orders/'+ result._id
-                }
-            })
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
-        
-    },
+   
 
     // Delete Order
     deleteOrder: (req, res, next) => {
@@ -77,12 +28,7 @@ module.exports = {
         .exec()
         .then(result => {
             res.status(200).json({
-                message: "Order deleted",
-                request: {
-                    type: 'POST',
-                    url: 'http://localhost:8080/orders',
-                    body: { bookID: "ID", quantity: "Number"}
-                }
+                message: "Order deleted"
             });
         })
         .catch(err => {
@@ -104,13 +50,7 @@ module.exports = {
                     message: "Order not found"
                 });
             }
-            res.status(200).json({
-                order: order,
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:8080/orders'
-                }
-            });
+            res.status(200).json(order);
         })
         .catch(err => {
             res.status(500).json({
