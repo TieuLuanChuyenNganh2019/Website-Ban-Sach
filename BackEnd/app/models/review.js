@@ -2,13 +2,6 @@ const mongoose = require('mongoose');
 
 // schema review
 const reviewSchema = mongoose.Schema({
-    // author: {
-    //     id:{
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Customer'
-    //     },
-    //     username: String
-    // },
     review: {
         type: Number ,required: true
     },

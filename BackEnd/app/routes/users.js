@@ -7,73 +7,47 @@ const User = require("../models/user");
 const helper = require('../utils/helper');
 const { PagingResult } = require('./../utils/base_response');
 
-router.use((req, res, next) => {
-  // authorize here
-  next();
- });
 
- // fill user apis here
-router.get('/', (req, res) => {
-  let page = 0;
-  if (req.query.p) page = parseInt(req.query.p);
-  let pageSize = 20;
-  if (req.query.s) pageSize = parseInt(req.query.s);
-  let queryString = '';
-  if (req.query.q) queryString = '%' + decodeURIComponent(req.query.q) + '%';
-  let sortColumn = 'email';
-  let sortDirection = 'ASC';
-  if (req.query.so) {
-      const sortStr = decodeURIComponent(req.query.so).split(' ');
-      sortColumn = sortStr[0];
-      if (sortStr.length == 2) sortDirection = sortStr[1];
-  }
-  const offset = page * pageSize;
-  if (queryString.length <= 2) {
-      User.count().then(numRow => {
-          const totalRows = numRow;
-          const totalPages = Math.ceil(totalRows/pageSize);
-          User.findAll({
-              order: [[sortColumn, sortDirection]],
-              offset: offset, 
-              limit: pageSize,               
-          }).then(users => {
-              return res.json(PagingResult(users, {
-                  pageNumber: page,
-                  pageSize: pageSize,
-                  totalRows: totalRows,
-                  totalPages: totalPages
-              }))
-          }); 
+
+
+router.get('/', (req, res, next) => {
+  User.find({})
+      .exec()
+      .then(docs => {
+          if (docs.length >= 0) {
+              res.status(200).json(docs);
+          } else {
+              res.status(404).json({
+                  message: "No Entries Found"
+              });
+          }
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json({
+              error: err
+          });
       });
-  }else { // search
-      // conditions
-      const whereClause = {
-          [Op.or]: [
-             { email: { [Op.like]: queryString } },
-             { password: { [Op.like]: queryString } }
-            
-          ]
-      };
-      user.count({ where: whereClause }).then(numRow => {
-          const totalRows = numRow;
-          const totalPages = Math.ceil(totalRows/pageSize);
-          User.findAll({
-              where: whereClause,
-              order: [[sortColumn, sortDirection]],
-              offset: offset, 
-              limit: pageSize
-          }).then(users => {
-              return res.json(PagingResult(users, {
-                  pageNumber: page,
-                  pageSize: pageSize,
-                  totalRows: totalRows,
-                  totalPages: totalPages
-              }))
-          }); 
-      });
-  }
 });
 
+router.get('/userId', (req, res, next) => {
+  const id = req.params.userId;
+   User.findById(id)
+      .exec()
+      .then(doc => {
+          console.log("From database", doc);
+          if (doc) {
+              return res.status(200).json(doc);
+          } else {
+              res.status(404).json({ message: "No valid entry found for provided ID" });
+          }
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json({ error: err });
+      });
+
+})
 router.post("/signup", (req, res, next) => {
   User.find({ email: req.body.email })
     .exec()
