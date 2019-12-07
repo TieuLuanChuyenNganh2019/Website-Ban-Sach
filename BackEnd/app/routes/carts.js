@@ -15,7 +15,7 @@ router.get('/add-to-cart/:id', (req, res, next) => {
        if (err) {
            return res.status(500).json({});
        }
-        cart.add(product, product.id);
+        cart.add(book, book.id);
         req.session.cart = cart;
         console.log(req.session.cart);
         res.redirect('/');
@@ -23,29 +23,35 @@ router.get('/add-to-cart/:id', (req, res, next) => {
 });
 
 router.get('/reduce/:id', function(req, res, next) {
-    const productId = req.params.id;
+    const bookId = req.params.id;
     const cart = new Cart(req.session.cart ? req.session.cart : {});
 
-    cart.reduceByOne(productId);
+    cart.reduceByOne(bookId);
     req.session.cart = cart;
     res.redirect('/shopping-cart');
+//    res.status(200).json({
+//        message: 'Ok'
+//    });
 });
 
 router.get('/remove/:id', function(req, res, next) {
-    const productId = req.params.id;
+    const bookId = req.params.id;
     const cart = new Cart(req.session.cart ? req.session.cart : {});
 
-    cart.removeItem(productId);
+    cart.removeItem(booktId);
     req.session.cart = cart;
     res.redirect('/shopping-cart');
+//    res.status(200).json({
+//        message:'Ok'
+//    });
 });
 
 router.get('/shopping-cart', function(req, res, next) {
    if (!req.session.cart) {
-       return res.render('shop/shopping-cart', {products: null});
+       return res.render('shop/shopping-cart', {books: null});
    } 
    const cart = new Cart(req.session.cart);
-    res.render('shop/shopping-cart', {products: cart.generateArray(), totalPrice: cart.totalPrice});
+    res.render('shop/shopping-cart', {books: cart.generateArray(), totalPrice: cart.totalPrice});
 });
 
 router.get('/checkout', isLoggedIn, function(req, res, next) {
@@ -63,26 +69,26 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
     }
     const cart = new Cart(req.session.cart);
     
-    const stripe = require("stripe")(
-        "sk_test_fwmVPdJfpkmwlQRedXec5IxR"
-    );
+    // const stripe = require("stripe")(
+    //     "sk_test_fwmVPdJfpkmwlQRedXec5IxR"
+    // );
 
-    stripe.charges.create({
-        amount: cart.totalPrice * 100,
-        currency: "usd",
-        source: req.body.stripeToken, // obtained with Stripe.js
-        description: "Test Charge"
-    }, function(err, charge) {
-        if (err) {
-            req.flash('error', err.message);
-            return res.redirect('/checkout');
-        }
+    // stripe.charges.create({
+    //     amount: cart.totalPrice * 100,
+    //     currency: "usd",
+    //     source: req.body.stripeToken, // obtained with Stripe.js
+    //     description: "Test Charge"
+    // }, function(err, charge) {
+    //     if (err) {
+    //         req.flash('error', err.message);
+    //         return res.redirect('/checkout');
+    //     }
         const order = new Order({
             user: req.user,
             cart: cart,
             address: req.body.address,
             name: req.body.name,
-            paymentId: charge.id
+          //  paymentId: charge.id
         });
         order.save(function(err, result) {
             req.flash('success', 'Successfully bought product!');
@@ -90,7 +96,8 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
             res.redirect('/');
         });
     }); 
-});
+//)}
+;
 
 module.exports = router;
 
@@ -99,5 +106,5 @@ function isLoggedIn(req, res, next) {
         return next();
     }
     req.session.oldUrl = req.url;
-    res.redirect('/user/signin');
+    res.redirect('/user/login');
 }
