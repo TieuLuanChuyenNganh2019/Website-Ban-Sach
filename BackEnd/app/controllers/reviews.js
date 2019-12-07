@@ -30,7 +30,7 @@ module.exports = {
     },
 
     createReview: (req, res, next) => {
-        Book.findById(req.body.id, (err, book) => {
+        Book.findById(req.body.bookId, (err, book) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json({
@@ -40,6 +40,7 @@ module.exports = {
                 const review = new Review();
                 review.review = req.body.review;
                 review.comment = req.body.comment;
+                review.bookId = req.body.bookId;
                 Review.create(review, (err, review) => {
                     if (err) {
                         console.log("Error creating Review: ", err);

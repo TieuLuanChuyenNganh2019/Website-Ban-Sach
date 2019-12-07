@@ -98,7 +98,7 @@ module.exports = {
             book.publisher = req.body.publisher;
             book.discount = req.body.discount;
 
-            book.save().exec()
+            book.save()
                 .then(result => {
                     console.log(result);
                     res.status(201).json({
@@ -123,16 +123,9 @@ module.exports = {
                 author.save();
             });
 
-<<<<<<< HEAD
-             // add book in books of Category
-            Category.findById(req.body.categories, (err,cate) =>{
-                if(err)
-                {
-=======
             // add book in books of Category
             Category.findById(req.body.categories, (err, cate) => {
                 if (err) {
->>>>>>> 45555e7c48c8207339fb0c8de9baa08a0aaf6d3f
                     return res.status(500).json({
                         error: err
                     });
