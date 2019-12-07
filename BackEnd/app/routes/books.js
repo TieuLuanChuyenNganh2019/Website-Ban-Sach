@@ -7,7 +7,6 @@ const bookController = require('./../controllers/books');
 
 
 // authentication
-const checkauth = require('./../middleware/auth');
 router.use((req, res, next) => {
     next();
 });
