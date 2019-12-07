@@ -2,20 +2,28 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+    // user: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User'
+    // },
+    email: {
+        type: String,
+        required: true
     },
-    cart: {
-        type: Object,
+    name: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
         required: true
     },
     address: {
         type: String,
         required: true
     },
-    name: {
-        type: String,
+    cart: {
+        type: Object,
         required: true
     }
 });
