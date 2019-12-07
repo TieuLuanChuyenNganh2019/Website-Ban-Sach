@@ -17,7 +17,7 @@ const categoryRoutes = require('./app/routes/categories');
 const staffRoutes = require('./app/routes/staffs');
 const publisherRoutes = require('./app/routes/publishers');
 const reviewRoutes = require('./app/routes/reviews');
-const auth = require('./app/middleware/auth')
+//const auth = require('./app/middleware/auth')
 
 
 // connect to mongoose Atlase

@@ -3,11 +3,12 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const bookController = require('./../controllers/books');
+//const checkAuth = require('./../middleware/auth');
 
 
-
-router.use((req, res, next) => {
-    // authorize here
+// authentication
+const checkauth = require('./../middleware/auth');
+router.use(checkauth,(req, res, next) => {
     next();
 });
 
@@ -42,7 +43,7 @@ const upload = multer({
 
 // http://localhost:8080/books
 
-router.get('/', bookController.getListBook);
+router.get('/',bookController.getListBook);
 
 router.post('/', upload.single('image'), bookController.createBook);
 
