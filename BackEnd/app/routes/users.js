@@ -108,23 +108,29 @@ router.post('/login', (req,res,next) => {
           message: 'Authentication failed'
         });
       }
-      if(result) {
-        const token = jwt.sign({
-          email: user[0].email,
-          userId: user[0]._id
-        }, process.env.JWT_KEY,
-       {
-         expiresIn: "2h"
-       }
-        );
+      else{
         return res.status(200).json({
-          message: 'Authentication successful',
-          _id: user[0]._id,
-          email: user[0].email,
-          password: user[0].password,
-          token: token
+          result,
+          message: 'Login successfully'
         });
       }
+      // if(result) {
+      //   const token = jwt.sign({
+      //     email: user[0].email,
+      //     userId: user[0]._id
+      //   }, process.env.JWT_KEY,
+      //  {
+      //    expiresIn: "2h"
+      //  }
+      //   );
+      //   return res.status(200).json({
+      //     message: 'Authentication successful',
+      //     _id: user[0]._id,
+      //     email: user[0].email,
+      //     password: user[0].password,
+      //     token: token
+      //   });
+      // }
       return res.status(401).json({
         message: 'Invalid username or password'
       });
