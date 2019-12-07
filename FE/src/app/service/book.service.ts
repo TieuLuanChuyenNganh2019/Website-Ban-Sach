@@ -64,13 +64,16 @@ export class BooksService {
   //       catchError(this.handleError<Hero[]>('searchHeroes', []))
   //     );
   // }
-
-  addBookss(title: string, description: string, pageCount: number,
+  editBook(book: Books): Observable<any> {
+    return this.http.put(`${this.bookURL}/${book._id}`, book, httpOptions).pipe();
+  }
+  addBookss(title: string, description: string,publishDate:Date, pageCount: number,
     price: number , availableQuantity: number , publisher: string , author: string,
      categories: string , discount: number , image: File): Observable<any> {
     var formData: any = new FormData();
     formData.append('title', title);
     formData.append('description', description);
+    formData.append('publishDate',publishDate);
     formData.append('pageCount', pageCount);
     formData.append('price', price);
     formData.append('availableQuantity', availableQuantity);
@@ -80,10 +83,7 @@ export class BooksService {
     formData.append('discount', discount);
     formData.append('image', image);
 
-    return this.http.post<Books1>(this.bookURL, formData, {
-      reportProgress: true,
-      observe: 'events'
-    })
+    return this.http.post<Books1>(this.bookURL, formData)
   }
 }
 

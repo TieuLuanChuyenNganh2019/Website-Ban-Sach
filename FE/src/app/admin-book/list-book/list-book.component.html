@@ -21,7 +21,12 @@
   </div>
 
 <div class="container">
-    <h1>List Book</h1>
+    <h1 style="margin-top: 30px;">Danh sách Sách</h1>
+    <div class="ser-t">
+        <b></b>
+        <span><i></i></span>
+        <b class="line"></b>
+      </div>
     <div style="margin-bottom: 50px;" >
         <button class="btn btn-success btn-circle pull-left" routerLink="/admin/addbook"  title="Add CLass" type="submit">Add<i class="fas fa-plus"></i></button>
     </div>
@@ -50,7 +55,7 @@
               <td><img src="{{each.imageUrl}}" class="backgr"></td>
               <td style="width: 90px;">
                   <i class="fas fa-edit" style="margin-right: 10px;"
-                   title="Edit"></i>
+                   title="Edit"  routerLink="/admin/editbook/{{each._id}}"></i>
                   <i class="fas fa-trash"
                     (click)="delete(each.title, each._id)" title="Delete"></i>
               </td>
