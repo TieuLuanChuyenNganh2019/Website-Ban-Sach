@@ -126,11 +126,7 @@ module.exports = {
             // add book in books of Category
             Category.findById(req.body.categories, (err, cate) => {
                 if (err) {
-<<<<<<< HEAD
-                    return res.status(500).json({
-=======
                     return res.status(204).json({
->>>>>>> 0043a293b1cbf2f2189811676a9088018c5605a4
                         error: err
                     });
                 }
