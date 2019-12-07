@@ -1,4 +1,10 @@
 
+h2{
+  font-size: 20px;
+}
+.modal {
+  top:20%;
+}
 .jumbotron {
   background-color: #353535;
   margin-top: 3px;

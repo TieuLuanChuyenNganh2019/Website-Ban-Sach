@@ -23,11 +23,12 @@ import { EditPubComponent } from './admin-publisher/edit-pub/edit-pub.component'
 import { BookAuthorComponent } from './book-author/book-author.component';
 import { BookPubComponent } from './book-pub/book-pub.component';
 import { AdminReviewComponent } from './admin-review/admin-review.component';
+import { EditBookComponent } from './admin-book/edit-book/edit-book.component';
 
 
 const routes: Routes = [
   {path: 'book1', component: Book1Component},
-  {path: 'home', component: HomeComponent},
+  {path: 'home', component: HomeComponent, canActivate:[]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'cart', component: CartComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path: 'admin/listpub', component: ListPubComponent},
   {path: 'admin/addpub', component: AddPubComponent},
   {path: 'admin/editpub/:id', component: EditPubComponent},
+  {path: 'admin/editbook/:id', component: EditBookComponent},
   {path: 'books/:id/categories/:id1', component: Book1Component},
   {path: 'books/:id/authors/:id1', component: BookAuthorComponent},
   {path: 'books/:id/publishers/:id1', component: BookPubComponent},

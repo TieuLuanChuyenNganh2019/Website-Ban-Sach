@@ -2,7 +2,7 @@ export interface Books {
 
   title: string;
   description: string;
-  //publishDate: Date;
+  publishDate: Date;
   pageCount: number;
   price: number;
   availableQuantity: number;
@@ -18,7 +18,7 @@ export interface Books {
 export interface Books1 {
   title: string;
   description: string;
-  //publishDate: Date;
+  publishDate: Date;
   pageCount: number;
   price: number;
   availableQuantity: number;

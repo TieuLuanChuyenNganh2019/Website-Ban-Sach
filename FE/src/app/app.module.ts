@@ -30,6 +30,7 @@ import { EditPubComponent } from './admin-publisher/edit-pub/edit-pub.component'
 import { BookAuthorComponent } from './book-author/book-author.component';
 import { BookPubComponent } from './book-pub/book-pub.component';
 import { AdminReviewComponent } from './admin-review/admin-review.component';
+import { EditBookComponent } from './admin-book/edit-book/edit-book.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { AdminReviewComponent } from './admin-review/admin-review.component';
     BookAuthorComponent,
     BookPubComponent,
     AdminReviewComponent,
+    EditBookComponent,
 
   ],
   imports: [

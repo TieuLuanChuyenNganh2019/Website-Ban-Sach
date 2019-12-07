@@ -21,7 +21,12 @@
 </div>
 
 <div class="container">
-  <h1>Danh sách Đánh Giá</h1>
+    <h1 style="margin-top: 30px;">Danh Sách Đánh Giá</h1>
+    <div class="ser-t">
+        <b></b>
+        <span><i></i></span>
+        <b class="line"></b>
+      </div>
   <div style=" margin-bottom: 50px;" >
   </div>
 <div style="margin-top:10px;" class="table-responsive" >
@@ -36,7 +41,7 @@
       <tbody>
           <tr *ngFor="let rv of reviews | paginate: config">
             <td>{{rv.comment}}</td>
-            <td>{{rv.review}}<i class="fas fa-star" style="margin-left: 10px;"></i></td>
+            <td><b>{{rv.review}}</b><i class="fas fa-star" style="margin-left: 10px;"></i></td>
             <td style="width: 90px;">
                 <i class="fas fa-trash" (click)="delete(rv.comment, rv._id)"
                    title="Delete"></i>

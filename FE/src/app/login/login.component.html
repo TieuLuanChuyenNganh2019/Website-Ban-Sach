@@ -15,20 +15,19 @@
             <form action="#" method="post">
               <div class="key">
                 <i class="fa fa-envelope"  aria-hidden="true"></i>
-                <input  type="text" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                <input #email type="text" placeholder="email">
                 <div class="clearfix"></div>
               </div>
               <div class="key">
                 <i class="fa fa-lock" style="padding: 17px; height: 10px;" aria-hidden="true"></i>
-                <input  type="password" value="Password" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+                <input #password type="password" placeholder="password">
                 <div class="clearfix"></div>
               </div>
-              <input type="submit" value="Login" >
+              <input type="submit" value="Login" (click)="login(email.value, password.value)">
             </form>
           </div>
           <div class="forg">
-            <a href="#" class="forg-left">Forgot Password</a>
-            <a href="register.html" class="forg-right">Register</a>
+            <a routerLink="/register" class="forg-right">Signup</a>
           <div class="clearfix"></div>
           </div>
         </div>

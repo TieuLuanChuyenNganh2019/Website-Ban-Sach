@@ -104,9 +104,10 @@ router.post('/login', (req,res,next) => {
     }
     bcrypt.compare(req.body.password, user[0].password, (err,  result) => {
       if(err){
-        return res.status(401).json({
-          message: 'Authentication failed'
-        });
+        // return res.status(401).json({
+        //   message: 'Authentication failed'
+        // });
+        return res.flash('error','Authentication failed');
       }
       if(result) {
         const token = jwt.sign({

@@ -16,7 +16,7 @@
     <div class="content-top ">
       <div class="container">
           <div class="spec">
-              <h3>Giảm Giá Đặc Biệt</h3>
+              <h3>Sản Phẩm</h3>
               <div class="ser-t">
                 <b></b>
                 <span><i></i></span>
@@ -25,29 +25,31 @@
             </div>
 
             <div class="tab-head ">
-                <nav class="nav-sidebar">
+                <!-- <nav class="nav-sidebar">
                   <ul class="nav tabs ">
                     <li class="active"><a href="#tab1" data-toggle="tab">Thiếu Nhi</a></li>
                     <li class=""><a href="#tab2" data-toggle="tab">Văn Học</a></li>
                     <li class=""><a href="#tab3" data-toggle="tab">Đời Sống</a></li>
                     <li class=""><a href="#tab4" data-toggle="tab">Tiểu Thuyết</a></li>
                   </ul>
-                </nav>
-                <div class="tab-content tab-content-t">
-                  <div class="tab-pane active text-style" id="tab1">
-                      <div class="row">
-                          <div class="col-md-3 m-wthree" *ngFor="let bk of books">
+                </nav> -->
+                <div class="tab-content tab-content-t" >
+
+                    <div class="tab-pane active text-style" id="tab1">
+                        <div class="row"  >
+                          <div class="col-md-3 m-wthree" *ngFor="let bk of books" >
                             <div class="col-m">
                               <a routerLink="/details/{{bk._id}}"  class="offer-img">
                                 <img src="{{bk.imageUrl}}" class="img-responsive" alt="">
-                                <div class="offer"><p><span>Offer</span></p></div>
+                                <div class="offer" *ngIf="bk.discount !=='0'"><p ><span>Sale</span></p></div>
                               </a>
                               <div class="mid-1">
                                 <div class="women">
                                   <h6><a [routerLink]="['/details']">{{bk.title}}</a></h6>
                                 </div>
                                 <div class="mid-2">
-                                  <p ><label>{{bk.price}}</label><em class="item_price">18.000 VNĐ</em></p>
+                                  <p *ngIf="bk.discount ==='0'">{{bk.price}} đ</p>
+                                  <p *ngIf="bk.discount !=='0'"><label>{{bk.price}} đ</label><em class="item_price">{{bk.discount}} đ</em></p>
                                     <div class="block">
                                     <div class="starbox small ghosting"> </div>
                                   </div>
@@ -64,297 +66,7 @@
 
                       </div>
                   </div>
-                  <div class="tab-pane  text-style" id="tab2">
-                    <div class="row">
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                          <a href="#" data-toggle="modal" data-target="#myModal5" class="offer-img">
-                            <img src="images/of4.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Lão Hạc</a></h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>70.000 VNĐ</label><em class="item_price">56.000 VNĐ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="5" data-name="Lays" data-summary="summary 5" data-price="0.70" data-quantity="1" data-image="images/of4.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                          <a href="#" data-toggle="modal" data-target="#myModal5" class="offer-img">
-                            <img src="images/of4.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Lão Hạc</a></h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>70.000 VNĐ</label><em class="item_price">56.000 VNĐ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="5" data-name="Lays" data-summary="summary 5" data-price="0.70" data-quantity="1" data-image="images/of4.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                          <a href="#" data-toggle="modal" data-target="#myModal5" class="offer-img">
-                            <img src="images/of4.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Lão Hạc</a></h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>70.000 VNĐ</label><em class="item_price">56.000 VNĐ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="5" data-name="Lays" data-summary="summary 5" data-price="0.70" data-quantity="1" data-image="images/of4.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                          <a href="#" data-toggle="modal" data-target="#myModal5" class="offer-img">
-                            <img src="images/of4.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Lão Hạc</a></h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>70.000 VNĐ</label><em class="item_price">56.000 VNĐ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="5" data-name="Lays" data-summary="summary 5" data-price="0.70" data-quantity="1" data-image="images/of4.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="clearfix"></div>
-                     </div>
-                  </div>
-                  <div class="tab-pane  text-style" id="tab3">
-                    <div class="row">
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal9" class="offer-img">
-                            <img src="images/of8.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Thế Giới Động Vật</a>(6 pcs)</h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>50.000 VNĐ</label><em class="item_price">40.000 VNĐ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="9" data-name="Banana" data-summary="summary 9" data-price="1.50" data-quantity="1" data-image="images/of8.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal9" class="offer-img">
-                            <img src="images/of8.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Thế Giới Động Vật</a>(6 pcs)</h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>50.000 VNĐ</label><em class="item_price">40.000 VNĐ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="9" data-name="Banana" data-summary="summary 9" data-price="1.50" data-quantity="1" data-image="images/of8.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal9" class="offer-img">
-                            <img src="images/of8.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Thế Giới Động Vật</a>(6 pcs)</h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>50.000 VNĐ</label><em class="item_price">40.000 VNĐ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="9" data-name="Banana" data-summary="summary 9" data-price="1.50" data-quantity="1" data-image="images/of8.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal9" class="offer-img">
-                            <img src="images/of8.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Thế Giới Động Vật</a>(6 pcs)</h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>50.000 VNĐ</label><em class="item_price">40.000 VNĐ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="9" data-name="Banana" data-summary="summary 9" data-price="1.50" data-quantity="1" data-image="images/of8.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="clearfix"></div>
-                     </div>
-                  </div>
-                  <div class="tab-pane text-style" id="tab4">
-                      <div class="row">
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal13" class="offer-img">
-                            <img src="images/of12.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Sherlock Holmes</a></h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>$7.00</label><em class="item_price">$6.00</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="13" data-name="Honey" data-summary="summary 13" data-price="6.00" data-quantity="1" data-image="images/of12.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal13" class="offer-img">
-                            <img src="images/of12.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Sherlock Holmes</a></h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>$7.00</label><em class="item_price">$6.00</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="13" data-name="Honey" data-summary="summary 13" data-price="6.00" data-quantity="1" data-image="images/of12.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal13" class="offer-img">
-                            <img src="images/of12.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Sherlock Holmes</a></h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>$7.00</label><em class="item_price">$6.00</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="13" data-name="Honey" data-summary="summary 13" data-price="6.00" data-quantity="1" data-image="images/of12.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 m-wthree">
-                        <div class="col-m">
-                        <a href="#" data-toggle="modal" data-target="#myModal13" class="offer-img">
-                            <img src="images/of12.png" class="img-responsive" alt="">
-                            <div class="offer"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">Sherlock Holmes</a></h6>
-                            </div>
-                            <div class="mid-2">
-                              <p ><label>$7.00</label><em class="item_price">$6.00</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                              <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b" data-id="13" data-name="Honey" data-summary="summary 13" data-price="6.00" data-quantity="1" data-image="images/of12.png">Add to Cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="clearfix"></div>
-                     </div>
-                  </div>
+
                 </div>
               </div>
       </div>
@@ -362,39 +74,39 @@
 
     <!--content-->
     <div class="content-mid">
-      <div class="container">
-        <div class="row justify-content-start">
-          <div class="col-4">
-            <div class="col-md1" routerLink="/books/5de91c7ee3ef6d4d6856645c/categories/Trinh Thám">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
-                <div class="big-sale2">
-                    <h3>Tuổi <span>Thơ</span></h3>
-                    <p>Là thứ khó quên nhất của chúng ta</p>
-                  </div>
-            </div>
+        <div class="container">
+          <div class="row justify-content-start">
+            <div class="col-4">
+              <div class="col-md1" routerLink="/books/5de91d09e3ef6d4d68566461/categories/Sách Thiếu Nhi">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
+                  <div class="big-sale2">
+                      <h3>Tuổi <span>Thơ</span></h3>
+                      <p>Là thứ khó quên nhất của chúng ta</p>
+                    </div>
+              </div>
 
-          </div>
-          <div class="col-4">
-              <div class="col-md2">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
-                  <div class="big-sale">
-                      <div class="big-sale1">
-                        <h3>Big <span>Sale</span></h3>
-                        <p>Kiến thức nước ngoài thật phong phú </p>
+            </div>
+            <div class="col-4">
+                <div class="col-md2" routerLink="/books/5de91d09e3ef6d4d68566461/categories/Sách Thiếu Nhi">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
+                    <div class="big-sale">
+                        <div class="big-sale1">
+                          <h3>Big <span>Sale</span></h3>
+                          <p>Kiến thức nước ngoài thật phong phú </p>
+                        </div>
                       </div>
-                    </div>
-              </div>
-          </div>
-          <div class="col-4">
-              <div class="col-md3">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
-                  <div class="big-sa">
-                      <h6>Tuyển Tập</h6>
-                      <h3>Disco<span>very</span></h3>
-                      <p>Thế Giới muôn màu </p>
-                    </div>
-              </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="col-md3" routerLink="/books/5de91d09e3ef6d4d68566461/categories/Trinh Thám">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
+                    <div class="big-sa">
+                        <h6>Tuyển Tập</h6>
+                        <h3>Trinh<span> Thám</span></h3>
+                        <p>Từ người tốt đến kẻ xấu, cái thiện-cái ác, nạn nhân hay thủ phạm</p>
+                      </div>
+                </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>

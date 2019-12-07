@@ -32,7 +32,8 @@
 
 
             <div class="pr-single">
-              <p class="reduced"><del>{{books.price}}</del>$5.00</p>
+              <p class="reduced" *ngIf="books.discount !== '0'"><del>{{books.price}} VNĐ</del>{{books.discount}} VNĐ</p>
+              <p class="reduced" *ngIf="books.discount === '0'">{{books.price}} VNĐ</p>
             </div>
 
             <p class="in-pa">{{books.description}} </p>

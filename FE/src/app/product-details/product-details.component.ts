@@ -53,9 +53,9 @@ export class ProductDetailsComponent implements OnInit {
     await this.ReviewService.getReviewFromIDBook(id).toPromise().then(res => this.reviews = res);
     console.log(this.reviews);
   }
-  async save(review: number, comment: string ) {
-    const _id = this.route.snapshot.paramMap.get('id');
-    const newReview: Review = { _id, review, comment } as Review;
+  async save(review: number, comment: string) {
+    const bookId = this.route.snapshot.paramMap.get('id');
+    const newReview: Review = { review, comment, bookId } as Review;
     await this.ReviewService.addReview(newReview).toPromise().then(res => this.addreivew = res);
     await this.getReviewfromIDBook();
   }
