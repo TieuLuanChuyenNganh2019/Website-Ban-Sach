@@ -6,7 +6,7 @@ const authorController = require('./../controllers/authors');
 
 // authentication
 const checkauth = require('./../middleware/auth');
-router.use(checkauth,(req, res, next) => {
+router.use((req, res, next) => {
     next();
 });
 

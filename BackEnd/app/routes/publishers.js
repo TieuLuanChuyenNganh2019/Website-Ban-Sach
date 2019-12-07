@@ -7,7 +7,7 @@ const publisherController = require('./../controllers/publishers');
 
 // authentication
 const checkauth = require('./../middleware/auth');
-router.use(checkauth,(req, res, next) => {
+router.use((req, res, next) => {
     next();
 });
 

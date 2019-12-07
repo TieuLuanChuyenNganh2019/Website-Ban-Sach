@@ -17,7 +17,8 @@ const categoryRoutes = require('./app/routes/categories');
 const staffRoutes = require('./app/routes/staffs');
 const publisherRoutes = require('./app/routes/publishers');
 const reviewRoutes = require('./app/routes/reviews');
-//const auth = require('./app/middleware/auth')
+const cartRoutes = require('./app/routes/carts');
+const auth = require('./app/middleware/auth')
 
 
 // connect to mongoose Atlase
@@ -32,7 +33,7 @@ mongoose.connect(//'mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@selli
 
 
 // Authentication 
-// app.use(auth);
+ app.use(auth);
  //app.use(express.static(path.join(__dirname, 'public')));
 
 //Ép Mongoose sử dụng thư viện promise toàn cục
@@ -70,6 +71,7 @@ app.use('/categories',categoryRoutes);
 app.use('/staffs',staffRoutes);
 app.use('/publishers', publisherRoutes);
 app.use('/reviews',reviewRoutes);
+app.use('/carts',cartRoutes);
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;
