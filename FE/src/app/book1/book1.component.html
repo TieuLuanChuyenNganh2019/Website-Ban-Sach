@@ -13,52 +13,7 @@
     </div>
 
     <!--content-->
-    <div class="content-top ">
-        <div class="container">
-            <div class="spec">
-                <h3>Giảm Giá Đặc Biệt</h3>
-                <div class="ser-t">
-                  <b></b>
-                  <span><i></i></span>
-                  <b class="line"></b>
-                </div>
-              </div>
 
-
-                    <div class="row">
-                      <div class="col-md-3 m-wthree" *ngFor="let book of books">
-                        <div class="col-m" *ngIf="book.discount !=='0'">
-                          <a routerLink="/details/{{book._id}}" class="offer-img">
-                            <img src="{{book.imageUrl}}"  class="img-responsive" alt="">
-                            <div class="offer" *ngIf="book.discount !=='0'"><p><span>Offer</span></p></div>
-                          </a>
-                          <div class="mid-1">
-                            <div class="women">
-                              <h6><a href="single.html">{{book.title}}</a></h6>
-                            </div>
-                            <div class="mid-2">
-                                <p *ngIf="book.discount ==='0'">{{book.price}} đ</p>
-                                <p *ngIf="book.discount !=='0'"><label>{{book.price}} đ</label><em class="item_price">{{book.discount}} đ</em></p>
-                                <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="add">
-                               <button class="btn btn-danger my-cart-btn my-cart-b " data-id="1" data-name="Moong" data-summary="summary 1" data-price="1.50" data-quantity="1" data-image="images/of.png">Add to Cart</button>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="clearfix"></div>
-                     </div>
-
-
-
-        </div>
-      </div>
 
 
     <!--content-->

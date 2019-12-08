@@ -24,6 +24,7 @@ import { BookAuthorComponent } from './book-author/book-author.component';
 import { BookPubComponent } from './book-pub/book-pub.component';
 import { AdminReviewComponent } from './admin-review/admin-review.component';
 import { EditBookComponent } from './admin-book/edit-book/edit-book.component';
+import { CartService } from './service/cart.service';
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
   {path: 'books/:id/authors/:id1', component: BookAuthorComponent},
   {path: 'books/:id/publishers/:id1', component: BookPubComponent},
   {path: 'admin/listreview', component: AdminReviewComponent},
+  {path: 'carts/:id', component: CartComponent},
 ];
 
 @NgModule({

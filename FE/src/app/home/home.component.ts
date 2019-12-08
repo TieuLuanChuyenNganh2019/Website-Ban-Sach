@@ -4,6 +4,9 @@ import { BooksService } from '../service/book.service';
 import { CateService } from '../service/cate.service';
 import { Cate } from '../models/cate';
 import { BookPubComponent } from '../book-pub/book-pub.component';
+import { ActivatedRoute } from '@angular/router';
+import { CartService } from '../service/cart.service';
+import { Mess, Carts } from '../models/cart';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +18,15 @@ export class HomeComponent implements OnInit {
   books: Books[];
   cates: Cate[];
   searchbook: Books;
-
+  mess: Mess;
+  carts: Carts;
   constructor(private BooksService: BooksService,
-              private CateService: CateService, ) { }
+              private CateService: CateService, private route: ActivatedRoute, private cartService: CartService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.getAllBook();
     this.getAllCate();
+    this.GetCart();
   }
 
   private getAllBook() {
@@ -38,4 +43,16 @@ export class HomeComponent implements OnInit {
   //       .subscribe(heroes => (this.heroes = heroes));
   //   }
   // }
+  AddtoCarts() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.cartService.AddtoCart(id).subscribe(res => this.mess = res);
+  }
+  async add(id: string){
+    await this.cartService.AddtoCart(id).toPromise().then(res => this.mess = res);
+    await console.log(this.mess.message);
+  }
+  GetCart() {
+    this.cartService.getShoppingCart().subscribe(res => this.carts = res);
+    console.log(this.carts);
+  }
 }

@@ -1,5 +1,4 @@
 export interface Books {
-
   title: string;
   description: string;
   publishDate: Date;

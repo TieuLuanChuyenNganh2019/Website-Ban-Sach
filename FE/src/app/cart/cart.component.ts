@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CartService } from '../service/cart.service';
+import { Carts, Mess } from '../models/cart';
 
 @Component({
   selector: 'app-cart',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  carts: Carts;
+  mess: Mess;
+  constructor(private route: ActivatedRoute, private cartService: CartService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.AddtoCarts();
+    await this.GetCart();
+
   }
-
+  async AddtoCarts() {
+    const id = this.route.snapshot.paramMap.get('id');
+    await this.cartService.AddtoCart(id).subscribe(res => this.mess = res);
+    console.log(this.mess.message);
+  }
+  async GetCart() {
+    await this.cartService.getShoppingCart().subscribe(res => this.carts = res);
+    await console.log(this.carts);
+  }
 }
