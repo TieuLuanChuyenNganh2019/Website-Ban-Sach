@@ -167,10 +167,7 @@ module.exports = {
         }
         try {
             const books = await query.exec()
-            res.status(200).json({
-                books: books,
-                searchOptions: req.query
-            })
+            res.status(200).json(books)
         } catch {
             res.redirect('/')
         }
