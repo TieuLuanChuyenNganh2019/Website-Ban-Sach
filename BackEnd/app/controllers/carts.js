@@ -56,10 +56,9 @@ module.exports = {
             });
         }
         const cart = new Cart(req.session.cart);
-        res.status(200).json({
-            List_book: cart.generateArray(), 
-            totalPrice: cart.totalPrice
-        });
+        res.status(200).json(
+            cart.generateArray()     
+        );
     },
 
     // Checkout and Create Order

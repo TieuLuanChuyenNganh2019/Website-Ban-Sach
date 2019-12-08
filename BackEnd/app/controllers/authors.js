@@ -86,7 +86,7 @@ module.exports = {
     },
 
 
-    deleteAuthor: (req, res, next) => {
+    deleteAuthor: async (req, res, next) => {
         const id = req.params.authorId;
         Author.remove({ _id: id })
             .exec()

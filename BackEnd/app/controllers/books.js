@@ -2,6 +2,7 @@ const Book = require('../models/book');
 const Author = require('./../models/author');
 const Category = require('./../models/category');
 const Publisher = require('./../models/publisher');
+const User =require('./../models/user');
 const comment = require('./../models/review');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
@@ -56,10 +57,7 @@ module.exports = {
 
     // },
 
-    // add author to book
-    addAuthortoBook: (req, res, next) => {
-
-    },
+   
     createBook: (req, res, next) => {
         cloudinary.v2.uploader.upload(req.file.path, async (err, result) => {
             if (err) {
@@ -338,117 +336,29 @@ module.exports = {
         });
     },
 
-    // Replace book on PUT
-    // replaceBook: async (req, res, next) => {
-    //     const id = req.params.bookId
-    //     const contentbook = req.body;
-    //    if(!req.body)
-    //    {
-    //        return res.status(400).send({
-    //            message: 'Content empty'
-    //        });
-    //    }
-    //    Book.findByIdAndUpdate(id, {title: req.body,title}, {new: true})
-    //    .then(result => {
-    //        if(!result) {
-    //            return res.status(404).send({
-    //                message: 'Book not found with id' + req.params.bookId
-    //            });
-    //        }
-    //        res.status(200).json({
-    //            book: result,
-    //            message: 'update successfully'
-    //        });
-    //    }).catch(err =>{
-    //        if(err.kind === 'ObjectId'){
-    //            return res.status(404).send({
-    //                message: 'Book not found with id' + req.params.bookId
-    //            });
-    //        }
-    //        return res.status(500).send({
-    //            message: 'Error updating book with id' + req.params.bookId
-    //        });
-    //    });
-    // }
 
 
-    //UPDATE BOOK ON PUT
-    // replaceBook:  async (req, res, next) => {
-    //     const id = req.params.bookId;
-    //     if(req.file){
-    //         const contentupdate = new Book({
-    //             title: req.body.title,
-    //             description: req.body.description,
-    //             publishDate: new Date(req.body.publishDate),
-    //             pageCount: req.body.pageCount,
-    //             price: req.body.price,
-    //             availableQuantity: req.body.availableQuantity,
-    //             bookImage: req.file.path,
-    //         //      bookImage: req.body.bookImage,
-    //             author: req.body.author,
-    //             publisher: req.body.publisher,
-    //             categories: req.body.categories,
-    //             reviews: req.body.revews,
-    //             discount: req.body.discount
-    //         });
-    //        await Book.update({ _id: id }, { $set: contentupdate })
-    //             .exec()
-    //             .then(result => {
-    //                 res.status(200).json({
-    //                     message: 'Book updated successfully',
-    //                     book: result,
-    //                     request: {
-    //                         type: 'PUT',
-    //                         url: 'http://localhost:8080/books/' + id
-    //                     }
-    //                 });
-    //             })
-    //             .catch(err => {
-    //                 console.log(err);
-    //                 res.status(500).json({
-    //                     error: err
-    //                 });
-    //             });
-    //     }else {
-    //         const contentupdate = req.body;
-    //        await Book.update({ _id: id }, { $set: contentupdate })
-    //             .exec()
-    //             .then(result => {
-    //                 res.status(200).json({
-    //                     message: 'Book updated successfully',
-    //                     book: result,
-    //                     request: {
-    //                         type: 'PUT',
-    //                         url: 'http://localhost:8080/books/' + id
-    //                     }
-    //                 });
-    //             })
-    //             .catch(err => {
-    //                 console.log(err);
-    //                 res.status(500).json({
-    //                     error: err
-    //                 });
-    //             });
-    //     }
-
-    // }
-
-    // Search Book By Category
-    searchBookByCategory: (req, res, next) => {
-        Book.find({}).populate('Author')
-            .exec((err, books) => {
-                if (err) {
-                    console.log("Error Searching book: ", err);
-                    return res.status(500).json({
-                        error: err
-                    });
-                } else {
-                    console.log("Book searching successfully: ", books);
-                    res
-                        .status(201)
-                        .json(books)
-                }
+    // Search Book By title
+    searchBookByCategory: async (req, res, next) => {
+        let searchOptions = {}
+        if (req.query.name != null && req.query.name !== '') {
+            searchOptions.name = new RegExp(req.query.name, 'i')
+        }
+        try {
+            const books = await Book.find(searchOptions)
+            res.status(200).json({
+                books: books,
+                searchOptions: req.query
             });
-    }
+            // res.render('authors/index', {
+            //     authors: authors,
+            //     searchOptions: req.query
+            // })
+        } catch {
+            res.redirect('/')
+        }
+    },
+
+    
 }
 

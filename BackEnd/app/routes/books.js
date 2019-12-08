@@ -42,7 +42,7 @@ const upload = multer({
 
 // http://localhost:8080/books
 
-router.get('/',bookController.getListBook);
+router.get('/', bookController.getListBook);
 
 router.post('/', upload.single('image'), bookController.createBook);
 
@@ -80,4 +80,9 @@ router.route('/:authorId/authors')
 router.route('/:publisherId/publishers')
     .get(bookController.getBookByPublisherId);
 
+// search book by title
+router.route('/search')
+    .get(bookController.searchBookByCategory);
+
+    
 module.exports = router;
