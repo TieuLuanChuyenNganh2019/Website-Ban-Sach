@@ -30,7 +30,7 @@ export class ListBookComponent implements OnInit {
     this.BooksService.getBooks().subscribe(res => this.books = res);
   }
   delete(title, id) {
-    const ans = confirm('Are you sure to delete book: ' + title );
+    const ans = confirm('Xóa thông tin sách: ' + title );
     if (ans) {
       this.BooksService.delete(id).subscribe(() => {
         this.getAllBook();

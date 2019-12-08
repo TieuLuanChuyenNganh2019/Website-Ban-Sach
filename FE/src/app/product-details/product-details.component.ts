@@ -8,6 +8,10 @@ import { AuthorService } from '../service/author.service';
 import { Author } from '../models/author';
 import { CateService } from '../service/cate.service';
 import { Cate } from '../models/cate';
+import { CartService } from '../service/cart.service';
+import { Mess } from '../models/cart';
+import { PublisherService } from '../service/publisher.service';
+import { Publisher } from '../models/publisher';
 
 @Component({
   selector: 'app-product-details',
@@ -23,12 +27,16 @@ export class ProductDetailsComponent implements OnInit {
   addreivew: Review;
   author: Author;
   cates: Cate[];
+  mess: Mess;
+  pub: Publisher[];
   constructor(
     private route: ActivatedRoute,
     private BooksService: BooksService,
     private ReviewService: ReviewsService,
     private AuthorsService: AuthorService,
     private CateService: CateService,
+    private cartService: CartService,
+    private publisherService: PublisherService
   ) { }
 
   async ngOnInit() {
@@ -36,12 +44,13 @@ export class ProductDetailsComponent implements OnInit {
     await this.getReviewfromIDBook();
     await this.getAuthorfromIDBook();
     await this.getCatefromIDBook();
+    await this.getAllPublisher();
   }
 
   async getBookfromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
     await this.BooksService.getBooksFromID(id).toPromise().then(res => this.books = res,);
-    console.log(this.books.reviews);
+
   }
   // getReviewfromID(id: string) {
   //   const idrv = this.books.reviews;
@@ -51,7 +60,7 @@ export class ProductDetailsComponent implements OnInit {
   async getReviewfromIDBook() {
     const id = this.route.snapshot.paramMap.get('id');
     await this.ReviewService.getReviewFromIDBook(id).toPromise().then(res => this.reviews = res);
-    console.log(this.reviews);
+
   }
   async save(review: number, comment: string) {
     const bookId = this.route.snapshot.paramMap.get('id');
@@ -66,6 +75,13 @@ export class ProductDetailsComponent implements OnInit {
   async getCatefromIDBook() {
     const id = this.route.snapshot.paramMap.get('id');
     await this.CateService.getCateFromID(id).toPromise().then(res => this.cates = res);
-    console.log(this.cates);
+
+  }
+  async getAllPublisher() {
+    await this.publisherService.getPublishers().toPromise().then(res => this.pub = res,);
+
+  }
+  async add(){
+    await alert('Thêm Thành Công');
   }
 }

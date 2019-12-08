@@ -20,14 +20,20 @@
           <div class="single-right">
             <h3>{{books.title}}</h3>
             <div class="in-pa1">
-              <h6><span>Tác giả: </span> {{author.name}}</h6>
-              <div  class="row" >
-                <span class="col-u" style="margin-left: 16px">Thể loại: </span>
-                <div class="col-auto m-wthree" *ngFor="let cate of cates">
-                    <h5>{{cate.name}}.</h5>
+              <h6 routerLink="/books/{{author._id}}/authors/{{author.name}}"><span>Tác giả: </span> {{author.name}}</h6>
+              <div  class="row" *ngFor="let cate of cates" routerLink="/books/{{cate._id}}/categories/{{cate.name}}" >
+                <span class="col-u" style="margin-left: 14px">Thể loại: </span>
+                <div class="col-auto m-wthree" >
+                    <h5>{{cate.name}}</h5>
                 </div>
 
+
+
+              </div >
+              <div *ngFor="let pub of pub" routerLink="/books/{{pub._id}}/publishers/{{pub.name}}" >
+                <h6 *ngIf="pub._id === books.publisher" ><span >Nhà Xuất Bản: </span>{{pub.name}} </h6>
               </div>
+              <h6 ><span >Ngày Xuất Bản: </span>{{books.publishDate | date:'dd/MM/yyyy' }} </h6>
             </div>
 
 
@@ -39,7 +45,7 @@
             <p class="in-pa">{{books.description}} </p>
 
             <div class="add add-3">
-              <button class="btn btn-danger my-cart-btn my-cart-b" data-id="1" data-name="Wheat" data-summary="summary 1" data-price="6.00" data-quantity="1" data-image="images/si.jpg">Add to Cart</button>
+              <button class="btn btn-danger my-cart-btn my-cart-b" (click)="add()">Thêm Giỏ Hàng</button>
             </div>
 
           <div>

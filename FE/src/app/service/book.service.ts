@@ -53,6 +53,10 @@ export class BooksService {
     const url = `${this.bookURL}/${id}/authors`;
     return this.http.get<Books[]>(url).pipe();
   }
+  searchBook(id: string): Observable<Books[]> {
+    const url = `${this.bookURL}?title=${id}`;
+    return this.http.get<Books[]>(url).pipe();
+  }
   // searchHeroes(term: string): Observable<Books[]> {
   //   term = term.trim();
   //  // Add safe, URL encoded search parameter if there is a search term
