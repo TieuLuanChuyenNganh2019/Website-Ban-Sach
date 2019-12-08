@@ -139,4 +139,30 @@
   </div>
   </div>
 
-{{carts.totalPrice}}
+  <div style="margin-top:10px;" class="table-responsive" >
+    <table class="table table-bordered" >
+      <thead>
+          <tr>
+            <th>Tiêu Đề</th>
+            <th>Mô tả</th>
+            <th>Ngày xuất bản</th>
+
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let cart of carts ">
+            <td>{{carts.item.title}}</td>
+            <td>{{carts.price}}</td>
+            <td>{{carts.qty}}</td>
+            <td><img src="{{carts.item.imageUrl}}" class="backgr"></td>
+            <td style="width: 90px;">
+                <i class="fas fa-edit" style="margin-right: 10px;"
+                 title="Edit"  ></i>
+                <i class="fas fa-trash"
+                 title="Delete"></i>
+            </td>
+          </tr>
+      </tbody>
+  </table>
+  <pagination-controls style="text-align: center;" ></pagination-controls>
+  </div>

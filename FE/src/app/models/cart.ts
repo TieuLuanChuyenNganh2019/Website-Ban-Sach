@@ -1,7 +1,5 @@
 import { Books, Books1 } from './book';
 
-
-
 export interface Cart {
   item: Books;
   qty: number;
@@ -23,5 +21,6 @@ export interface Order {
   name: string;
 }
 export interface Mess {
+  json(): any;
   message: string;
 }

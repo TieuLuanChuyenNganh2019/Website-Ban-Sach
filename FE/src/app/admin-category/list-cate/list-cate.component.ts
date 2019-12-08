@@ -32,7 +32,7 @@ export class ListCateComponent implements OnInit {
     this.CateService.getCates().subscribe(res => this.cates = res);
   }
   delete(title, id) {
-    const ans = confirm('Are you sure to delete author: ' + title );
+    const ans = confirm('Xóa thông tin thể loại: ' + title );
     if (ans) {
       this.CateService.delete(id).subscribe(() => {
         this.getAllCates();

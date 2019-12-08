@@ -44,6 +44,8 @@ export class BookPubComponent implements OnInit {
   refresh(): void {
     location.reload();
   }
-
+  async add(){
+    await alert('Thêm Thành Công');
+  }
 
 }

@@ -32,7 +32,7 @@ export class AdminReviewComponent implements OnInit {
     this.ReviewsService.getReview().subscribe(res => this.reviews = res);
   }
   delete(title, id) {
-    const ans = confirm('Are you sure to delete comment: ' + title );
+    const ans = confirm('Xóa bình luận: ' + title );
     if (ans) {
       this.ReviewsService.delete(id).subscribe(() => {
         this.getAllReviews();

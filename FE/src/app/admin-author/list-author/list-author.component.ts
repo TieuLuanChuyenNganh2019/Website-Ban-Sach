@@ -31,7 +31,7 @@ export class ListAuthorComponent implements OnInit {
     this.AuthorService.getAuthors().subscribe(res =>this.authors = res);
   }
   delete(title, id) {
-    const ans = confirm('Are you sure to delete author: ' + title );
+    const ans = confirm('Xóa thông tin tác giả: ' + title );
     if (ans) {
       this.AuthorService.delete(id).subscribe(() => {
         this.getAllAuthor();

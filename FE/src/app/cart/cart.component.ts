@@ -15,7 +15,7 @@ export class CartComponent implements OnInit {
   constructor(private route: ActivatedRoute, private cartService: CartService) { }
 
   async ngOnInit() {
-    await this.AddtoCarts();
+    //await this.AddtoCarts();
     await this.GetCart();
 
   }
@@ -25,7 +25,7 @@ export class CartComponent implements OnInit {
     console.log(this.mess.message);
   }
   async GetCart() {
-    await this.cartService.getShoppingCart().subscribe(res => this.carts = res);
+    await this.cartService.getShoppingCart().toPromise().then(res => this.carts = res);
     await console.log(this.carts);
   }
 }

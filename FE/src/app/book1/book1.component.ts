@@ -48,7 +48,9 @@ export class Book1Component implements OnInit {
   refresh(): void {
     location.reload();
   }
-
+  async add(){
+    await alert('Thêm Thành Công');
+  }
 
 
 }

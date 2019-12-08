@@ -55,4 +55,7 @@ export class HomeComponent implements OnInit {
     this.cartService.getShoppingCart().subscribe(res => this.carts = res);
     console.log(this.carts);
   }
+  search(id: string){
+    this.BooksService.searchBook(id).subscribe(res => this.books = res);
+  }
 }

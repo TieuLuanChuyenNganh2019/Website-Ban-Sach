@@ -4,8 +4,8 @@
           <h3>CHÀO MỪNG ĐẾN VỚI CỬA HÀNG SÁCH</h3>
           <div class="search-form">
             <form class="form-inline">
-              <input type="text" placeholder="tìm kiếm..." name="Search...">
-              <button type="submit"></button>
+              <input type="text" placeholder="tìm kiếm..." #search1 style="font-size: 18px; font-weight: bold">
+              <button type="submit" (click)="search(search1.value)"></button>
             </form>
           </div>
         </div>
@@ -41,10 +41,10 @@
                             <div class="col-m">
                               <a routerLink="/details/{{bk._id}}"  class="offer-img">
                                 <img src="{{bk.imageUrl}}" class="img-responsive" alt="">
-                                <div class="offer" *ngIf="bk.discount !=='0'"><p ><span>Sale</span></p></div>
+                                <div class="offer" *ngIf="bk.discount !=='0'"><p ><span>Sale Off</span></p></div>
                               </a>
                               <div class="mid-1">
-                                <div class="women">
+                                <div class="women" routerLink="/details/{{bk._id}}">
                                   <h6><a [routerLink]="['/details']">{{bk.title}}</a></h6>
                                 </div>
                                 <div class="mid-2">
@@ -56,7 +56,7 @@
                                   <div class="clearfix"></div>
                                 </div>
                                 <div class="add">
-                                   <button class="btn btn-danger my-cart-btn my-cart-b " (click)=add(bk._id) >Add to Cart</button>
+                                   <button class="btn btn-danger my-cart-btn my-cart-b " (click)="add(bk._id)">Thêm Giỏ Hàng</button>
                                 </div>
 
                               </div>
@@ -74,39 +74,39 @@
 
     <!--content-->
     <div class="content-mid">
-        <div class="container">
-          <div class="row justify-content-start">
-            <div class="col-4">
-              <div class="col-md1" routerLink="/books/5de91d09e3ef6d4d68566461/categories/Sách Thiếu Nhi">
+      <div class="container">
+        <div class="row justify-content-start">
+          <div class="col-4">
+            <div class="col-md1" routerLink="/books/5de91d09e3ef6d4d68566461/categories/Sách Thiếu Nhi">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
+                <div class="big-sale2">
+                    <h3>Tuổi <span>Thơ</span></h3>
+                    <p>Là thứ khó quên nhất của chúng ta</p>
+                  </div>
+            </div>
+
+          </div>
+          <div class="col-4">
+              <div class="col-md2" routerLink="/books/5de91ca4e3ef6d4d6856645d/categories/Văn Học">
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
-                  <div class="big-sale2">
-                      <h3>Tuổi <span>Thơ</span></h3>
-                      <p>Là thứ khó quên nhất của chúng ta</p>
+                  <div class="big-sale">
+                      <div class="big-sale1">
+                        <h3>Văn <span>Học</span></h3>
+                        <p>Bách khoa toàn thư</p>
+                      </div>
                     </div>
               </div>
-
-            </div>
-            <div class="col-4">
-                <div class="col-md2" routerLink="/books/5de91d09e3ef6d4d68566461/categories/Sách Thiếu Nhi">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
-                    <div class="big-sale">
-                        <div class="big-sale1">
-                          <h3>Big <span>Sale</span></h3>
-                          <p>Kiến thức nước ngoài thật phong phú </p>
-                        </div>
-                      </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="col-md3" routerLink="/books/5de91d09e3ef6d4d68566461/categories/Trinh Thám">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
-                    <div class="big-sa">
-                        <h6>Tuyển Tập</h6>
-                        <h3>Trinh<span> Thám</span></h3>
-                        <p>Từ người tốt đến kẻ xấu, cái thiện-cái ác, nạn nhân hay thủ phạm</p>
-                      </div>
-                </div>
-            </div>
+          </div>
+          <div class="col-4">
+              <div class="col-md3" routerLink="books/5de91c7ee3ef6d4d6856645c/categories/Trinh Thám">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF4x2nr7ALrcTqrDgD40kuwadyzjD0RsdY3T_loPq8cZQHSFAV&s" class="backgr2" alt="">
+                  <div class="big-sa">
+                      <h6>Tuyển Tập</h6>
+                      <h3>Trinh<span> Thám</span></h3>
+                      <p>Từ người tốt đến kẻ xấu, cái thiện-cái ác, nạn nhân hay thủ phạm</p>
+                    </div>
+              </div>
           </div>
         </div>
       </div>
+    </div>

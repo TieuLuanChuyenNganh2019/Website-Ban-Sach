@@ -30,7 +30,7 @@ export class ListPubComponent implements OnInit {
     this.PublisherService.getPublishers().subscribe(res => this.pubs = res);
   }
   delete(title, id) {
-    const ans = confirm('Are you sure to delete author: ' + title );
+    const ans = confirm('Xóa thông tin nhà xuất bản: ' + title );
     if (ans) {
       this.PublisherService.delete(id).subscribe(() => {
         this.getAllPublisher();
