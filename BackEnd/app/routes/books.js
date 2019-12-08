@@ -81,7 +81,7 @@ router.route('/:publisherId/publishers')
     .get(bookController.getBookByPublisherId);
 
 // search book by title
-router.route('/search')
+router.route('/search/name')
     .get(bookController.searchBookByCategory);
 
     

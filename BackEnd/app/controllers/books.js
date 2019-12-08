@@ -2,7 +2,7 @@ const Book = require('../models/book');
 const Author = require('./../models/author');
 const Category = require('./../models/category');
 const Publisher = require('./../models/publisher');
-const User =require('./../models/user');
+const User = require('./../models/user');
 const comment = require('./../models/review');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
@@ -57,7 +57,7 @@ module.exports = {
 
     // },
 
-   
+
     createBook: (req, res, next) => {
         cloudinary.v2.uploader.upload(req.file.path, async (err, result) => {
             if (err) {
@@ -161,30 +161,19 @@ module.exports = {
 
     // Get List Book
     getListBook: async (req, res, next) => {
-        await Book.find({})
-            //  .select('title description publishDate pageCount price '+
-            //    ' availableQuantity bookImage publisher author categories reviews discount')
-            .exec()
-            .then(docs => {
-                // const response = {
-                //     books: docs.map(doc => {
-                //         return doc
-                //     })
-                // };
-                if (docs.length >= 0) {
-                    res.status(200).json(docs);
-                } else {
-                    res.status(404).json({
-                        message: "No Entries Found"
-                    });
-                }
+        let query = Book.find()
+        if (req.query.title != null && req.query.title != '') {
+            query = query.regex('title', new RegExp(req.query.title, 'i'))
+        }
+        try {
+            const books = await query.exec()
+            res.status(200).json({
+                books: books,
+                searchOptions: req.query
             })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({
-                    error: err
-                });
-            });
+        } catch {
+            res.redirect('/')
+        }
     },
 
     // get book by bookID
@@ -359,6 +348,6 @@ module.exports = {
         }
     },
 
-    
+
 }
 

@@ -1,4 +1,4 @@
-const Cart = require('./../models/cart');
+const Cart = require('./../models/cart1');
 const Book = require('./../models/book');
 const Order = require('./../models/order');
 
@@ -23,6 +23,7 @@ module.exports = {
             });
         });
     },
+
 
     // Reduce a book in Cart 
     reduceBookInCart:  (req, res, next) => {
