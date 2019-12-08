@@ -6,7 +6,7 @@ import { Cate } from '../models/cate';
 import { BookPubComponent } from '../book-pub/book-pub.component';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../service/cart.service';
-import { Mess, Carts } from '../models/cart';
+import { Mess, Cart } from '../models/cart';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   cates: Cate[];
   searchbook: Books;
   mess: Mess;
-  carts: Carts;
+  carts: Cart;
   constructor(private BooksService: BooksService,
               private CateService: CateService, private route: ActivatedRoute, private cartService: CartService) { }
 

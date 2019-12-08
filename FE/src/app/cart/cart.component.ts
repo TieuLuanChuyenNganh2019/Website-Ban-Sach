@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../service/cart.service';
-import { Carts, Mess } from '../models/cart';
+import { Cart, Mess } from '../models/cart';
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +10,7 @@ import { Carts, Mess } from '../models/cart';
 })
 export class CartComponent implements OnInit {
 
-  carts: Carts;
+  carts: Cart;
   mess: Mess;
   constructor(private route: ActivatedRoute, private cartService: CartService) { }
 
