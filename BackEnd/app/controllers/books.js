@@ -292,34 +292,26 @@ module.exports = {
                     error: err
                 });
             } else {
-                if (req.file) {
-                    try {
-                        await cloudinary.v2.uploader.destroy(book.imageId);
-                        const result = await cloudinary.v2.uploader.upload(req.file.path);
-                        book.imageId = result.public_id;
-                        book.imageUrl = result.secure_url;
-                    } catch (err) {
-                        return res.status(500).json({
-                            error: err
-                        });
-                    }
-                    book.title = req.body.title;
-                    book.description = req.body.description;
-                    book.publishDate = req.body.publishDate;
-                    book.pageCount = req.body.pageCount;
-                    book.price = req.body.price;
-                    book.availableQuantity = req.body.availableQuantity;
+               
+                    // book.imageId = result.public_id;
+                    // book.imageUrl = result.secure_url;
+                    // book.title = req.body.title;
+                    // book.description = req.body.description;
+                    // book.publishDate = req.body.publishDate;
+                    // book.pageCount = req.body.pageCount;
+                    // book.price = req.body.price;
+                    // book.availableQuantity = req.body.availableQuantity;
 
-                    book.author = req.body.author;
-                    book.categories.push(req.body.categories);
-                    book.publisher = req.body.publisher;
-                    book.discount = req.body.discount;
-                    book.save();
-                    //  res.redirect('/books/' + book._id);
+                    // book.author = req.body.author;
+                    // book.categories.push(req.body.categories);
+                    // book.publisher = req.body.publisher;
+                    // book.discount = req.body.discount;
+                    // book.save();
+                    // //  res.redirect('/books/' + book._id);
                     return res.status(200).json(book);
                 }
             }
-        });
+        );
     },
 
 
