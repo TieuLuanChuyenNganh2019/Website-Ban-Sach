@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BooksService } from '../service/book.service';
-import { Books } from '../models/book';
+import { Books, Books1 } from '../models/book';
 import { ReviewsService } from '../service/review.service';
 import { Review } from '../models/review';
 import { AuthorService } from '../service/author.service';
@@ -29,6 +29,10 @@ export class ProductDetailsComponent implements OnInit {
   cates: Cate[];
   mess: Mess;
   pub: Publisher[];
+  pubs: Publisher[];
+  auts: Author[];
+  books1: Books[];
+  cates1: Cate[];
   constructor(
     private route: ActivatedRoute,
     private BooksService: BooksService,
@@ -45,8 +49,23 @@ export class ProductDetailsComponent implements OnInit {
     await this.getAuthorfromIDBook();
     await this.getCatefromIDBook();
     await this.getAllPublisher();
+    await this.getAllBook();
+    await this.getAllCate();
+    await this.getAllAuthor();
+    await this.getAllPub();
   }
-
+  getAllPub() {
+    this.publisherService.getPublishers().subscribe(res => this.pubs = res);
+  }
+  getAllAuthor() {
+    this.AuthorsService.getAuthors().subscribe(res => this.auts = res);
+  }
+  getAllBook() {
+    this.BooksService.getBooks().subscribe(res => this.books1 = res);
+  }
+  getAllCate() {
+    this.CateService.getCates().subscribe(res => this.cates1 = res);
+  }
   async getBookfromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
     await this.BooksService.getBooksFromID(id).toPromise().then(res => this.books = res,);

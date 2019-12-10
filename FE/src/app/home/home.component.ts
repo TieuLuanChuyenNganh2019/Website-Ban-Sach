@@ -7,6 +7,10 @@ import { BookPubComponent } from '../book-pub/book-pub.component';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../service/cart.service';
 import { Mess, Cart } from '../models/cart';
+import { Publisher } from '../models/publisher';
+import { Author } from '../models/author';
+import { PublisherService } from '../service/publisher.service';
+import { AuthorService } from '../service/author.service';
 
 @Component({
   selector: 'app-home',
@@ -20,19 +24,31 @@ export class HomeComponent implements OnInit {
   searchbook: Books;
   mess: Mess;
   carts: Cart;
+  pubs: Publisher[];
+  auts: Author[];
   constructor(private BooksService: BooksService,
-              private CateService: CateService, private route: ActivatedRoute, private cartService: CartService) { }
+              private CateService: CateService, private route: ActivatedRoute, private cartService: CartService,
+              private PubService: PublisherService,
+              private AuthorService: AuthorService,) { }
 
   async ngOnInit() {
     this.getAllBook();
     this.getAllCate();
     this.GetCart();
+    this.getAllAuthor();
+    this.getAllPub();
   }
 
-  private getAllBook() {
+  getAllPub() {
+    this.PubService.getPublishers().subscribe(res => this.pubs = res);
+  }
+  getAllAuthor() {
+    this.AuthorService.getAuthors().subscribe(res => this.auts = res);
+  }
+  getAllBook() {
     this.BooksService.getBooks().subscribe(res => this.books = res);
   }
-  private getAllCate() {
+  getAllCate() {
     this.CateService.getCates().subscribe(res => this.cates = res);
   }
   // search(searchTerm: string) {
