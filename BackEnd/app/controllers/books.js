@@ -303,8 +303,8 @@ module.exports = {
                 //             error: err
                 //         });
                 //     }
-                    book.imageId = result.public_id;
-                    book.imageUrl = result.secure_url;
+                    // book.imageId = result.public_id;
+                    // book.imageUrl = result.secure_url;
                     book.title = req.body.title;
                     book.description = req.body.description;
                     book.publishDate = req.body.publishDate;
