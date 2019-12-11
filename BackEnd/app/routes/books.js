@@ -48,8 +48,8 @@ router.post('/', upload.single('image'), bookController.createBook);
 
 router.route('/:bookId')
     .get(bookController.getBookID)
-    .patch(upload.single('image'), bookController.updateBook)
-    .put(upload.single('image'),bookController.updateBook)
+    .patch( bookController.updateBook)
+    .put(bookController.updateBook)
     .delete(bookController.deleteBook);
 
 // delete comment in review
