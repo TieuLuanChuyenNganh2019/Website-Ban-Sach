@@ -292,17 +292,17 @@ module.exports = {
                     error: err
                 });
             } else {
-                // if (req.file) {
-                //     try {
-                //         await cloudinary.v2.uploader.destroy(book.imageId);
-                //         const result = await cloudinary.v2.uploader.upload(req.file.path);
-                //         book.imageId = result.public_id;
-                //         book.imageUrl = result.secure_url;
-                //     } catch (err) {
-                //         return res.status(500).json({
-                //             error: err
-                //         });
-                //     }
+                if (req.file) {
+                    try {
+                        await cloudinary.v2.uploader.destroy(book.imageId);
+                        const result = await cloudinary.v2.uploader.upload(req.file.path);
+                        book.imageId = result.public_id;
+                        book.imageUrl = result.secure_url;
+                    } catch (err) {
+                        return res.status(500).json({
+                            error: err
+                        });
+                    }
                     book.title = req.body.title;
                     book.description = req.body.description;
                     book.publishDate = req.body.publishDate;
@@ -319,7 +319,7 @@ module.exports = {
                     return res.status(200).json(book);
                 }
             }
-        );
+        });
     },
 
 
@@ -327,8 +327,8 @@ module.exports = {
     // Search Book By title
     searchBookByCategory: async (req, res, next) => {
         let searchOptions = {}
-        if (req.query.name != null && req.query.name !== '') {
-            searchOptions.name = new RegExp(req.query.name, 'i')
+        if (req.query.title != null && req.query.title !== '') {
+            searchOptions.title = new RegExp(req.query.title, 'i')
         }
         try {
             const books = await Book.find(searchOptions)
