@@ -38,7 +38,10 @@
                   <h3>Mô tả</h3>
                   <input #description  type="text" class="form-control" [(ngModel)]="book.description" placeholder="Trần" >
                 </div>
-
+                <div>
+                  <h3>Ngày Xuất Bản</h3>
+                  <input #publishDate type="date" class="form-control" [(ngModel)]="book.publishDate" placeholder="ngày xuất bản" >
+                </div>
                 <div>
                     <h3>Số Trang</h3>
                     <input #pageCount  type="number" class="form-control" [(ngModel)]="book.pageCount" placeholder="Trần" >
@@ -77,12 +80,19 @@
                     <h3>Ảnh</h3>
                     <img src="{{book.imageUrl}}" class="backgr">
                 </div>
+                <!-- <div>
+                      <div class="form-group">
+                      <input #image name="image" type="file"  accept="images/*" (change)="handleFileInput($event.target.files)" class="form-control"  >
+                </div> -->
 
                 <div>
                   <label></label>
                   <button class="btn btn-secondary btn-circle pull-right" style="margin-top: 15px; margin-left: 10px;" title="Add"
                      [routerLink]="['/admin/listbook']" >Back <i class="fas fa-undo"></i></button>
-                  <button class="btn btn-success btn-circle pull-right" style="margin-top: 15px;" title="Add"
+                  <!-- <button class="btn btn-success btn-circle pull-right" style="margin-top: 15px;" title="Add"
+                    type="submit" (click)="save2(title.value, description.value,publishDate.value, pageCount.value,
+                    price.value, availableQuantity.value, publisher1.value, author1.value, categories1.value, discount.value, FileUpload)" >Save<i class="fa fa-check-square-o"></i></button> -->
+                    <button class="btn btn-success btn-circle pull-right" style="margin-top: 15px;" title="Add"
                     type="submit" (click)="save()" >Save<i class="fa fa-check-square-o"></i></button>
                 </div>
             </div>
