@@ -9,7 +9,7 @@ import { Author } from '../models/author';
 import { CateService } from '../service/cate.service';
 import { Cate } from '../models/cate';
 import { CartService } from '../service/cart.service';
-import { Mess } from '../models/cart';
+import { Item, Mess } from '../models/cart';
 import { PublisherService } from '../service/publisher.service';
 import { Publisher } from '../models/publisher';
 
@@ -33,6 +33,9 @@ export class ProductDetailsComponent implements OnInit {
   auts: Author[];
   books1: Books[];
   cates1: Cate[];
+  items: Item[] = [];
+  total: number;
+  countItem: number;
   constructor(
     private route: ActivatedRoute,
     private BooksService: BooksService,
@@ -68,7 +71,7 @@ export class ProductDetailsComponent implements OnInit {
   }
   async getBookfromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
-    await this.BooksService.getBooksFromID(id).toPromise().then(res => this.books = res,);
+    await this.BooksService.getBooksFromID(id).toPromise().then(res => this.books = res);
 
   }
   // getReviewfromID(id: string) {
@@ -97,10 +100,52 @@ export class ProductDetailsComponent implements OnInit {
 
   }
   async getAllPublisher() {
-    await this.publisherService.getPublishers().toPromise().then(res => this.pub = res,);
+    await this.publisherService.getPublishers().toPromise().then(res => this.pub = res);
 
   }
-  async add(){
-    await alert('Thêm Thành Công');
+  add(id:string) {
+    // const id = this.route.snapshot.paramMap.get('id');
+    // this.cartService.AddtoCart(id).subscribe(res => this.mess = res);
+    this.route.params.subscribe((params) => {
+      if (id) {
+        this.BooksService.getBooksFromID(id).subscribe(
+          (result) => {
+            const item: Item = {
+              product: result,
+              total: 1,
+            };
+            if (localStorage.getItem('cart') == null) {
+              let cart: any = [];
+              cart.push(JSON.stringify(item));
+              localStorage.setItem('cart', JSON.stringify(cart));
+            } else {
+              let cart: any = JSON.parse(localStorage.getItem("cart"));
+              let index: number = -1;
+              for (var i = 0; i < cart.length; i++) {
+                let item: Item = JSON.parse(cart[i]);
+                if (item.product._id == id) {
+                  index = i;
+                  break;
+                }
+              }
+              if (index == -1) {
+                cart.push(JSON.stringify(item));
+                localStorage.setItem("cart", JSON.stringify(cart));
+              } else {
+                let item: Item = JSON.parse(cart[index]);
+                item.total += 1;
+                cart[index] = JSON.stringify(item);
+                localStorage.setItem("cart", JSON.stringify(cart));
+              }
+            }
+            alert('Thêm Thành Công');
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      } else {
+      }
+    });
   }
 }

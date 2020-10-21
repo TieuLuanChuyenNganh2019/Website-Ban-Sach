@@ -21,12 +21,14 @@ export class LoginComponent implements OnInit {
     await this.serService.Login(Login).subscribe(res => this.user = res, error => this.mess = error);
     if (this.mess != null) {
       this.mess = 'Sai email hoặc mật khẩu!';
+      alert(this.mess);
     }
     else {
-      this.mess ='Đăng nhập thành công!'
+      this.mess ='Đăng nhập thành công!';
+      alert(this.mess);
+      this.router.navigate(['/admin'])
     }
-    alert(this.mess);
-    this.router.navigate(['/admin'])
+
   }
 
 }

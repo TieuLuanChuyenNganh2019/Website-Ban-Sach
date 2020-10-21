@@ -31,6 +31,8 @@ import { BookAuthorComponent } from './book-author/book-author.component';
 import { BookPubComponent } from './book-pub/book-pub.component';
 import { AdminReviewComponent } from './admin-review/admin-review.component';
 import { EditBookComponent } from './admin-book/edit-book/edit-book.component';
+import { DefaultLayoutUserComponent } from './default-layout-user/default-layout-user.component';
+import { InfoCartComponent } from './info-cart/info-cart.component';
 
 
 @NgModule({
@@ -60,6 +62,8 @@ import { EditBookComponent } from './admin-book/edit-book/edit-book.component';
     BookPubComponent,
     AdminReviewComponent,
     EditBookComponent,
+    DefaultLayoutUserComponent,
+    InfoCartComponent,
 
   ],
   imports: [

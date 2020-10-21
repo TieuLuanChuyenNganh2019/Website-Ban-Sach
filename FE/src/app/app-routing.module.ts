@@ -25,15 +25,33 @@ import { BookPubComponent } from './book-pub/book-pub.component';
 import { AdminReviewComponent } from './admin-review/admin-review.component';
 import { EditBookComponent } from './admin-book/edit-book/edit-book.component';
 import { CartService } from './service/cart.service';
+import { DefaultLayoutUserComponent } from './default-layout-user/default-layout-user.component';
+import { InfoCartComponent } from './info-cart/info-cart.component';
 
 
 const routes: Routes = [
-  {path: 'book1', component: Book1Component},
-  {path: 'home', component: HomeComponent, canActivate:[]},
+
+  //{path: 'home', component: HomeComponent, canActivate:[]},
   {path: 'login', component: LoginComponent},
+  {path: '',
+  component: DefaultLayoutUserComponent,
+  children:[
+    {
+      path: 'home', component: HomeComponent, canActivate:[],
+    },
+    {path: 'book1', component: Book1Component},
+    {path: 'books/:id/categories/:id1', component: Book1Component},
+    {path: 'books/:id/categories/:id1', component: Book1Component},
+    {path: 'books/:id/authors/:id1', component: BookAuthorComponent},
+    {path: 'books/:id/publishers/:id1', component: BookPubComponent},
+    {path: 'infocarts', component: InfoCartComponent},
+    {path: 'carts/:id', component: CartComponent},
+    {path: 'cart', component: CartComponent},
+    {path: 'details/:id', component: ProductDetailsComponent},
+  ]},
   {path: 'register', component: RegisterComponent},
-  {path: 'cart', component: CartComponent},
-  {path: 'details/:id', component: ProductDetailsComponent},
+
+  {path: 'admin/listreview', component: AdminReviewComponent},
   {path: 'adminbooks', component: AdminBooksComponent},
   {path: 'admin/listbook', component: ListBookComponent},
   {path: 'admin/addbook', component: AddBookComponent},
@@ -49,15 +67,11 @@ const routes: Routes = [
   {path: 'admin/addpub', component: AddPubComponent},
   {path: 'admin/editpub/:id', component: EditPubComponent},
   {path: 'admin/editbook/:id', component: EditBookComponent},
-  {path: 'books/:id/categories/:id1', component: Book1Component},
-  {path: 'books/:id/authors/:id1', component: BookAuthorComponent},
-  {path: 'books/:id/publishers/:id1', component: BookPubComponent},
-  {path: 'admin/listreview', component: AdminReviewComponent},
-  {path: 'carts/:id', component: CartComponent},
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+
+exports: [RouterModule]
 })
 export class AppRoutingModule { }
