@@ -1,4 +1,5 @@
 const Order = require('../models/order');
+const Cart = require('../models/cart1')
 module.exports = {
     // Get Orders 
     getOrder : (req, res, next) => {
@@ -57,5 +58,41 @@ module.exports = {
                 error: err
             });
         });
-    }
+    },
+
+    // Checkout and Create Order
+    createOrder:  (req, res, next) => {
+
+        const cart = new Cart();
+        // const totalPrice = cart.totalPrice ;
+        // const totalQty = cart.totalQty ; 
+
+        cart.books.push(req.body.books);
+        cart.totalPrice = req.body.totalPrice;
+        cart.totalQty = req.body.totalQty;
+
+        const order = new Order({
+                email: req.body.email,
+                cart: cart,
+                phone: req.body.phone,
+                address: req.body.address,
+                name: req.body.name,
+            });
+            order.save(function (err, result) {
+                if(err)
+                {
+                    res.status(500).json({
+                        error:err
+                    });
+                }else{
+                    // req.session.cart = null;
+                    res.status(200).json({
+                        // totalPrice: totalPrice,
+                        // totalQty: totalQty,
+                        message: 'Successfully bought book!'
+                    });
+                }
+            });
+        }
+
 }
