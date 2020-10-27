@@ -85,7 +85,7 @@ module.exports = {
                         error:err
                     });
                 }else{
-                    req.session.cart = null;
+                   // req.session.cart = null;
                     res.status(200).json({
                         totalPrice: totalPrice,
                         message: 'Successfully bought book!'
