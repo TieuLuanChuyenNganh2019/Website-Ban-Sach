@@ -11,7 +11,10 @@ router.use((req, res, next) => {
 });
 
 router.get('/', orderController.getOrder);
+router.get('/orderDetails/', orderController.getOrderDetails);
 router.get('/:orderId', orderController.getOrderID);
+router.get('/:orderId/orderDetails', orderController.getOrderDetailByOrderID);
 router.delete('/:orderId', orderController.deleteOrder);
+router.delete('/:orderId/orderDetails', orderController.deleteOrderDetail);
 router.post('/', orderController.createOrder);
 module.exports = router;

@@ -2,13 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    // userId: {
-    //     type: String,
-    //     ref: 'User'
-    // },
-    // orderId: {
-    //     type: String
-    // },
+    userId: {
+        type: String,
+        ref: 'User'
+    },
     email: {
         type: String,
         required: true

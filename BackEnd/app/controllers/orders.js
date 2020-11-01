@@ -2,7 +2,9 @@ const Order = require('../models/order');
 const Cart = require('../models/cart1');
 const OrderDetail = require('../models/orderDetail');
 const books = require('./books');
-const book = require('../models/book');
+const Book = require('../models/book');
+//const orderDetail = require('../models/orderDetail');
+//const order = require('../models/order');
 module.exports = {
     // Get Orders 
     getOrder: (req, res, next) => {
@@ -60,19 +62,11 @@ module.exports = {
                     error: err
                 });
             });
+
     },
 
     // Checkout and Create Order
     createOrder: (req, res, next) => {
-
-        //  const cart = new Cart();
-        // const totalPrice = cart.totalPrice ;
-        // const totalQty = cart.totalQty ; 
-
-        // cart.books.push(req.body.books);
-        // cart.books = req.body.books;
-        // cart.totalPrice = req.body.totalPrice;
-        // cart.totalQty = req.body.totalQty;
 
         const order = new Order({
             email: req.body.email,
@@ -114,7 +108,7 @@ module.exports = {
             books: books,
         };
 
-       // const createdOrderDetail = 
+        // const createdOrderDetail = 
         OrderDetail.create(newOrderDetail);
 
         // if(createdOrderDetail) {
@@ -123,6 +117,86 @@ module.exports = {
         //     });
         // }
 
-    }
+    },
 
+    // Xem Detail Oder by orderId
+    getOrderDetailByOrderID:  (req, res, next) => {
+        //  const orderId = req.params.orderId;
+        // // const orderData = Order.findOne({ _id: orderId });
+        //  const orderDetailData = OrderDetail.findOne({ orderId: orderId });
+         
+        //  const booksData = orderDetailData.orderId;
+        
+        // const orderOfUserData = [];
+
+        // booksData.map((book) => {
+        //     const bookData = Book.findOne({
+        //         _id: book.bookId,
+        //     });
+        //     const newObj = {
+        //         bookName: book.title,
+        //         quantity: book.qty,
+        //         price: book.price,
+        //     };
+        //     return orderOfUserData.push(newObj);
+        // })
+        // return res.status(200).json({
+        //     order_Id: orderData._id,
+        //     deliverStatus: orderData.deliverStatus,
+        //     totalPrice: orderData.totalPrice,
+        //     created: orderData.created,
+        //     name: orderData.name,
+        //     phone: orderData.phone,
+        //     address: orderData.address,
+        //     orderOfUserData,
+        // });
+
+        const orderId = req.params.orderId;
+        const orderOfUserData = [];
+        OrderDetail.findOne({ orderId: orderId }, function (err, result) {
+            if (!result) {
+                return res.status(404).json({
+                    message: "Order not found"
+                });
+            }
+            res.status(200).json(result);
+
+        });
+
+    },
+
+    // Xem all Detail Oder 
+     getOrderDetails: (req, res, next) => {
+        OrderDetail.find()
+            .exec()
+            .then(docs => {
+                if (docs.length >= 0) {
+                    res.status(200).json(docs);
+                } else {
+                    res.status(404).json({
+                        message: "No Entries Found"
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(500).json({
+                    error: err
+                });
+            });
+    },
+     // Delete Order
+     deleteOrderDetail: (req, res, next) => {
+        OrderDetail.remove({ orderId: req.params.orderId })
+            .exec()
+            .then(result => {
+                res.status(200).json({
+                    message: "Order deleted"
+                });
+            })
+            .catch(err => {
+                res.status(500).json({
+                    error: err
+                });
+            });
+    },
 }
