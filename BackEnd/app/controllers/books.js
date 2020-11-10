@@ -6,6 +6,10 @@ const User = require('./../models/user');
 const comment = require('./../models/review');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
+const category = require('./../models/category');
+const review = require('./../models/review');
+const author = require('./../models/author');
+const publisher = require('./../models/publisher');
 
 // configuration CLOUDINARY
 cloudinary.config({
@@ -161,16 +165,28 @@ module.exports = {
 
     // Get List Book
     getListBook: async (req, res, next) => {
-        let query = Book.find()
-        if (req.query.title != null && req.query.title != '') {
-            query = query.regex('title', new RegExp(req.query.title, 'i'))
-        }
-        try {
-            const books = await query.exec()
-            res.status(200).json(books)
-        } catch {
-            res.redirect('/')
-        }
+       // let query = Book.find()
+        // if (req.query.title != null && req.query.title != '') {
+        //     query = query.regex('title', new RegExp(req.query.title, 'i'))
+        // }
+        // try {
+        //     const books = await query.exec()
+        //     res.status(200).json(books)
+        // } catch {
+        //     res.redirect('/')
+        // }
+        //categories reviews author publisher
+        let book = await Book.find().populate([{
+            path: 'categories',select: 'name', model: category
+        },{
+            path: 'reviews',select: 'review date comment ', model: review
+        },{
+            path: 'author',select: 'name firstname lastname', model: author
+        },{
+            path: 'publisher',select: 'name', model: publisher
+        }]);
+        //let databook = await book.title;
+        return res.status(200).json(book);
     },
 
     // get book by bookID
