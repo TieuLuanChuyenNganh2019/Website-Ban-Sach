@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, " Please enter an email"],
         unique: true,
+        lowercase: true,
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
     phone: {

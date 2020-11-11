@@ -165,7 +165,7 @@ module.exports = {
 
     // Get List Book
     getListBook: async (req, res, next) => {
-       // let query = Book.find()
+        // let query = Book.find()
         // if (req.query.title != null && req.query.title != '') {
         //     query = query.regex('title', new RegExp(req.query.title, 'i'))
         // }
@@ -177,13 +177,13 @@ module.exports = {
         // }
         //categories reviews author publisher
         let book = await Book.find().populate([{
-            path: 'categories',select: 'name', model: category
-        },{
-            path: 'reviews',select: 'review date comment ', model: review
-        },{
-            path: 'author',select: 'name firstname lastname', model: author
-        },{
-            path: 'publisher',select: 'name', model: publisher
+            path: 'categories', select: 'name', model: category
+        }, {
+            path: 'reviews', select: 'review date comment ', model: review
+        }, {
+            path: 'author', select: 'name firstname lastname', model: author
+        }, {
+            path: 'publisher', select: 'name', model: publisher
         }]);
         //let databook = await book.title;
         return res.status(200).json(book);
@@ -192,22 +192,38 @@ module.exports = {
     // get book by bookID
     getBookID: async (req, res, next) => {
         const id = req.params.bookId;
-        await Book.findById(id)
-            // .select('title price _id bookImage')
-            .exec()
-            .then(doc => {
-                console.log("From database", doc);
-                if (doc) {
-                    return res.status(200).json(doc);
-                } else {
-                    res.status(404).json({ message: "No valid entry found for provided ID" });
-                }
+        // await Book.findById(id)
+        //     // .select('title price _id bookImage')
+        //     .exec()
+        //     .then(doc => {
+        //         console.log("From database", doc);
+        //         if (doc) {
+        //             return res.status(200).json(doc);
+        //         } else {
+        //             res.status(404).json({ message: "No valid entry found for provided ID" });
+        //         }
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //         res.status(500).json({ error: err });
+        //     });
+        try {
+            let book = await Book.findOne({ _id: id }).populate([{
+                path: 'categories', select: 'name', model: category
+            }, {
+                path: 'reviews', select: 'review date comment ', model: review
+            }, {
+                path: 'author', select: 'name firstname lastname', model: author
+            }, {
+                path: 'publisher', select: 'name', model: publisher
+            }]);
+            //let databook = await book.title;
+            return res.status(200).json(book);
+        } catch {
+            return res.status(404).json({
+                message: "No valid entry found for provided ID"
             })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({ error: err });
-            });
-
+        }
     },
 
     // Get Comment by ID book

@@ -26,17 +26,17 @@ const schema = new Schema({
         required: true
     },
     status: {
-        type: Boolean,
-        default: false,
+        type: String,
+        default: 'chưa giao',
     },
     address: {
         type: String,
         required: true
     },
-    deliverStatus: {
-        type: Boolean,
-        default: false,
-    },
+    // deliverStatus: {
+    //     type: Boolean,
+    //     default: false,
+    // },
     note: {
         type: String
     },

@@ -14,6 +14,12 @@ const cartSchema = new Schema({
         title: {
             type: String
         },
+        imageUrl: {
+            type: String
+        },
+        imageId: {
+            type: String
+        },
         price: Number,
         qty: Number,
 

@@ -74,7 +74,7 @@ module.exports = {
             address: req.body.address,
             name: req.body.name,
         });
-        const books = req.body.books;
+
         let userId;
         let arrayBook = [];
         order.save(function (err, result) {
@@ -94,6 +94,7 @@ module.exports = {
 
 
         // Luu order._id vao bang orderDetail va san pham da dc order
+        const books = req.body.books;
         let orderId;
         if (order) {
             orderId = order._id;
@@ -102,30 +103,28 @@ module.exports = {
         }
 
         // Create OrderDetail
-        const newOrderDetail = {
-            orderId: orderId,
-            books: books,
-        };
-
-        // const createdOrderDetail = 
-        OrderDetail.create(newOrderDetail);
-
-        // if(createdOrderDetail) {
-        //     books.map(async (book) => {
-        //         const id = parseInt(book._id)
-        //     });
-        // }
+        try {
+            const newOrderDetail = {
+                orderId: orderId,
+                books: books,
+            };
+            OrderDetail.create(newOrderDetail);
+        } catch {
+            res.status(500).json({
+                message: ' Error when create order Detail!'
+            })
+        }
 
     },
 
     // Xem Detail Oder by orderId
-    getOrderDetailByOrderID:  (req, res, next) => {
+    getOrderDetailByOrderID: (req, res, next) => {
         //  const orderId = req.params.orderId;
         // // const orderData = Order.findOne({ _id: orderId });
         //  const orderDetailData = OrderDetail.findOne({ orderId: orderId });
-         
+
         //  const booksData = orderDetailData.orderId;
-        
+
         // const orderOfUserData = [];
 
         // booksData.map((book) => {
@@ -165,7 +164,7 @@ module.exports = {
     },
 
     // Xem all Detail Oder 
-     getOrderDetails: (req, res, next) => {
+    getOrderDetails: (req, res, next) => {
         OrderDetail.find()
             .exec()
             .then(docs => {
@@ -183,8 +182,8 @@ module.exports = {
                 });
             });
     },
-     // Delete Order
-     deleteOrderDetail: (req, res, next) => {
+    // Delete Order
+    deleteOrderDetail: (req, res, next) => {
         OrderDetail.remove({ orderId: req.params.orderId })
             .exec()
             .then(result => {

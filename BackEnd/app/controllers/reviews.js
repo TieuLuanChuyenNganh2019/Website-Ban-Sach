@@ -1,32 +1,32 @@
 const Review = require('./../models/review');
 const Book = require('./../models/book');
 const mongoose = require('mongoose');
+const book = require('./../models/book');
 
 module.exports = {
 
-    getListReview: (req, res, next) => {
-        Review.find({})
-            .exec()
-            .then(docs => {
-                // const response = {
-                //     reviews: docs.map(doc => {
-                //         return doc
-                //     })
-                // };
-                if (docs.length >= 0) {
-                    res.status(200).json(docs);
-                } else {
-                    res.status(404).json({
-                        message: "No Entries Found"
-                    });
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({
-                    error: err
-                });
-            });
+    getListReview: async (req, res, next) => {
+        // Review.find({})
+        //     .exec()
+        //     .then(docs => {
+        //         if (docs.length >= 0) {
+        //             res.status(200).json(docs);
+        //         } else {
+        //             res.status(404).json({
+        //                 message: "No Entries Found"
+        //             });
+        //         }
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //         res.status(500).json({
+        //             error: err
+        //         });
+        //     });
+        let review = await Review.find().populate([{
+            path: 'bookId', select: 'title', model: book
+        }]);
+        return res.status(200).json(review);
     },
 
     createReview: (req, res, next) => {
@@ -40,7 +40,7 @@ module.exports = {
                 const review = new Review();
                 review.review = req.body.review;
                 review.comment = req.body.comment;
-                review.bookId =req.body.bookId;
+                review.bookId = req.body.bookId;
                 Review.create(review, (err, review) => {
                     if (err) {
                         console.log("Error creating Review: ", err);
@@ -63,23 +63,33 @@ module.exports = {
 
     },
 
-    getReviewId: (req, res, next) => {
-        const id = req.params.reviewId;
-        Review.findById(id)
-            .exec()
-            .then(doc => {
-                console.log("From database", doc);
-                if (doc) {
-                    res.status(200).json(doc);
-                } else {
-                    res.status(404).json({ message: "No valid entry found for provided ID" });
-                }
+    getReviewId: async (req, res, next) => {
+        // const id = req.params.reviewId;
+        // Review.findById(id)
+        //     .exec()
+        //     .then(doc => {
+        //         console.log("From database", doc);
+        //         if (doc) {
+        //             res.status(200).json(doc);
+        //         } else {
+        //             res.status(404).json({ message: "No valid entry found for provided ID" });
+        //         }
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //         res.status(500).json({ error: err });
+        //     });
+        let id = req.params.reviewId;
+        try {
+            let datareview = await Review.findById(id).populate([{
+                path: 'bookId', select: 'title', model: book
+            }]);
+            return res.status(200).json(datareview);
+        } catch {
+            return res.status(404).json({
+                message: "No valid entry found for provided ID "
             })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({ error: err });
-            });
-
+        }
     },
 
     updateReview: (req, res, next) => {
@@ -98,7 +108,7 @@ module.exports = {
         });
     },
 
-    deleteReview: (req,res, next) => {
+    deleteReview: (req, res, next) => {
         const id = req.params.reviewId;
         Review.remove({ _id: id })
             .exec()
@@ -113,7 +123,7 @@ module.exports = {
                     error: err
                 });
             });
-        
+
     }
-   
+
 }
