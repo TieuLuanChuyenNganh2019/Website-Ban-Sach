@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Books } from '../models/book';
 import { BooksService } from '../service/book.service';
 import { CateService } from '../service/cate.service';
@@ -11,6 +11,8 @@ import { Publisher } from '../models/publisher';
 import { Author } from '../models/author';
 import { PublisherService } from '../service/publisher.service';
 import { AuthorService } from '../service/author.service';
+
+
 
 @Component({
   selector: 'app-home',
@@ -28,17 +30,24 @@ export class HomeComponent implements OnInit {
   carts: Cart;
   pubs: Publisher[];
   auts: Author[];
+  @Input() dataSearch: string;
+  bestseller: Books[] =[];
+  comingsoon: Books[] = [];
+  sale: Books[]= [];
   constructor(private BooksService: BooksService,
               private CateService: CateService, private route: ActivatedRoute, private cartService: CartService,
               private PubService: PublisherService,
               private AuthorService: AuthorService,) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.getAllBook();
     this.getAllCate();
     this.getAllAuthor();
     this.getAllPub();
     this.loadCart();
+    this.getAllBookBestSeller();
+    this.getAllBookComingSoone();
+    this.getAllBookSale();
   }
 
   getAllPub() {
@@ -48,11 +57,21 @@ export class HomeComponent implements OnInit {
     this.AuthorService.getAuthors().subscribe(res => this.auts = res);
   }
   getAllBook() {
-    this.BooksService.getBooks().subscribe(res => this.books = res);
+    this.BooksService.getBooks().subscribe(book => this.books = book);
   }
   getAllCate() {
     this.CateService.getCates().subscribe(res => this.cates = res);
   }
+  getAllBookBestSeller() {
+    this.BooksService.getBooksBestSeller().subscribe(res => this.bestseller = res);
+  }
+  getAllBookComingSoone() {
+    this.BooksService.getBooksComingSoon().subscribe(res => this.comingsoon = res);
+  }
+  getAllBookSale() {
+    this.BooksService.getBooksSale().subscribe(res => this.sale = res);
+  }
+
   // search(searchTerm: string) {
   //   this.searchbook = undefined;
   //   if (searchTerm) {
@@ -122,15 +141,10 @@ export class HomeComponent implements OnInit {
     }
     this.countItem = this.items.length;
   }
-  async add(id: string){
-    await this.cartService.AddtoCart(id).toPromise().then(res => this.mess = res);
-    await console.log(this.mess.message);
-  }
-  // GetCart() {
-  //   this.cartService.getShoppingCart().subscribe(res => this.carts = res);
-  //   console.log(this.carts);
-  // }
+
   search(id: string){
-    this.BooksService.searchBook(id).subscribe(res => this.books = res);
+    console.log(id);
+    this.BooksService.searchBook(id).subscribe(book => this.books = book);
+    //this.BooksService.searchHeroes(id).subscribe(book => this.books = book);
   }
 }

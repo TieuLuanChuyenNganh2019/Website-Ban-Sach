@@ -32,7 +32,8 @@ export class AddBookComponent implements OnInit {
   author: Author[];
   publisher: Publisher[];
   cate: Cate[];
-
+  type: string;
+  tempArr: any = { "category": [] };
   constructor(private BooksService: BooksService, private http: HttpClient, private fb: FormBuilder,
               private AuthorService: AuthorService, private PubService: PublisherService, private CateService: CateService) {
     // this.form = this.fb.group({
@@ -87,17 +88,7 @@ export class AddBookComponent implements OnInit {
   // }
 
 
-  async save(title: string, description: string, pageCount: number,
-          price: number , availableQuantity: number , publisher: string , author: string,
-           categories: string , discount: number , image: File ) {
-    const newBook: Books1 = { title, description, pageCount, price, availableQuantity,
-                              publisher, author, categories, discount, image } as Books1;
-    await this.BooksService.addBook(newBook).toPromise().then(res => this.Book = res,
-                                           error => this.showMessage = error);
 
-    await alert(this.showMessage);
-
-  }
   async save2(title: string, description: string,publishDate: Date, pageCount: number,
     price: number , availableQuantity: number , publisher: string , author: string,
      categories: string , discount: number , image: File ) {
@@ -109,14 +100,20 @@ export class AddBookComponent implements OnInit {
   await alert('Thêm Thành Công!');
 
   }
-  async save1(title: string, description: string,publishDate: Date, pageCount: number,
-    price: number , availableQuantity: number , publisher: string , author: string,
-    categories: string , discount: number , image: File ) {
-    const newBook: Books1 = { title, description,publishDate, pageCount, price, availableQuantity,
-                            publisher, author, categories, discount, image } as Books1;
-    console.log(newBook);
+  save(title: string, description: string,publishDate: Date, pageCount: number,
+    price: number , availableQuantity: number , publisher: string , author: string, discount: number , image: File ) {
+
+  let categories: any[] = [];
+  categories = this.tempArr.category;
+  console.log(categories);
+  this.BooksService.addBookss1(title, description, publishDate, pageCount, price,
+     availableQuantity, publisher, author, categories, discount, image ).subscribe(res => this.BookData = res,
+                                     error => this.showMessage = error);
+  console.log(this.BookData);
+  alert('Thêm Thành Công!');
 
   }
+
   onFileChanged(event: any) {
     this.files = event.target.files;
     //console.log(this.files);
@@ -141,19 +138,7 @@ export class AddBookComponent implements OnInit {
       this.images = file;
     }
   }
-  // onSubmit(){
-  //   const formData = new FormData();
-  //   formData.append('image', this.images);
-  //   formData.append('image', this.images);
-  //   formData.append('image', this.images);
-  //   formData.append('image', this.images);
-  //   formData.append('image', this.images);
-  //   formData.append('image', this.images);
-  //   formData.append('image', this.images);
-  //   formData.append('image', this.images);
 
-  //   this.http.post<any>('http://localhost:8080/books', formData).subscribe();
-  // }
   async getAllAuthor() {
     await this.AuthorService.getAuthors().subscribe(res =>this.author = res);
     //console.log(this.author[0].firstname);
@@ -163,5 +148,26 @@ export class AddBookComponent implements OnInit {
   }
   async getAllCate() {
     await this.CateService.getCates().subscribe(res =>this.cate = res);
+  }
+  test() {
+    console.log(this.tempArr.category);
+    //console.log(this.type);
+  }
+  onItemChange(value) {
+    this.tempArr.category.push(value);
+    // this.type= value;
+    // console.log(this.type);
+  }
+  onChangeCategory(event, cate: any, id:string){
+    this.tempArr.category.push(id);
+  }
+  onChange(value, isChecked: boolean) {
+    if(isChecked) {
+      this.tempArr.category.push(value);
+    } else {
+      let index = this.tempArr.category.indexOf(value);
+      this.tempArr.category.splice(index,1);
+    }
+    console.log(this.tempArr);
   }
 }

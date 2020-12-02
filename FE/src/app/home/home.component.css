@@ -1,9 +1,38 @@
-/*--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
---*/
+.hidetext{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+.intro{
+  color: wheat;
+  text-align: center;
+}
+.intro h3{
+  font-size: 44px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.intro span{
+  font-size: 24px;
+}
+
+.more li {
+  margin-top: 30px;
+  display:inline-block;
+}
+
+.more li a{
+	color: #FAB005;
+  font-size: 18px;
+  margin:0 0.5em;
+  font-weight: bold;
+}
+.more li a i{
+	margin-right:5px;
+	color: #FAB005;
+}
+
 body{
 	margin:0;
 	padding:0;
@@ -112,34 +141,36 @@ img.img-head {
   display: inline-block;
   position: relative;
   text-decoration: none;
-  color: black;
+  color: white;
+  font-size: 20px;
   width: auto;
   overflow: hidden;
   z-index: 2;
   transition: all .5s ease;
 }
-
 .hyper span {
   z-index:2;
   position:relative;
 }
+
 .hyper:hover {
-  color: white;
+  color: rgb(182, 97, 97);
 }
 .hyper:hover:before {
   right: 95%;
-    opacity: 1;
+  opacity: 1;
 }
+
 .hyper:hover:after {
 	left: 5%;
-    opacity: 1;
+  opacity: 1;
 }
 .hyper:before {
   opacity: 0;
   content: '';
   display: block;
   position: absolute;
-  background:#039445;
+  background:#626865;
   width:4px;
   height: 100%;
   top: 0;
@@ -151,12 +182,12 @@ img.img-head {
   content: '';
   display: block;
   position: absolute;
-  background:#FAB005 ;
+  background:#ddd3bc ;
   width: 100%;
   height: 100%;
   top: 0;
   left: 100%;
-    transition:all .5s ease;
+  transition:all .5s ease;
 }
 .active a:before{
 	opacity: 1;
@@ -173,18 +204,18 @@ img.img-head {
 /*-- header --*/
 .header {
     text-align: center;
-	margin-top: 2em;
 }
 .logo h1{
+  margin-top: 1rem;
    font-family: 'Montserrat', sans-serif;
     font-size: 3em;
-    color: #000;
+    color: white;
 	display: inline-block;
 	position:relative;
 }
 .logo h1 a{
     text-decoration:none;
-    color: #000;
+    color: white;
 }
 .logo h1 span {
     font-size: 12px;
@@ -195,16 +226,16 @@ img.img-head {
     padding-top: 4px;
 }
 .logo h1  b {
-    font-size: 8px;
-    background: #ED0612;
-    font-weight: normal;
-    padding: 3px;
-    display: inline-block;
-    position: absolute;
-    top: 8px;
-    left: -2px;
-    color: #fff;
-    line-height: 8px;
+  font-size: 8px;
+  background: #ED0612;
+  font-weight: normal;
+  padding: 4px;
+  display: inline-block;
+  position: absolute;
+  top: 11px;
+  left: -12px;
+  color: #fff;
+  line-height: 8px;
 }
 .head-t {
     margin: 1em 0;
@@ -357,11 +388,8 @@ nav.navbar.navbar-default {
     height: 44px;
 }
 .cart{
-	float: right;
-	cursor: pointer;
-	margin-top: 11px;
-  width: 9%;
-  margin-left: 20px;
+  margin-top: 11px;
+  margin-right: 40px;
 }
 
 
@@ -449,7 +477,7 @@ ul.multi-column-dropdown h6 {
 span.fa.fa-shopping-cart.my-cart-icon {
     position: absolute !important;
     font-size: 1.5em;
-    color: #039445;
+    color: #ecf1ee;
 }
 .badge {
     display: inline-block;
@@ -541,9 +569,10 @@ span.fa.fa-shopping-cart.my-cart-icon {
     margin-bottom: 3em;
 }
 .spec h3{
-    font-size:3em;
+    font-size:40px;
 	color:#000;
-	margin-bottom:0.5em;
+  margin-bottom:0.5em;
+  font-weight: 700;
 }
 .ser-t {
     text-align: center;
@@ -566,7 +595,7 @@ span.fa.fa-shopping-cart.my-cart-icon {
 	width: 40px;
     height: 40px;
     display: block;
-    background: #fff;
+    background:whitesmoke;
     position: absolute;
     top: -7px;
     left: 42%;
@@ -584,7 +613,8 @@ span.fa.fa-shopping-cart.my-cart-icon {
 }
 /*--content--*/
 .content-top{
-	padding:4em 0 0;
+  padding:4em 0 0;
+  background-color: whitesmoke;
 }
 .offer-w3agile{
 	padding:6em 0;
@@ -623,22 +653,30 @@ ul.nav.tabs {
 
 /*----*/
 .mid-1 h6 {
-    font-size: 1.2em;
+    font-size: 20px;
+    font-weight: 500;
 }
 .mid-1 h6 a {
     color: #000000;
-    text-decoration:none;
+
 }
 .mid-1 h6 a:hover {
     color: #FAB005;
 }
-.mid-2 p{
-	float:left;
-	font-size:0.9em;
-	color:#B4B4B4;
+
+.mid-2 .price{
+	font-size:18px;
+	color:rgb(238, 52, 52);
+}
+.mid-2 .price1{
+  font-weight: bold;
+	font-size:18px;
+	color:rgb(238, 52, 52);
 }
 .mid-2 p em{
-	font-style:normal;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
 }
 .mid-2 p label{
 	text-decoration: line-through;
@@ -646,10 +684,10 @@ ul.nav.tabs {
 	margin-right:6px;
 }
 .mid-2 {
-    padding: 1em 0;
+    padding-bottom: 2em;
 }
 .mid-1 {
-    padding: 3em 0 0;
+    padding: 2em 0 0;
 }
 .block {
     float: right;
@@ -659,8 +697,10 @@ ul.nav.tabs {
 }
 .col-m {
     padding: 1em;
-    border: 1px solid #B2B2B2;
+    border: 2px solid #d5e0ac;
+    border-radius: 5px;
     margin-bottom: 20px;
+    background-color: white;
 }
 .offer-img{
 	position:relative;
@@ -668,11 +708,11 @@ ul.nav.tabs {
 }
 .offer-img img{
 	margin:0 auto;
-  width: 70%;
-  height: 200px;
+  width: 90%;
+  height: 250px;
 }
 .offer{
-	    position: absolute;
+	  position: absolute;
     top: 0;
     right: -15px;
     border: 2px solid #ED0612;
@@ -1011,6 +1051,7 @@ ul.product-qty {
 }
 .content-mid {
     padding: 6em 0;
+    background-color: whitesmoke;
 }
 /*--content-mid--*/
 .product {
@@ -3180,11 +3221,7 @@ h1.t-button {
     font-size: 13px;
 }
 
-.img-responsive{
-  display: block;
-  max-width: 100%;
-  height: 500px;
-}
+
 
 .cus1{
   color: #029241;

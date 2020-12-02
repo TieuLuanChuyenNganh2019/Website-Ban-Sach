@@ -27,6 +27,10 @@ import { EditBookComponent } from './admin-book/edit-book/edit-book.component';
 import { CartService } from './service/cart.service';
 import { DefaultLayoutUserComponent } from './default-layout-user/default-layout-user.component';
 import { InfoCartComponent } from './info-cart/info-cart.component';
+import { DefaultLayoutAdminComponent } from './default-layout-admin/default-layout-admin.component';
+import { AdminOrderComponent } from './admin-order/admin-order.component';
+import { AdminUserComponent } from './admin-user/admin-user.component';
+import { BookSaleComponent } from './book-sale/book-sale.component';
 
 
 const routes: Routes = [
@@ -40,6 +44,7 @@ const routes: Routes = [
       path: 'home', component: HomeComponent, canActivate:[],
     },
     {path: 'book1', component: Book1Component},
+    {path: 'sale', component: BookSaleComponent},
     {path: 'books/:id/categories/:id1', component: Book1Component},
     {path: 'books/:id/categories/:id1', component: Book1Component},
     {path: 'books/:id/authors/:id1', component: BookAuthorComponent},
@@ -50,27 +55,34 @@ const routes: Routes = [
     {path: 'details/:id', component: ProductDetailsComponent},
   ]},
   {path: 'register', component: RegisterComponent},
+  {path: 'admin',
+  component: DefaultLayoutAdminComponent,
+  children: [
+    {path: 'listreview', component: AdminReviewComponent},
+    {path: 'adminbooks', component: AdminBooksComponent},
+    {path: 'listbook', component: ListBookComponent},
+    {path: 'addbook', component: AddBookComponent},
+    {path: 'createbook', component: CreateBookComponent},
+    {path: 'listauthor', component: ListAuthorComponent},
+    //{path: 'admin', component: AdminPageComponent},
+    {path: 'addauthor', component: AddAuthorComponent},
+    {path: 'editauthor/:id', component: EditAuthorComponent},
+    {path: 'listcate', component: ListCateComponent},
+    {path: 'addcate', component: AddCateComponent},
+    {path: 'editcate/:id', component: EditCateComponent},
+    {path: 'listpub', component: ListPubComponent},
+    {path: 'addpub', component: AddPubComponent},
+    {path: 'editpub/:id', component: EditPubComponent},
+    {path: 'editbook/:id', component: EditBookComponent},
+    {path: 'order', component: AdminOrderComponent},
+    {path: 'customer', component: AdminUserComponent},
+  ]},
 
-  {path: 'admin/listreview', component: AdminReviewComponent},
-  {path: 'adminbooks', component: AdminBooksComponent},
-  {path: 'admin/listbook', component: ListBookComponent},
-  {path: 'admin/addbook', component: AddBookComponent},
-  {path: 'admin/createbook', component: CreateBookComponent},
-  {path: 'admin/listauthor', component: ListAuthorComponent},
-  {path: 'admin', component: AdminPageComponent},
-  {path: 'admin/addauthor', component: AddAuthorComponent},
-  {path: 'admin/editauthor/:id', component: EditAuthorComponent},
-  {path: 'admin/listcate', component: ListCateComponent},
-  {path: 'admin/addcate', component: AddCateComponent},
-  {path: 'admin/editcate/:id', component: EditCateComponent},
-  {path: 'admin/listpub', component: ListPubComponent},
-  {path: 'admin/addpub', component: AddPubComponent},
-  {path: 'admin/editpub/:id', component: EditPubComponent},
-  {path: 'admin/editbook/:id', component: EditBookComponent},
 ]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+
 
 exports: [RouterModule]
 })
